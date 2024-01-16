@@ -5,13 +5,9 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'src/dist'),
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, './src/dist/index.html'),
-      publicPath: '/',
-    },
     port: 8080,
     client: {
       progress: true,
@@ -27,7 +23,7 @@ module.exports = {
         }
       }
     ],
-  
+
   },
   plugins: [
     new HtmlWebpackPlugin({
