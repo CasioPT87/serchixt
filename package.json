@@ -7,8 +7,7 @@
     "dev": "webpack-dev-server --open --mode development",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "start": "npm run build-prod",
-    "go": "node server.js",
+    "start": "npm run build-prod && node server.js",
     "test": "npm run test"
   },
   "author": "Geneit dev team",

@@ -5,7 +5,7 @@ require('@babel/register')({
 
 const express = require('express');
 const path = require('path')
-const initial = require('./eo.js')
+const initial = require('./index.js')
 
 const PORT = 9990;
 const app = express()
