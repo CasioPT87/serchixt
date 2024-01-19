@@ -8,15 +8,15 @@ function usePageMonitor() {
         function changePage({ detail }) {
             setPage(detail.pageName);
         }
-        if (window) window.addEventListener('changePage', changePage);
+        if (typeof document !== 'undefined') window.addEventListener('changePage', changePage);
         return () => {
-            if (window) window.removeEventListener('changePage', changePage);
+            if (typeof document !== 'undefined') window.removeEventListener('changePage', changePage);
         };
     }, []);
     return page;
 }
 
-if (window) {
+if (typeof document !== 'undefined') {
     window.addEventListener('popstate', function (event) {
         const [pageName] = Object.entries(routes).find(([pageName, value]) => value.path === window.location.pathname)
         goTo(pageName)
@@ -25,7 +25,7 @@ if (window) {
 
 const manager = ({ page: pageName }) => {
     const page = routes[pageName]
-    if (window) window.history.pushState(null, null, page.path);
+    if (typeof document !== 'undefined') window.history.pushState(null, null, page.path);
     return <page.pageComponent />
 }
 

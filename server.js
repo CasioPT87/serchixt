@@ -5,10 +5,9 @@ require('@babel/register')({
 
 const express = require('express');
 const path = require('path')
-const leches = require('./eo.js')
+const initial = require('./eo.js')
 
 const PORT = 9990;
-
 const app = express()
 
 // Serve static files from the 'public' folder
@@ -16,7 +15,7 @@ app.use(express.static(path.join(__dirname, '/src/dist')));
 
 // Set up a simple route
 app.get('/', async (req, res) => {
-    
+  initial.default(res)
 });
 
 // Start the server
