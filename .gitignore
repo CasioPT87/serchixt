@@ -1,0 +1,9 @@
+# Ignore editor-specific files
+.vscode/
+.idea/
+
+# Ignore coverage directory
+coverage/
+
+# Ignore any file in the build or deploy directory
+/src/dist/*

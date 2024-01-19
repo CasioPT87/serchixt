@@ -1,8 +1,19 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { renderToPipeableStream } from 'react-dom/server';
 import Router from './router/index.js';
 
-const root = createRoot(document.getElementById('app'));
-root.render(
-    <Router />
-);
+const getInitialReactCode = (response) => {
+    const { pipe } = renderToPipeableStream(<html><Router /></html>, {
+        bootstrapScripts: ['/bundle.js'],
+        //   onShellReady() {
+        //     // response.setHeader('content-type', 'text/html');
+        //     // pipe(response);
+        //   },
+        onAllReady(content) {
+            console.log(content)
+        }
+    });
+}
+
+
+export default getInitialReactCode
