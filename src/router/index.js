@@ -8,23 +8,25 @@ function usePageMonitor() {
         function changePage({ detail }) {
             setPage(detail.pageName);
         }
-        window.addEventListener('changePage', changePage);
+        if (window) window.addEventListener('changePage', changePage);
         return () => {
-            window.removeEventListener('changePage', changePage);
+            if (window) window.removeEventListener('changePage', changePage);
         };
     }, []);
     return page;
 }
 
-window.addEventListener('popstate', function(event) {
-    const [pageName] = Object.entries(routes).find(([pageName, value]) => value.path === this.window.location.pathname)
-    goTo(pageName)
-});
+if (window) {
+    window.addEventListener('popstate', function (event) {
+        const [pageName] = Object.entries(routes).find(([pageName, value]) => value.path === window.location.pathname)
+        goTo(pageName)
+    });
+}
 
 const manager = ({ page: pageName }) => {
     const page = routes[pageName]
-    window.history.pushState(null, null, page.path);
-    return <page.pageComponent/>
+    if (window) window.history.pushState(null, null, page.path);
+    return <page.pageComponent />
 }
 
 function Router() {

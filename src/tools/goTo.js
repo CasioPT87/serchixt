@@ -4,7 +4,7 @@ const goTo = (pageName) => {
     const changePageEvent = new CustomEvent("changePage", {
         detail: { pageName }
     });
-    window.dispatchEvent(changePageEvent);
+    if (window) window.dispatchEvent(changePageEvent);
 }
 
 export default goTo
