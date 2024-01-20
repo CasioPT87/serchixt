@@ -14,7 +14,7 @@ const app = express()
 app.use(express.static(path.join(__dirname, '/src/dist')));
 
 // Set up a simple route
-app.get('/', async (req, res) => {
+app.get('*', async (req, res) => {
   initial.default(res)
 });
 

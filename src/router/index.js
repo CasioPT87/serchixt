@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import routes from '../routes/index.js'
-import goTo from '../tools/goTo.js';
+import goTo from '../utils/goTo.js';
 
 function usePageMonitor() {
     const [page, setPage] = useState('home');

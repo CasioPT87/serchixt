@@ -1,5 +1,5 @@
 import React from 'react'
-import goTo from '../../tools/goTo.js'
+import goTo from '../../utils/goTo.js'
 
 
 const Home = () => {
