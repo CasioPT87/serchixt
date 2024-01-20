@@ -4,10 +4,10 @@
   "description": "Genei front end client",
   "main": "server.js",
   "scripts": {
-    "dev": "webpack-dev-server --open --mode development",
+    "dev": "npm run build-dev && webpack-dev-server --open --mode development",
+    "start": "npm run build-prod && node server.js",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "start": "npm run build-prod && node server.js",
     "test": "npm run test"
   },
   "author": "Geneit dev team",

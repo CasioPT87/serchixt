@@ -1,34 +1,43 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-  entry: './src/bundler/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'src/dist'),
-  },
-  devServer: {
-    port: 8080,
-    client: {
-      progress: true,
-    }
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(?:js|mjs|cjs)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        }
-      }
-    ],
+module.exports = (env, args) => {
 
-  },
-  // plugins: [
-  //   new HtmlWebpackPlugin({
-  //     template: './src/index.html', // Path to your HTML file
-  //     filename: 'index.html', // Output HTML file name
-  //   }),
-  // ],
+  const plugins = []
+
+  if (args.mode === 'development') {
+    plugins.push(
+      new HtmlWebpackPlugin({
+        template: './src/html/template.html', // Path to your HTML file
+      }),
+    )
+  }
+
+  return {
+    entry: './src/bundler/index.js',
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'src/dist'),
+    },
+    devServer: {
+      port: 8080,
+      client: {
+        progress: true,
+      }
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(?:js|mjs|cjs)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+          }
+        }
+      ],
+
+    },
+    plugins,
+  }
 };
