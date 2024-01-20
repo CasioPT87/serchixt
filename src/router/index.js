@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import routes from '../routes/index.js'
 import goTo from '../utils/goTo.js';
+import { getPageNameFromPath } from '../../tools/index.js'
 
-function usePageMonitor() {
-    const [page, setPage] = useState('home');
+function usePageMonitor({ pageName = 'home' }) {
+    const [page, setPage] = useState(pageName);
     useEffect(() => {
         function changePage({ detail }) {
             setPage(detail.pageName);
@@ -18,19 +19,18 @@ function usePageMonitor() {
 
 if (typeof document !== 'undefined') {
     window.addEventListener('popstate', function (event) {
-        const [pageName] = Object.entries(routes).find(([pageName, value]) => value.path === window.location.pathname)
-        goTo(pageName)
+        const pageName = getPageNameFromPath({ path: window.location.pathname })
+        goTo(pageName, false)
     });
 }
 
 const manager = ({ page: pageName }) => {
     const page = routes[pageName]
-    if (typeof document !== 'undefined') window.history.pushState(null, null, page.path);
     return <page.pageComponent />
 }
 
-function Router() {
-    const page = usePageMonitor();
+function Router({ pageName }) {
+    const page = usePageMonitor({ pageName });
     return <div>{manager({ page })}</div>
 }
 
