@@ -22,6 +22,7 @@ module.exports = (env, args) => {
     },
     devServer: {
       port: 8080,
+      historyApiFallback: true,
       client: {
         progress: true,
       }
