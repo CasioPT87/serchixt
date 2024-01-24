@@ -11,11 +11,14 @@ const defaultState = {
 }
 
 // const composedEnhancer = composeWithDevTools(applyMiddleware(ThunkMiddleware))
+const composedEnhancer = composeWithDevTools()
 
-export const setUpStore = (initialState = {}) => {
+ const setUpStore = (initialState = {}) => {
   return createStore(
     combinedStoreReducers,
     { ...defaultState, ...initialState },
-    // composedEnhancer
+    composedEnhancer
   )
 }
+
+export { setUpStore }
