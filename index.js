@@ -4,9 +4,7 @@ import Router from "./src/router/index.js";
 import { renderToPipeableStream } from "react-dom/server";
 import { setUpStore } from './src/store/index.js'
 
-const initialState = {
-    articles: []
-}
+const initialState = {}
 
 const initial = ({ response, pageName }) => {
     const store = setUpStore(initialState)
