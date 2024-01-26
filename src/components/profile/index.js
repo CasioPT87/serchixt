@@ -5,8 +5,10 @@ import { userActions } from '../../store/actions/index.js'
 
 const fakeFetch = () => {
   return new Promise(res => {
-    setTimeout(() => res('fake response'))
-  }, 5000)
+    setTimeout(() => {
+      res('fake response')
+  }, 10000)
+  })
 }
 
 function Profile({ preloadData }) {
