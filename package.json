@@ -8,7 +8,8 @@
     "start": "npm run build-prod && node app.js",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "test": "npm run test"
+    "test": "npm run test",
+    "delete-dist": "rm -rf ./src/dist"
   },
   "author": "Geneit dev team",
   "license": "ISC",
