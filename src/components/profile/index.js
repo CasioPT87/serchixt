@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch} from 'react-redux'
 import { userThunk } from '../../store/async/index.js'
 import { userActions } from '../../store/actions/index.js'
 
-console.log(userThunk.fetchTodos)
+const fakeFetch = () => {
+  return new Promise(res => {
+    setTimeout(() => res('fake response'))
+  }, 5000)
+}
 
-const Profile = () => {
+function Profile({ preloadData }) {
   const userList = useSelector(state => state.user.list)
   const dispatch = useDispatch()
 
@@ -18,10 +22,12 @@ const Profile = () => {
 
   return (
     <div>
-      Soy la pagina de profile
+      Soy la pagina de profile {preloadData}
       <ul>{userList.map(user => <li key={user}>{user}</li>)}</ul>      
     </div>
   )
 }
+
+Profile.preloadFn = fakeFetch
 
 export default Profile

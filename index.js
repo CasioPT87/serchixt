@@ -6,16 +6,17 @@ import { setUpStore } from './src/store/index.js'
 
 const initialState = {}
 
-const initial = ({ response, pageName }) => {
+const initial = async ({ response, pageName, preloadData }) => {
     const store = setUpStore(initialState)
     const { pipe } = renderToPipeableStream(
         <html>
             <div id="app">
-                <Provider store={store}>
-                    <Router pageName={pageName} />
+                <Provider store={store} >
+                    <Router pageName={pageName} preloadData={preloadData} />
                 </Provider>
             </div>
-            <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}` }}></script>
+            <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` }}></script>
+            <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_DATA__ = ${JSON.stringify(preloadData).replace(/</g, '\\u003c')}` }}></script>
         </html>, {
         bootstrapScripts: ["/bundle.js"],
         onShellReady() {

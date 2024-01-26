@@ -6,7 +6,7 @@ require('@babel/register')({
 const express = require('express');
 const path = require('path')
 const initial = require('./index.js')
-const { getPageNameFromPath, getAllRoutes } = require('./tools/index.js')
+const { getPageNameFromPath, getAllRoutes, getInitialRenderData } = require('./tools/index.js')
 
 const PORT = 9990;
 const app = express()
@@ -18,7 +18,8 @@ app.use(express.static(path.join(__dirname, '/src/dist')));
 app.get(getAllRoutes(), async (req, res) => {
   const path = req.path
   const pageName = getPageNameFromPath({ path })
-  initial.default({ response: res, pageName })
+  const preloadData = await getInitialRenderData({ pageName })
+  await initial.default({ response: res, pageName, preloadData })
 });
 
 // Start the server

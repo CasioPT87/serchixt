@@ -24,14 +24,14 @@ if (typeof document !== 'undefined') {
     });
 }
 
-const manager = ({ page: pageName }) => {
+const manager = ({ page: pageName, preloadData }) => {
     const page = routes[pageName]
-    return <page.pageComponent />
+    return <page.pageComponent preloadData={preloadData} />
 }
 
-function Router({ pageName }) {
+function Router({ pageName, preloadData }) {
     const page = usePageMonitor({ pageName });
-    return <div>{manager({ page })}</div>
+    return <div>{manager({ page, preloadData })}</div>
 }
 
 export default Router

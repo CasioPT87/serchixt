@@ -10,19 +10,24 @@ const { pathname: path } = window.location
 const pageName = getPageNameFromPath({ path })
 
 const store = setUpStore(window.__PRELOADED_STATE__)
+const preloadData = window.__PRELOADED_DATA__
 
 // Allow the passed state to be garbage-collected
 delete window.__PRELOADED_STATE__
+// Allow the passed preload data to be garbage-collected
+delete window.__PRELOADED_DATA__
 
 if (process.env.NODE_ENV === 'production') {
     hydrateRoot(domNode, (
         <Provider store={store}>
-            <Router pageName={pageName} />
+            <Router pageName={pageName} preloadData={preloadData}/>
         </Provider>
     ));
 } else {
     const root = createRoot(domNode);
-    root.render(<Provider store={store}>
-        <Router pageName={pageName} />
-    </Provider>);
+    root.render(
+        <Provider store={store}>
+            <Router pageName={pageName} />
+        </Provider>
+    );
 }
