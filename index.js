@@ -8,11 +8,12 @@ const initialState = {}
 
 const initial = async ({ response, pageName, preloadData }) => {
     const store = setUpStore(initialState)
+    
     const { pipe } = renderToPipeableStream(
         <html>
             <div id="app">
                 <Provider store={store} >
-                    <Router pageName={pageName} preloadData={preloadData} />
+                    <Router initialPageName={pageName} preloadData={{ [pageName]: preloadData }} />
                 </Provider>
             </div>
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` }}></script>

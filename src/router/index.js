@@ -29,9 +29,11 @@ const manager = ({ page: pageName, preloadData }) => {
     return <page.pageComponent preloadData={preloadData} />
 }
 
-function Router({ pageName, preloadData }) {
-    const page = usePageMonitor({ pageName });
-    return <div>{manager({ page, preloadData })}</div>
+function Router({ initialPageName, preloadData }) {
+
+    const page = usePageMonitor({ pageName: initialPageName });
+
+    return <div>{manager({ page, preloadData: preloadData[page] })}</div>
 }
 
 export default Router
