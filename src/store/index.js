@@ -3,12 +3,7 @@ import { createStore, applyMiddleware } from'redux'
 import { composeWithDevTools } from '@redux-devtools/extension'
 import { combinedStoreReducers } from './reducers'
 
-const defaultState = {
-    articles: {
-      list: {},
-    },
-    users: []
-}
+const defaultState = {}
 
 // const composedEnhancer = composeWithDevTools(applyMiddleware(ThunkMiddleware))
 const composedEnhancer = composeWithDevTools()

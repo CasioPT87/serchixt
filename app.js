@@ -11,10 +11,10 @@ const { getPageNameFromPath, getAllRoutes } = require('./tools/index.js')
 const PORT = 9990;
 const app = express()
 
-// Serve static files from the 'public' folder
+// Serve static files
 app.use(express.static(path.join(__dirname, '/src/dist')));
 
-// Set up a simple route
+// All allowed routes
 app.get(getAllRoutes(), async (req, res) => {
   const path = req.path
   const pageName = getPageNameFromPath({ path })

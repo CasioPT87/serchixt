@@ -15,12 +15,14 @@ const store = setUpStore(window.__PRELOADED_STATE__)
 delete window.__PRELOADED_STATE__
 
 if (process.env.NODE_ENV === 'production') {
-    hydrateRoot(domNode,(
-    <Provider store={store}>
-        <Router pageName={pageName} />
-    </Provider>
+    hydrateRoot(domNode, (
+        <Provider store={store}>
+            <Router pageName={pageName} />
+        </Provider>
     ));
 } else {
     const root = createRoot(domNode);
-    root.render(<Router pageName={pageName} />);
+    root.render(<Provider store={store}>
+        <Router pageName={pageName} />
+    </Provider>);
 }
