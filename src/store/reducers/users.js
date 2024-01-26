@@ -1,11 +1,13 @@
-const initialState = {}
+const initialState = {
+  list: []
+}
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case 'ADD_USER':
       return {
         ...state,
-        list: action.payload,
+        list: state.list.concat(action.payload),
       }
     default:
       return state
