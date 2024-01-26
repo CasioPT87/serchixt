@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch} from 'react-redux'
+import { userThunk } from '../../store/async/index.js'
+import { userActions } from '../../store/actions/index.js'
+
+console.log(userThunk.fetchTodos)
 
 const Profile = () => {
   const userList = useSelector(state => state.user.list)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch({ type: 'ADD_USER', payload: 'PEPITO!!!' })
+    dispatch(userActions.addUser('PEPITO!!!!!'))
     setTimeout(() => {
-      dispatch({ type: 'ADD_USER', payload: 'MANOLITO!!!' })
+      dispatch(userThunk.addUser('MANOLITO!!!!!'))
     }, 3000)
   }, [])
 
