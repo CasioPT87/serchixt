@@ -5,14 +5,6 @@ import { userActions } from '../../store/actions/index.js'
 import { usePreloadData } from '../../hooks/index.js'
 import goTo from '../../utils/goTo.js'
 
-const fakeFetch = () => {
-  return new Promise(res => {
-    setTimeout(() => {
-      res('fake response de profile')
-  }, 5000)
-  })
-}
-
 function Profile({ preloadData: preload }) {
   const preloadData = usePreloadData({ component: Profile, preloadDataProp: preload })
 
@@ -28,7 +20,7 @@ function Profile({ preloadData: preload }) {
 
   return (
     <div>
-      Soy la pagina de profile
+      Cada vez que se carge esta pagina se mete un usuario en la shop
       <div>{preloadData}</div> 
       <button onClick={() => goTo('home')}>go to home</button>
       <button onClick={() => goTo('shipments')}>go to shipments</button>
@@ -36,7 +28,5 @@ function Profile({ preloadData: preload }) {
     </div>
   )
 }
-
-Profile.preloadFn = fakeFetch
 
 export default Profile
