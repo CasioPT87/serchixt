@@ -5,8 +5,7 @@ import { userActions } from '../../store/actions/index.js'
 import { usePreloadData } from '../../hooks/index.js'
 import goTo from '../../utils/goTo.js'
 
-function Profile({ preloadData: preload }) {
-  const preloadData = usePreloadData({ component: Profile, preloadDataProp: preload })
+function Profile() {
 
   const dispatch = useDispatch()
   const userList = useSelector(state => state.user.list)
