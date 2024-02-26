@@ -1,6 +1,6 @@
 import Home from "../components/home/index.js"
 import Profile from "../components/profile/index.js"
-import Julio from "../components/julio/index.js"
+import Shipments from "../components/shipments/index.js"
 
 const routes = {
     home: {
@@ -11,9 +11,9 @@ const routes = {
         path: '/profile',
         pageComponent: Profile,
     },
-    julio: {
-        path: '/julio-sound',
-        pageComponent: Julio
+    shipments: {
+        path: '/shipments',
+        pageComponent: Shipments
     }
 }
 

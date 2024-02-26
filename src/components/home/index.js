@@ -8,7 +8,7 @@ const Home = () => {
   const dispatch = useDispatch()
   
   return (<div>
-    hola soy casita allalaal
+    Home Page
     <button onClick={() => goTo('profile')}>dame aqui y vamos al profile</button>
   </div>)
 }

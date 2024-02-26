@@ -30,8 +30,8 @@ function Profile({ preloadData: preload }) {
     <div>
       Soy la pagina de profile
       <div>{preloadData}</div> 
-      <button onClick={() => goTo('home')}>al home</button>
-      <button onClick={() => goTo('julio')}>al julio sound shop</button>
+      <button onClick={() => goTo('home')}>go to home</button>
+      <button onClick={() => goTo('shipments')}>go to shipments</button>
       <ul>{userList.map(user => <li key={user}>{user}</li>)}</ul>      
     </div>
   )
