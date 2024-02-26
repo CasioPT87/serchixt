@@ -12,7 +12,7 @@ describe("Basic", () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
     await page.setViewport({ width: 1200, height: 800 });
-    await page.goto("http://localhost:9990/");
+    await page.goto("http://localhost:8080/");
   });
 
   afterEach(async () => {
@@ -20,6 +20,7 @@ describe("Basic", () => {
   });
 
   it("selects by site code", async () => {
+    await new Promise(res => setTimeout(res, 4000))
     // const rows = await page.$$(".row-container");
     // expect(rows.length).toBe(50);
     // const select = await page.$("select[name='site code']");

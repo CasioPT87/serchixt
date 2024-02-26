@@ -32,7 +32,6 @@ const manager = ({ page: pageName, preloadData }) => {
 function Router({ initialPageName, preloadData }) {
 
     const page = usePageMonitor({ pageName: initialPageName });
-
     return <div>{manager({ page, preloadData: preloadData[page] })}</div>
 }
 

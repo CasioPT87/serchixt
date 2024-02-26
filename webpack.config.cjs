@@ -6,7 +6,6 @@ module.exports = (env, args) => {
 
   const plugins = []
 
-  console.log('args', args)
   if (args.mode === 'development') {
     plugins.push(
       new HtmlWebpackPlugin({
