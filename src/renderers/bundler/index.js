@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import Router from '../router/index.js';
+import Router from '../../router/index.js';
 import { Provider } from 'react-redux'
-import { getInitialRenderData, getPageNameFromPath } from '../../tools/index.js';
-import { setUpStore } from '../store/index.js';
+import { getInitialRenderData, getPageNameFromPath } from '../../../tools/index.js';
+import { setUpStore } from '../../store/index.js';
 
 const domNode = document.getElementById('app');
 const { pathname: path } = window.location

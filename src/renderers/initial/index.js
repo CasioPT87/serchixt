@@ -1,8 +1,7 @@
 import React from "react";
-import { Provider } from 'react-redux'
-import Router from "./src/router/index.js";
 import { renderToPipeableStream } from "react-dom/server";
-import { setUpStore } from './src/store/index.js'
+import { setUpStore } from '../../store/index.js'
+import { createMarkup } from "../utils/index.js";
 
 const initialState = {}
 
@@ -12,9 +11,7 @@ const initial = async ({ response, pageName, preloadData }) => {
     const { pipe } = renderToPipeableStream(
         <html>
             <div id="app">
-                <Provider store={store} >
-                    <Router initialPageName={pageName} preloadData={{ [pageName]: preloadData }} />
-                </Provider>
+                { createMarkup({ pageName, store, preloadData }) }
             </div>
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` }}></script>
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_DATA__ = ${JSON.stringify(preloadData).replace(/</g, '\\u003c')}` }}></script>
