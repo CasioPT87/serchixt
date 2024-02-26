@@ -1,6 +1,6 @@
-import Home from "../components/home/index.js"
-import Profile from "../components/profile/index.js"
-import Shipments from "../components/shipments/index.js"
+import Home from "../components/home"
+import Profile from "../components/profile"
+import Shipments from "../components/shipments"
 
 const routes = {
     home: {
