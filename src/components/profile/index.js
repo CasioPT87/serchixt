@@ -20,7 +20,6 @@ function Profile() {
   return (
     <div>
       Cada vez que se carge esta pagina se mete un usuario en la shop
-      <div>{preloadData}</div> 
       <button onClick={() => goTo('home')}>go to home</button>
       <button onClick={() => goTo('shipments')}>go to shipments</button>
       <ul>{userList.map(user => <li key={user}>{user}</li>)}</ul>      
