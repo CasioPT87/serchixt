@@ -1,37 +1,23 @@
 const puppeteer = require("puppeteer");
 
-const sleep = (milliseconds) =>
-  new Promise((resolve) => setTimeout(resolve, milliseconds));
-
-describe("Basic", () => {
+describe("Basic Test", () => {
   let browser;
   let page;
 
   beforeEach(async () => {
-    console.log('holaaaaa')
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
     await page.setViewport({ width: 1200, height: 800 });
-    await page.goto("http://localhost:8080/");
+    await page.goto("http://localhost:8080/shipments");
   });
 
   afterEach(async () => {
     await browser.close();
   });
 
-  it("selects by site code", async () => {
-    await new Promise(res => setTimeout(res, 4000))
-    // const rows = await page.$$(".row-container");
-    // expect(rows.length).toBe(50);
-    // const select = await page.$("select[name='site code']");
-    // if (select) {
-    //   select.select('my-site-code-2')
-    //   await sleep(100)
-    //   const rows = await page.$$(".row-container");
-    //   expect(rows.length).toBe(1);
-    // } else {
-    //   throw new Error("Element not found");
-    // }
-    expect(true).toBe(3)
-  });
+  it("ul has all 3 li's", async () => {
+    await new Promise(res => setTimeout(res, 6000))
+    const liElements = await page.$$('ul li');
+    expect(liElements.length).toBe(3)
+  }, 10000);
 });
