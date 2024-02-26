@@ -1,6 +1,6 @@
 import React from "react"
 import { Provider } from "react-redux"
-import Router from '../../../src/router/index.js'
+import Router from '../../../src/router'
 
 const createMarkup = ({ pageName, store, preloadData }) => {
     return (

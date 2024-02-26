@@ -1,5 +1,5 @@
 import React from 'react'
-import { usePreloadData } from '../../hooks/index.js'
+import { usePreloadData } from '../../hooks'
 import goTo from '../../utils/goTo.js'
 
 const fakeShipmentsFetch = () => {

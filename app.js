@@ -5,8 +5,8 @@ require('@babel/register')({
 
 const express = require('express');
 const path = require('path')
-const initial = require('./src/renderers/initial/index.js')
-const { getPageNameFromPath, getAllRoutes, getInitialRenderData } = require('./tools/index.js')
+const initial = require('./src/renderers/initial')
+const { getPageNameFromPath, getAllRoutes, getInitialRenderData } = require('./tools')
 
 const PORT = 9990;
 const app = express()

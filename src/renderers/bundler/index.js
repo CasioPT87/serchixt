@@ -1,7 +1,7 @@
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import { getInitialRenderData, getPageNameFromPath } from '../../../tools/index.js';
-import { setUpStore } from '../../store/index.js';
-import { createMarkup } from '../utils/index.js';
+import { getInitialRenderData, getPageNameFromPath } from '../../../tools';
+import { setUpStore } from '../../store';
+import { createMarkup } from '../utils';
 
 const domNode = document.getElementById('app');
 const { pathname: path } = window.location
