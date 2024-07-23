@@ -17,12 +17,14 @@ const fakeShipmentsFetch = () => {
 
 const Shipments = ({ preloadData: preload }) => {
   const shipments = usePreloadData({ component: Shipments, preloadDataProp: preload })
+  console.log(shipments)
   return (
     <div>
       Shipments page
+      {!shipments && <li>spinner</li>}
       {shipments && (
         <ul>
-          {shipments.map(shipment => {
+          {shipments && shipments.map(shipment => {
             return (
               <li key={shipment.id}>{`shipment desde ${shipment.origin} a ${shipment.recipient}`}</li>
             )
