@@ -5,7 +5,7 @@ import { createMarkup } from '../utils';
 
 const domNode = document.getElementById('app');
 const { pathname: path } = window.location
-const page = getAllowedPage({ path })
+const { page } = getAllowedPage({ path })
 
 if (process.env.NODE_ENV === 'production') {
     const store = setUpStore(window.__PRELOADED_STATE__)

@@ -3,8 +3,8 @@ import routes from '../routes'
 import goTo from '../utils/goTo.js';
 import { getAllowedPage, getPageNameFromPage } from '../../tools'
 
-function usePageMonitor({ pageName = 'home' }) {
-    const [page, setPage] = useState(pageName);
+function usePageMonitor({ pageName: _pageName = 'home' }) {
+    const [pageName, setPage] = useState(_pageName);
     useEffect(() => {
         function changePage({ detail }) {
             setPage(detail.pageName);
@@ -14,12 +14,12 @@ function usePageMonitor({ pageName = 'home' }) {
             if (typeof document !== 'undefined') window.removeEventListener('changePage', changePage);
         };
     }, []);
-    return page;
+    return pageName;
 }
 
 if (typeof document !== 'undefined') {
     window.addEventListener('popstate', function (event) {
-        const page = getAllowedPage({ path: window.location.pathname })
+        const { page } = getAllowedPage({ path: window.location.pathname })
         const pageName = getPageNameFromPage({ page })
         goTo({ pageName, pushHistoryState: false })
     });
@@ -34,8 +34,8 @@ function Router({ initialPageName, preloadData }) {
         goTo({ pageName: allowedPageName, redirect: true })
         return null
     }
-    const leches = allowedPage[allowedPageName].pageComponent
-    return <leches preloadData={preloadData[allowedPageName]} />
+    const pageValue = allowedPage[allowedPageName]
+    return <pageValue.pageComponent preloadData={preloadData[allowedPageName]} />
 }
 
 export default Router

@@ -1,7 +1,7 @@
 import routes from "../src/routes";
 import { onlyLogged } from "../src/routes/routeProtection";
 
-const userIsLogged = false
+const userIsLogged = true
 
 const getPageFromPath = ({ path }) => {
   const pageTuple = Object.entries(routes).find(
@@ -21,7 +21,7 @@ const getPageNameFromPage = ({ page }) => {
 
 const getAllowedPage = ({ path }) => {
   if (onlyLogged({ path }) && !userIsLogged) {
-    return { page: getHomeRoute(), isRedirection: true }
+    return { page: getHomePage(), isRedirection: true }
   } else {
     return { page: getPageFromPath({ path }), isRedirection: false }
   }
@@ -38,23 +38,21 @@ const getInitialRenderData = async ({ page }) => {
   return null;
 };
 
-const getHomeRoute = () => {
-  const [homePageName, homePageProps] = Object.entries(routes).find(
+const getHomePage = () => {
+  const page = Object.fromEntries([Object.entries(routes).find(
     ([key, value]) => {
       return value.isHome;
     }
-  );
-  return {
-    pageName: homePageName,
-    props: homePageProps,
-  };
+  )]);
+
+  return page;
 };
 
 export {
   getPageFromPath,
   getAllRoutes,
   getInitialRenderData,
-  getHomeRoute,
+  getHomePage,
   getAllowedPage,
   getPageNameFromPage
 };

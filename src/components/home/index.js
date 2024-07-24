@@ -9,7 +9,7 @@ const Home = () => {
   
   return (<div>
     Home Page
-    <button onClick={() => goTo({ pathName: 'profile' })}>dame aqui y vamos al profile</button>
+    <button onClick={() => goTo({ pageName: 'profile' })}>dame aqui y vamos al profile</button>
   </div>)
 }
 

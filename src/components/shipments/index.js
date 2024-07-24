@@ -11,7 +11,6 @@ const fakeShipmentsFetch = async () => {
 
 const Shipments = ({ preloadData: preload }) => {
   const breeds = usePreloadData({ component: Shipments, preloadDataProp: preload })
-  console.log('hey', breeds)
   return (
     <div>
       Shipments page
@@ -26,8 +25,8 @@ const Shipments = ({ preloadData: preload }) => {
         </ul>
       )}
 
-      <button onClick={() => goTo({ pathName: 'home' })}>al home</button>
-      <button onClick={() => goTo({ pathName: 'profile' })}>al profile</button>
+      <button onClick={() => goTo({ pageName: 'home' })}>al home</button>
+      <button onClick={() => goTo({ pageName: 'profile' })}>al profile</button>
     </div>
   )
 }
