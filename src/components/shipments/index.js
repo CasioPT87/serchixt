@@ -2,38 +2,32 @@ import React from 'react'
 import { usePreloadData } from '../../hooks'
 import goTo from '../../utils/goTo.js'
 
-const fakeShipmentsFetch = () => {
-  const shipments = [
-    { id: 1, origin: 'Madrid', recipient: 'Barcelona' },
-    { id: 2, origin: 'Lugo', recipient: 'Sevilla' },
-    { id: 3, origin: 'Londres', recipient: 'Tumbuctu' }
-  ]
-  return new Promise(res => {
-    setTimeout(() => {
-      res(shipments)
-    }, 5000)
-  })
+const fakeShipmentsFetch = async () => {
+  const data = await fetch('https://catfact.ninja/breeds')
+  const body = await data.json()
+  return body.data
+  
 }
 
 const Shipments = ({ preloadData: preload }) => {
-  const shipments = usePreloadData({ component: Shipments, preloadDataProp: preload })
-  console.log(shipments)
+  const breeds = usePreloadData({ component: Shipments, preloadDataProp: preload })
+  console.log('hey', breeds)
   return (
     <div>
       Shipments page
-      {!shipments && <li>spinner</li>}
-      {shipments && (
+      {!breeds && <li>spinner</li>}
+      {breeds && (
         <ul>
-          {shipments && shipments.map(shipment => {
+          {breeds.map(breed => {
             return (
-              <li key={shipment.id}>{`shipment desde ${shipment.origin} a ${shipment.recipient}`}</li>
+              <li key={breed.breed}>{`shipment desde ${breed.country} a ${breed.origin}`}</li>
             )
           })}
         </ul>
       )}
 
-      <button onClick={() => goTo('home')}>al home</button>
-      <button onClick={() => goTo('profile')}>al profile</button>
+      <button onClick={() => goTo({ pathName: 'home' })}>al home</button>
+      <button onClick={() => goTo({ pathName: 'profile' })}>al profile</button>
     </div>
   )
 }

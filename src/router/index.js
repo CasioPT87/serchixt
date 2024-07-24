@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import routes from '../routes'
 import goTo from '../utils/goTo.js';
-import { getPageNameFromPath } from '../../tools'
+import { getAllowedPage, getPageNameFromPage } from '../../tools'
 
 function usePageMonitor({ pageName = 'home' }) {
     const [page, setPage] = useState(pageName);
@@ -19,19 +19,23 @@ function usePageMonitor({ pageName = 'home' }) {
 
 if (typeof document !== 'undefined') {
     window.addEventListener('popstate', function (event) {
-        const pageName = getPageNameFromPath({ path: window.location.pathname })
-        goTo(pageName, false)
+        const page = getAllowedPage({ path: window.location.pathname })
+        const pageName = getPageNameFromPage({ page })
+        goTo({ pageName, pushHistoryState: false })
     });
 }
 
-const manager = ({ page: pageName, preloadData }) => {
-    const page = routes[pageName]
-    return <page.pageComponent preloadData={preloadData} />
-}
-
 function Router({ initialPageName, preloadData }) {
-    const page = usePageMonitor({ pageName: initialPageName });
-    return <>{manager({ page, preloadData: preloadData[page] })}</>
+    const pageName = usePageMonitor({ pageName: initialPageName });
+    const page = routes[pageName]
+    const { page: allowedPage, isRedirection } = getAllowedPage({ path: page.path })
+    const allowedPageName = getPageNameFromPage({ page: allowedPage })
+    if (isRedirection) {
+        goTo({ pageName: allowedPageName, redirect: true })
+        return null
+    }
+    const leches = allowedPage[allowedPageName].pageComponent
+    return <leches preloadData={preloadData[allowedPageName]} />
 }
 
 export default Router

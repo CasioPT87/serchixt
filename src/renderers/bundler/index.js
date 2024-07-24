@@ -1,11 +1,11 @@
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import { getInitialRenderData, getPageNameFromPath } from '../../../tools';
+import { getAllowedPage, getInitialRenderData, getPageNameFromPage } from '../../../tools';
 import { setUpStore } from '../../store';
 import { createMarkup } from '../utils';
 
 const domNode = document.getElementById('app');
 const { pathname: path } = window.location
-const pageName = getPageNameFromPath({ path })
+const page = getAllowedPage({ path })
 
 if (process.env.NODE_ENV === 'production') {
     const store = setUpStore(window.__PRELOADED_STATE__)
@@ -16,11 +16,11 @@ if (process.env.NODE_ENV === 'production') {
     // Allow the passed preload data to be garbage-collected
     delete window.__PRELOADED_DATA__
 
-    hydrateRoot(domNode, createMarkup({ pageName, store, preloadData }));
+    hydrateRoot(domNode, createMarkup({ pageName: getPageNameFromPage({ page }), store, preloadData }));
 } else {
     const store = setUpStore()
-    const preloadData = await getInitialRenderData({ pageName })
+    const preloadData = await getInitialRenderData({ page })
     const root = createRoot(domNode);
 
-    root.render(createMarkup({ pageName, store, preloadData }));
+    root.render(createMarkup({ pageName: getPageNameFromPage({ page }), store, preloadData }));
 }

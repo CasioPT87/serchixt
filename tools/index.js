@@ -1,24 +1,60 @@
-import routes from "../src/routes"
+import routes from "../src/routes";
+import { onlyLogged } from "../src/routes/routeProtection";
 
-const getPageNameFromPath = ({ path }) => {
-    const [pageName] = Object.entries(routes).find(([pageName, value]) => value.path === path)
-    return pageName
+const userIsLogged = false
+
+const getPageFromPath = ({ path }) => {
+  const pageTuple = Object.entries(routes).find(
+    ([pageName, value]) => {
+      return value.path === path
+    }
+  );
+  const page = Object.fromEntries([pageTuple])
+  return page;
+};
+
+const getPageNameFromPage = ({ page }) => {
+  const pageNameArray = Object.keys(page)
+  if (pageNameArray.length !== 1) throw new Error('Page name not calculated correctly')
+  return pageNameArray[0]
+}
+
+const getAllowedPage = ({ path }) => {
+  if (onlyLogged({ path }) && !userIsLogged) {
+    return { page: getHomeRoute(), isRedirection: true }
+  } else {
+    return { page: getPageFromPath({ path }), isRedirection: false }
+  }
 }
 
 const getAllRoutes = () => {
-    return Object.values(routes).map(({ path }) => path)
-}
+  return Object.values(routes).map(({ path }) => path);
+};
 
-const getInitialRenderData = async ({ pageName }) => {
-    const page = routes[pageName]
-    if (page?.pageComponent?.preloadFn) {
-        return await page.pageComponent.preloadFn()
+const getInitialRenderData = async ({ page }) => {
+  if (page?.pageComponent?.preloadFn) {
+    return await page.pageComponent.preloadFn();
+  }
+  return null;
+};
+
+const getHomeRoute = () => {
+  const [homePageName, homePageProps] = Object.entries(routes).find(
+    ([key, value]) => {
+      return value.isHome;
     }
-    return null
-}
+  );
+  return {
+    pageName: homePageName,
+    props: homePageProps,
+  };
+};
 
 export {
-    getPageNameFromPath,
-    getAllRoutes,
-    getInitialRenderData
-}
+  getPageFromPath,
+  getAllRoutes,
+  getInitialRenderData,
+  getHomeRoute,
+  getAllowedPage,
+  getPageNameFromPage
+};

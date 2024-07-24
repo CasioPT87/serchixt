@@ -6,6 +6,7 @@ const routes = {
     home: {
         path: '/',
         pageComponent: Home,
+        isHome: true,
     },
     profile: {
         path: '/profile',

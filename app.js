@@ -6,10 +6,12 @@ require('@babel/register')({
 const express = require('express');
 const path = require('path')
 const initial = require('./src/renderers/initial')
-const { getPageNameFromPath, getAllRoutes, getInitialRenderData } = require('./tools')
+const { getAllRoutes, getAllowedPage } = require('./tools')
 
 const PORT = 9990;
 const app = express()
+
+const userIsLogged = false
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '/src/dist')));
@@ -17,9 +19,12 @@ app.use(express.static(path.join(__dirname, '/src/dist')));
 // All allowed routes
 app.get(getAllRoutes(), async (req, res) => {
   const path = req.path
-  const pageName = getPageNameFromPath({ path })
-  const preloadData = await getInitialRenderData({ pageName })
-  await initial.default({ response: res, pageName, preloadData })
+  const { page, isRedirection } = getAllowedPage({ path })
+  if (isRedirection) {
+    return res.redirect(301, page.path)
+  }
+
+  await initial.default({ response: res, page })
 });
 
 // Start the server
