@@ -29,5 +29,5 @@ app.get(getAllRoutes(), async (req: any, res: any) => {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`Server is running here,ljlkj my hey: http://localhost:${PORT}`);
 });

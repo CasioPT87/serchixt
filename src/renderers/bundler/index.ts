@@ -28,6 +28,5 @@ if (process.env.NODE_ENV === 'production') {
         const root = createRoot(domNode);
 
         root.render(createMarkup({ pageName: getPageNameFromPage({ page }), store, preloadData }));
-    })
-    
+    }) 
 }

@@ -4,7 +4,8 @@
   "description": "Genei front end client",
   "main": "server.js",
   "scripts": {
-    "dev": "npm run delete-dist && webpack --mode development && webpack-dev-server --open --mode development",
+    "dev": "webpack --mode development && webpack-dev-server --mode development",
+    "debug": "npm run delete-dist && nodemon --watch 'src/**' --ext 'ts,js,json' --exec 'npm run dev'",
     "start": "webpack --mode production && node ./transpiled/src/app.js",
     "build-prod": "npm run delete-dist && tsc",
     "test": "concurrently \"npm run dev\" \"sleep 5 && jest\"",
@@ -38,6 +39,7 @@
     "@babel/preset-env": "^7.23.8",
     "@babel/register": "^7.23.7",
     "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4",
     "puppeteer": "^21.10.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.4",
