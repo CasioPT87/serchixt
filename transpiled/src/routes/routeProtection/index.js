@@ -12,3 +12,4 @@ const onlyLogged = ({ path }) => {
     return false;
 };
 exports.onlyLogged = onlyLogged;
+//# sourceMappingURL=index.js.map

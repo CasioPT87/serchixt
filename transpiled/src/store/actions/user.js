@@ -7,3 +7,4 @@ const addUser = payload => ({
 exports.default = {
     addUser
 };
+//# sourceMappingURL=user.js.map

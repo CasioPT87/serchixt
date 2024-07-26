@@ -11,3 +11,4 @@ exports.combinedStoreReducers = (0, redux_1.combineReducers)({
     article: articles_js_1.default,
     user: users_js_1.default,
 });
+//# sourceMappingURL=reducers.js.map

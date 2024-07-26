@@ -14,3 +14,4 @@ const Home = () => {
         react_1.default.createElement("button", { onClick: () => (0, goTo_js_1.default)({ pageName: 'profile' }) }, "dame aqui y vamos al profile")));
 };
 exports.default = Home;
+//# sourceMappingURL=index.js.map

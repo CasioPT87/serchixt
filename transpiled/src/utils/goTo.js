@@ -17,3 +17,4 @@ const goTo = ({ pageName, pushHistoryState = true, redirect = false }) => {
     }
 };
 exports.default = goTo;
+//# sourceMappingURL=goTo.js.map

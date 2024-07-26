@@ -34,3 +34,4 @@ const initial = (_a) => __awaiter(void 0, [_a], void 0, function* ({ response, p
     });
 });
 exports.default = initial;
+//# sourceMappingURL=index.js.map

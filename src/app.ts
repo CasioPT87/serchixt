@@ -17,7 +17,7 @@ const userIsLogged = false
 app.use(express.static(path.join(__dirname, '../../src/dist')));
 
 // All allowed routes
-app.get(getAllRoutes(), async (req, res) => {
+app.get(getAllRoutes(), async (req: any, res: any) => {
   const path = req.path
   const { page, isRedirection } = getAllowedPage({ path })
   if (isRedirection) {

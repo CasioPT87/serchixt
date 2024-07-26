@@ -12,3 +12,4 @@ const createMarkup = ({ pageName, store, preloadData }) => {
         react_1.default.createElement(router_1.default, { initialPageName: pageName, preloadData: { [pageName]: preloadData } })));
 };
 exports.createMarkup = createMarkup;
+//# sourceMappingURL=index.js.map

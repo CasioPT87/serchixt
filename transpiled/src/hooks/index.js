@@ -6,3 +6,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.usePreloadData = void 0;
 const usePreloadData_js_1 = __importDefault(require("./usePreloadData.js"));
 exports.usePreloadData = usePreloadData_js_1.default;
+//# sourceMappingURL=index.js.map

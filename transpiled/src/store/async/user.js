@@ -17,3 +17,4 @@ function addUser(param) {
 exports.default = {
     addUser
 };
+//# sourceMappingURL=user.js.map

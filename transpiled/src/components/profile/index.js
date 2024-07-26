@@ -47,3 +47,4 @@ function Profile() {
         react_1.default.createElement("ul", null, userList.map(user => react_1.default.createElement("li", { key: user }, user)))));
 }
 exports.default = Profile;
+//# sourceMappingURL=index.js.map

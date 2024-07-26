@@ -65,3 +65,4 @@ function Router({ initialPageName, preloadData }) {
     return react_1.default.createElement(pageValue.pageComponent, { preloadData: preloadData[allowedPageName] });
 }
 exports.default = Router;
+//# sourceMappingURL=index.js.map

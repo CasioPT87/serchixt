@@ -34,3 +34,4 @@ app.get(getAllRoutes(), (req, res) => __awaiter(void 0, void 0, void 0, function
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });
+//# sourceMappingURL=app.js.map

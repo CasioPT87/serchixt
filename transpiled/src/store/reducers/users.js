@@ -11,3 +11,4 @@ const reducer = (state = initialState, action = {}) => {
     }
 };
 module.exports = reducer;
+//# sourceMappingURL=users.js.map

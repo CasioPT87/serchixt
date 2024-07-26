@@ -33,3 +33,4 @@ const Shipments = ({ preloadData: preload }) => {
 };
 Shipments.preloadFn = fakeShipmentsFetch;
 exports.default = Shipments;
+//# sourceMappingURL=index.js.map

@@ -11,3 +11,4 @@ const setUpStore = (initialState = defaultState) => {
     return (0, redux_1.createStore)(reducers_1.combinedStoreReducers, Object.assign(Object.assign({}, defaultState), initialState), composedEnhancer);
 };
 exports.setUpStore = setUpStore;
+//# sourceMappingURL=index.js.map

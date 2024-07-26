@@ -50,3 +50,4 @@ function usePreloadData({ component, preloadDataProp = null }) {
     }, [component, preloadDataProp]);
     return data;
 }
+//# sourceMappingURL=usePreloadData.js.map
