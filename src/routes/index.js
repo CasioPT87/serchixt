@@ -1,4 +1,4 @@
-import Home from "../components/home/index.jsx"
+import Home from "../components/home"
 import Profile from "../components/profile"
 import Shipments from "../components/shipments"
 

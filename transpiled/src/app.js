@@ -32,6 +32,6 @@ app.get(getAllRoutes(), (req, res) => __awaiter(void 0, void 0, void 0, function
 }));
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`Server is running here, loko: http://localhost:${PORT}`);
 });
 //# sourceMappingURL=app.js.map

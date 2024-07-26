@@ -25,7 +25,11 @@ module.exports = (env, args) => {
       historyApiFallback: true,
       client: {
         progress: true,
-      }
+      },
+      hot: false
+    },
+    resolve: {
+      extensions: ['.js', '.jsx', '.ts', '.tsx'], // Add all the extensions you are using
     },
     module: {
       rules: [
@@ -34,6 +38,9 @@ module.exports = (env, args) => {
           exclude: /node_modules/,
           use: {
             loader: 'ts-loader',
+            options: {
+              transpileOnly:true // important so front-end files won't crash when making chages (and so the hot reload works as expected)
+            }
           }
         },
         {
