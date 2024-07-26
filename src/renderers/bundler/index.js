@@ -1,5 +1,5 @@
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import { getAllowedPage, getInitialRenderData, getPageNameFromPage } from '../../../tools';
+import { getAllowedPage, getInitialRenderData, getPageNameFromPage } from '../../tools';
 import { setUpStore } from '../../store';
 import { createMarkup } from '../utils';
 

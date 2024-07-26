@@ -1,5 +1,5 @@
-import routes from "../src/routes";
-import { onlyLogged } from "../src/routes/routeProtection";
+import routes from "../routes";
+import { onlyLogged } from "../routes/routeProtection";
 
 const userIsLogged = true
 

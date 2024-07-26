@@ -15,7 +15,7 @@ module.exports = (env, args) => {
   }
 
   return {
-    entry: './src/renderers/bundler/index.js',
+    entry: './transpiled/src/renderers/bundler/index.js',
     output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'src/dist'),

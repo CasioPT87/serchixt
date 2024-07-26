@@ -2,7 +2,7 @@ import React from "react";
 import { renderToPipeableStream } from "react-dom/server";
 import { setUpStore } from '../../store'
 import { createMarkup } from "../utils";
-import { getInitialRenderData, getPageNameFromPage } from "../../../tools";
+import { getInitialRenderData, getPageNameFromPage } from "../../tools";
 
 const initialState = {}
 

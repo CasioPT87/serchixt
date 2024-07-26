@@ -5,7 +5,7 @@ require('@babel/register')({
 
 const express = require('express');
 const path = require('path')
-const initial = require('./src/renderers/initial')
+const initial = require('./renderers/initial')
 const { getAllRoutes, getAllowedPage } = require('./tools')
 
 const PORT = 9990;
@@ -14,7 +14,7 @@ const app = express()
 const userIsLogged = false
 
 // Serve static files
-app.use(express.static(path.join(__dirname, '/src/dist')));
+app.use(express.static(path.join(__dirname, '../../src/dist')));
 
 // All allowed routes
 app.get(getAllRoutes(), async (req, res) => {

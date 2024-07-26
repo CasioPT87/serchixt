@@ -5,12 +5,12 @@
   "main": "server.js",
   "scripts": {
     "dev": "npm run delete-dist && npm run build-dev && webpack-dev-server --open --mode development",
-    "start": "npm run delete-dist && npm run build-prod && node app.js",
+    "start": "webpack --mode production && node ./transpiled/src/app.js",
     "build-dev": "webpack --mode development",
-    "build-prod": "webpack --mode production",
+    "build-prod": "npm run delete-dist && tsc",
     "test": "concurrently \"npm run dev\" \"sleep 5 && jest\"",
     "test-prod": "npm start && jest -- test/e2e",
-    "delete-dist": "rm -rf ./src/dist"
+    "delete-dist": "rm -rf ./src/dist && rm -rf ./transpiled"
   },
   "author": "Geneit dev team",
   "license": "ISC",
@@ -39,6 +39,7 @@
     "@babel/register": "^7.23.7",
     "concurrently": "^8.2.2",
     "puppeteer": "^21.10.0",
+    "typescript": "^5.5.4",
     "webpack-dev-server": "^4.15.1"
   }
 }
