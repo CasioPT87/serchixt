@@ -8,5 +8,8 @@ coverage/
 # Ignore any file in the build or deploy directory
 /src/dist/*
 
+# Ignore the transpiled directory
+transpiled/
+
 # Ignore node modules
 node_modules/
