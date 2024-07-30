@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch} from 'react-redux'
-import { userThunk } from '../../store/async'
-import { userActions } from '../../store/actions'
+import { userThunk } from '../../store/async/index.js'
+import { userActions } from '../../store/actions/index.js'
 import goTo from '../../utils/goTo.js'
+import { RootState } from '../../types/index.js'
 
 function Profile() {
 
   const dispatch = useDispatch()
-  const userList = useSelector(state => state.user.list)
+  const userList = useSelector((state: RootState) => state.user.list)
 
   useEffect(() => {
     dispatch(userActions.addUser('PEPITO!!!!!'))

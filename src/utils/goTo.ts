@@ -1,6 +1,11 @@
 import routes from "../routes";
+import { PageName as PageNameType } from "../types";
 
-const goTo = ({ pageName, pushHistoryState = true, redirect = false }) => {
+const goTo = ({ pageName, pushHistoryState = true, redirect = false }: {
+    pageName: PageNameType,
+    pushHistoryState: boolean,
+    redirect: boolean
+}) => {
     const changePageEvent = new CustomEvent("changePage", {
         detail: { pageName }
     });

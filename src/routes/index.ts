@@ -1,8 +1,9 @@
 import Home from "../components/home"
 import Profile from "../components/profile"
 import Shipments from "../components/shipments"
+import { Routes } from "../types"
 
-const routes = {
+const routes: Routes = {
     home: {
         path: '/',
         pageComponent: Home,
