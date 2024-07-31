@@ -17,6 +17,12 @@ interface PageValue {
     isHome?: boolean,
 } 
 
+type Page = {
+    [key in PageName]: PageValue;
+} & {
+    [key: string]: never; // Ensure no extra properties are allowed
+}
+
 type Routes = {
     [key in PageName]: PageValue
 }
@@ -33,6 +39,8 @@ type AppThunkDispatch = ThunkDispatch<RootState, any, UnknownAction>
 
 export {
     PageName,
+    PageValue,
+    Page,
     Routes,
     RootState,
     AppDispatch,
