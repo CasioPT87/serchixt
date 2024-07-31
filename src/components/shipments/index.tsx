@@ -1,6 +1,6 @@
 import React from "react";
 import { usePreloadData } from "../../hooks";
-import goTo from "../../utils/goTo.js";
+import goTo from "../../utils/goTo";
 
 const fakeShipmentsFetch = async () => {
   const data = await fetch("https://catfact.ninja/breeds");

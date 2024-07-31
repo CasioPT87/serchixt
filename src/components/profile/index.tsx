@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch} from 'react-redux'
-import { userThunk } from '../../store/async/index.js'
-import { userActions } from '../../store/actions/index.js'
-import goTo from '../../utils/goTo.js'
-import { RootState, AppDispatch } from '../../types/index.js'
+import { userThunk } from '../../store/async'
+import { userActions } from '../../store/actions'
+import goTo from '../../utils/goTo'
+import { RootState, AppDispatch } from '../../types'
 
 function Profile() {
 

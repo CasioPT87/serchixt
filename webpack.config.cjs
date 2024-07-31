@@ -34,22 +34,22 @@ module.exports = (env, args) => {
     module: {
       rules: [
         {
-          test: /\.(?:js|mjs|cjs|jsx|tsx)$/,
+          test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
           exclude: /node_modules/,
           use: {
             loader: 'ts-loader',
             options: {
-              transpileOnly:true // important so front-end files won't crash when making chages (and so the hot reload works as expected)
+              transpileOnly: true // important so front-end files won't crash when making chages (and so the hot reload works as expected)
             }
           }
         },
-        {
-          test: /\.(?:js|mjs|cjs)$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-          }
-        }
+        // {
+        //   test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
+        //   exclude: /node_modules/,
+        //   use: {
+        //     loader: 'babel-loader',
+        //   }
+        // }
       ],
 
     },

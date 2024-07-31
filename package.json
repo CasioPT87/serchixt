@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "debug-front": "webpack-dev-server --open --mode development",
-    "debug-back": "npm run delete-dist && nodemon --watch 'src/**' --ext 'ts,js,json' --exec 'webpack --mode development'",
+    "debug-back": "npm run delete-dist && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'webpack --mode development'",
     "dev": "concurrently \"npm run debug-back\" \"npm run debug-front\"",
     "start": "npm run delete-transp && tsc && webpack --mode production && node ./transpiled/src/app.js",
     "test-dev": "concurrently \"npm run dev\" \"sleep 5 && jest dev/\"",

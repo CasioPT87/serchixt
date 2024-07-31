@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from "react";
-import goTo from "../../utils/goTo.js";
+import goTo from "../../utils/goTo";
 
 const Home = () => {
   return (
