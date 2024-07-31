@@ -3,10 +3,12 @@ import { renderToPipeableStream } from "react-dom/server";
 import { setUpStore } from '../../store'
 import { createMarkup } from "../utils";
 import { getInitialRenderData, getPageNameFromPage } from "../../tools";
+import { PageName } from "../../types";
+import { Response } from 'express'
 
 const initialState = {}
 
-const initial = async ({ response, page }) => {
+const initial = async ({ response, page }: { response: Response, page: PageName }) => {
     const store = setUpStore(initialState)
     const preloadData = await getInitialRenderData({ page })
     const markup = createMarkup({ pageName: getPageNameFromPage({ page }), store, preloadData })

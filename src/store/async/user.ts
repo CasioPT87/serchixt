@@ -1,6 +1,5 @@
 import { userActions } from "../actions"
 import { AppDispatch, RootState, AppThunk, AppThunkDispatch } from "../../types"
-import { UnknownAction } from 'redux'
 
 function addUser(param: any): AppThunk {
     return (dispatch: AppThunkDispatch, getState: () => RootState) => {

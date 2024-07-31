@@ -4,7 +4,7 @@ import { getAllowedPage, getInitialRenderData, getPageNameFromPage } from '../..
 import { setUpStore } from '../../store';
 import { createMarkup } from '../utils';
 
-const domNode = document.getElementById('app');
+const domNode = document.getElementById('app') as HTMLElement;
 const { pathname: path } = window.location
 const { page } = getAllowedPage({ path })
 

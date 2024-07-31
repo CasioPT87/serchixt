@@ -1,11 +1,12 @@
 import React from 'react';
-import { RootState, Action, Reducer } from './store'
+import { RootState, Action, Reducer, Dispatch } from './store'
 import { setUpStore } from '../store';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { UnknownAction } from 'redux'
 
 const store = setUpStore()
-type AppDispatch = typeof store.dispatch
+type Store = typeof store
+type AppDispatch = typeof store.dispatch | Dispatch
 
 type PageName = 'home' | 'profile' | 'shipments'
 
@@ -38,5 +39,6 @@ export {
     AppThunk,
     AppThunkDispatch,
     Action,
-    Reducer
+    Reducer,
+    Store
 }

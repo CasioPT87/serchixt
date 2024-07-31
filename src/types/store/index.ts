@@ -1,3 +1,5 @@
+import { UnknownAction } from 'redux'
+
 interface RootState {
   article: {
     list: any[];
@@ -16,4 +18,6 @@ interface ActionResponse<T> {
 
 type Reducer = (state: RootState[keyof RootState], action: ActionResponse<any>) => RootState[keyof RootState];
 
-export { RootState, Action, Reducer };
+type Dispatch = (action: ActionResponse<any>, ...extraArgs: any[]) => UnknownAction
+
+export { RootState, Action, Reducer, Dispatch };

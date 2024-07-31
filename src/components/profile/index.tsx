@@ -3,11 +3,11 @@ import { useSelector, useDispatch} from 'react-redux'
 import { userThunk } from '../../store/async/index.js'
 import { userActions } from '../../store/actions/index.js'
 import goTo from '../../utils/goTo.js'
-import { RootState } from '../../types/index.js'
+import { RootState, AppDispatch } from '../../types/index.js'
 
 function Profile() {
 
-  const dispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch()
   const userList = useSelector((state: RootState) => state.user.list)
 
   useEffect(() => {
