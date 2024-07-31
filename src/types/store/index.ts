@@ -7,13 +7,13 @@ interface RootState {
   };
 }
 
-interface Action<T> {
-  (payload: T): {
-    type: string;
-    payload: T;
-  };
+type Action<T> = (payload: T) => ActionResponse<T>
+
+interface ActionResponse<T> {
+  type: string;
+  payload: T;
 }
 
-type Reducer = (state: RootState, action: Action<Object>) => RootState
+type Reducer = (state: RootState[keyof RootState], action: ActionResponse<any>) => RootState[keyof RootState];
 
 export { RootState, Action, Reducer };

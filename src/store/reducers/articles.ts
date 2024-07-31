@@ -1,19 +1,19 @@
-import { Reducer } from "../../types"
+import { Reducer } from "../../types";
 
 const initialState = {
-    list: [],
+  list: [],
+};
+
+const reducer: Reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "ADD_ARTICLES":
+      return {
+        ...state,
+        list: action.payload,
+      };
+    default:
+      return state;
   }
-  
-  const reducer: Reducer = (state = initialState, action = {}) => {
-    switch (action.type) {
-      case 'ADD_ARTICLES':
-        return {
-          ...state,
-          list: action.payload,
-        }
-      default:
-        return state
-    }
-  }
-  
-  module.exports = reducer
+};
+
+export default reducer;

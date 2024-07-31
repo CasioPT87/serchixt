@@ -1,8 +1,10 @@
+import { Reducer } from "../../types";
+
 const initialState = {
   list: []
 }
 
-const reducer = (state = initialState, action = {}) => {
+const reducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_USER':
       return {
@@ -14,4 +16,4 @@ const reducer = (state = initialState, action = {}) => {
   }
 }
 
-module.exports = reducer
+export default reducer
