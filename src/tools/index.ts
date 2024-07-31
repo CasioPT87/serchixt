@@ -1,6 +1,6 @@
 import routes from "../routes";
 import { onlyLogged } from "../routes/routeProtection";
-import { PageValue, Page, PageName } from "../types";
+import { PageValue, Page, PageName, PageComponent } from "../types";
 
 const userIsLogged = true
 
@@ -33,8 +33,9 @@ const getAllRoutes = () => {
 };
 
 const getInitialRenderData = async ({ page }: { page: Page }) => {
-  if (page?.pageComponent?.preloadFn) {
-    return await page.pageComponent.preloadFn();
+  const component = page.pageComponent as PageComponent
+  if (component?.preloadFn) {
+    return await component.preloadFn();
   }
   return null;
 };

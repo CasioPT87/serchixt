@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import routes from '../routes'
-import goTo from '../utils/goTo.js';
+import goTo from '../utils/goTo';
 import { getAllowedPage, getPageNameFromPage } from '../tools'
 import { PageName } from '../types';
 

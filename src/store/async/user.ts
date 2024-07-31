@@ -11,7 +11,10 @@ function addUser(param: any): AppThunk {
             }, 5000)
         }).then(data => {
             // cuando la llamada ha terminado, actualizamos la store
-            if (typeof data === 'string') return dispatch(userActions.addUser(data))
+            if (typeof data === 'string') {
+                dispatch(userActions.addUser(data))
+                return
+            }
         })
 
     }

@@ -1,52 +1,47 @@
-import React from 'react';
-import { RootState, Action, Reducer, Dispatch } from './store'
-import { setUpStore } from '../store';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import { UnknownAction } from 'redux'
+import React from "react";
+import {
+  RootState,
+  Action,
+  Reducer,
+  AppDispatch,
+  Store,
+  AppThunk,
+  AppThunkDispatch,
+} from "./store";
 
-const store = setUpStore()
-type Store = typeof store
-type AppDispatch = typeof store.dispatch | Dispatch
+type PageName = "home" | "profile" | "shipments";
 
-type PageName = 'home' | 'profile' | 'shipments'
+type PageComponent = React.FC<any> & {
+    preloadFn?: () => any
+};
 
-type PageComponent = React.FC<any>
 interface PageValue {
-    path: string,
-    pageComponent: PageComponent,
-    isHome?: boolean,
-} 
+  path: string;
+  pageComponent: PageComponent;
+  isHome?: boolean;
+}
 
 type Page = {
-    [key in PageName]: PageValue;
+  [key in PageName]: PageValue;
 } & {
-    [key: string]: never; // Ensure no extra properties are allowed
-}
+  [key: string]: never; // Ensure no extra properties are allowed
+};
 
 type Routes = {
-    [key in PageName]: PageValue
-}
-
-type AppThunk<ReturnType = void> = ThunkAction<
-ReturnType,
-RootState,
-unknown,
-UnknownAction
->
-
-type AppThunkDispatch = ThunkDispatch<RootState, any, UnknownAction>
-
+  [key in PageName]: PageValue;
+};
 
 export {
-    PageName,
-    PageValue,
-    Page,
-    Routes,
-    RootState,
-    AppDispatch,
-    AppThunk,
-    AppThunkDispatch,
-    Action,
-    Reducer,
-    Store
-}
+  PageName,
+  PageValue,
+  Page,
+  Routes,
+  RootState,
+  AppDispatch,
+  AppThunk,
+  AppThunkDispatch,
+  Action,
+  Reducer,
+  Store,
+  PageComponent
+};
