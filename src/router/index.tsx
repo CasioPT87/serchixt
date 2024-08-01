@@ -69,7 +69,7 @@ function Router({
     path: page.path,
     userIsLogged: !!user,
   });
-  const allowedPageName = getPageNameFromPage({ page: allowedPage });
+  const allowedPageName: PageName = getPageNameFromPage({ page: allowedPage });
   if (needsRedirection) {
     goTo({ pageName: allowedPageName, redirect: true });
     return null;

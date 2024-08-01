@@ -3,7 +3,6 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { getAllowedPage, getInitialRenderData, getPageNameFromPage } from '../../tools';
 import { setUpStore } from '../../store';
 import { createMarkup } from '../utils';
-import { setUser } from '../../client-utils';
 
 const domNode = document.getElementById('app') as HTMLElement;
 const { pathname: path } = window.location
@@ -23,8 +22,6 @@ if (process.env.NODE_ENV === 'production') {
     delete window.__PRELOADED_DATA__
      // @ts-ignore: Unreachable code error
     delete window.__PRELOADED_USER__
-
-    if (user) setUser({ user })
 
     const { page } = getAllowedPage({ path, userIsLogged: !!user })
 

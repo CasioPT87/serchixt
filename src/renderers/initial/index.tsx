@@ -9,7 +9,7 @@ import { Response } from 'express'
 const initialState = {}
 
 const initial = async ({ response, page, user }: { response: Response, page: Page, user: Object | null }) => {
-    const store = setUpStore({ ...initialState, user })
+    const store = setUpStore({ ...initialState })
     const preloadData = await getInitialRenderData({ page })
     const markup = createMarkup({ pageName: getPageNameFromPage({ page }), user, store, preloadData })
     
