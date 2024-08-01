@@ -5,12 +5,12 @@ require('@babel/register')({
   ignore: [/node_modules/], // Exclude node_modules from being transpiled
 });
 
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const initial = require('./renderers/initial')
 const { getAllRoutes, getAllowedPage } = require('./tools')
-const { authenticate } = require('./server-utils/')
+const { getUser } = require('./server-utils/')
 
 const PORT = 9990;
 const app = express()
@@ -23,24 +23,25 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 // Middleware to catch errors in async middleware/handlers
-const asyncHandler = (fn) => (req, res, next) => {
+const asyncHandler = (fn) => (req: Request, res, next: NextFunction) => {
   Promise.resolve(fn(req, res, next)).catch(next);
 }
 
-app.use(asyncHandler(async (req, res, next) => {
-  await authenticate(req);
+app.use(asyncHandler(async (req: Request, res, next: NextFunction) => {
+  const user = await getUser(req);
+  if (user) req.user = user
   next();
 }));
 
 // All allowed routes
 app.get(getAllRoutes(), async (req: Request, res: Response) => {
   const path = req.path
-  const { page, isRedirection } = getAllowedPage({ path })
-  if (isRedirection) {
+  const { page, needsRedirection } = getAllowedPage({ path, userIsLogged: !!req.user })
+  if (needsRedirection) {
     return res.redirect(301, page.path)
   }
 
-  await initial.default({ response: res, page })
+  await initial.default({ response: res, page, user: req.user || null })
 });
 
 // Error handling middleware

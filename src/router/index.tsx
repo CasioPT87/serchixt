@@ -22,23 +22,23 @@ function usePageMonitor({ pageName: _pageName = 'home' }: { pageName: PageName }
 
 if (typeof document !== 'undefined') {
     window.addEventListener('popstate', function (event) {
-        const { page } = getAllowedPage({ path: window.location.pathname })
+        const { page } = getAllowedPage({ path: window.location.pathname, userIsLogged: !!window.user })
         const pageName = getPageNameFromPage({ page })
         goTo({ pageName, pushHistoryState: false })
     });
 }
 
-function Router({ initialPageName, preloadData }: { initialPageName: PageName, preloadData: any}) {
+function Router({ initialPageName, preloadData, user }: { initialPageName: PageName, preloadData: any, user: Object | null }) {
     const pageName = usePageMonitor({ pageName: initialPageName });
     const page = routes[pageName]
-    const { page: allowedPage, isRedirection } = getAllowedPage({ path: page.path })
+    const { page: allowedPage, needsRedirection } = getAllowedPage({ path: page.path, userIsLogged: !!user })
     const allowedPageName = getPageNameFromPage({ page: allowedPage })
-    if (isRedirection) {
+    if (needsRedirection) {
         goTo({ pageName: allowedPageName, redirect: true })
         return null
     }
     const pageValue = allowedPage[allowedPageName]
-    return <pageValue.pageComponent preloadData={preloadData[allowedPageName]} />
+    return <pageValue.pageComponent preloadData={preloadData[allowedPageName]} user={user} />
 }
 
 export default Router

@@ -1,5 +1,5 @@
 import { userActions } from "../actions"
-import { AppDispatch, RootState, AppThunk, AppThunkDispatch } from "../../types"
+import { RootState, AppThunk, AppThunkDispatch } from "../../types"
 
 function addUser(param: any): AppThunk {
     return (dispatch: AppThunkDispatch, getState: () => RootState) => {

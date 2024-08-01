@@ -10,7 +10,7 @@ const protectedPaths: ProtectedPaths = {
   paths: ['/shipments'],
 };
 
-const onlyLogged = ({ path }: { path: PageValue['path']}): Boolean => {
+const isPrivateRoute = ({ path }: { path: PageValue['path']}): boolean => {
   if (protectedPaths.paths.includes(path) || protectedPaths.regExps.some(regex => regex.test(path))) {
     return true;
   }
@@ -18,5 +18,5 @@ const onlyLogged = ({ path }: { path: PageValue['path']}): Boolean => {
 };
 
 export {
-    onlyLogged
+  isPrivateRoute
 }

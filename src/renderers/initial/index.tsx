@@ -8,10 +8,10 @@ import { Response } from 'express'
 
 const initialState = {}
 
-const initial = async ({ response, page }: { response: Response, page: Page }) => {
-    const store = setUpStore(initialState)
+const initial = async ({ response, page, user }: { response: Response, page: Page, user: Object | null }) => {
+    const store = setUpStore({ ...initialState, user })
     const preloadData = await getInitialRenderData({ page })
-    const markup = createMarkup({ pageName: getPageNameFromPage({ page }), store, preloadData })
+    const markup = createMarkup({ pageName: getPageNameFromPage({ page }), user, store, preloadData })
     
     const { pipe } = renderToPipeableStream(
         <html>
@@ -20,6 +20,7 @@ const initial = async ({ response, page }: { response: Response, page: Page }) =
             </div>
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` }}></script>
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_DATA__ = ${JSON.stringify(preloadData).replace(/</g, '\\u003c')}` }}></script>
+            { user && <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_USER__ = ${JSON.stringify(user).replace(/</g, '\\u003c')}` }}></script> }
         </html>, {
         bootstrapScripts: ["/bundle.js"],
         onShellReady() {

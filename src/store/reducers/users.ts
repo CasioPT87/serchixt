@@ -1,7 +1,7 @@
 import { Reducer } from "../../types";
 
 const initialState = {
-  list: []
+  data: null
 }
 
 const reducer: Reducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const reducer: Reducer = (state = initialState, action) => {
     case 'ADD_USER':
       return {
         ...state,
-        list: state.list.concat(action.payload),
+        data: action.payload,
       }
     default:
       return state
