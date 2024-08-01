@@ -1,3 +1,4 @@
+import { Request } from 'express';
 const cookieName = 'garriga-app'
 const backendUrl = process.env.BACKEND_URL || ''
 const backendAuthPath = process.env.BACKEND_AUTH_PATH || ''
@@ -19,3 +20,7 @@ const authenticate = async (req: Request) => {
     return false
   }
 };
+
+module.exports = {
+  authenticate
+}
