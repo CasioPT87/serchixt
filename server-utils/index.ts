@@ -1,15 +1,8 @@
 import { Request } from 'express';
 
 const cookieName = 'garriga-app'
-
-
 const backendUrl = process.env.BACKEND_URL || "";
-const backendAuthPath = process.env.BACKEND_AUTH_PATH || "/api/v1/users/auth";
 const backendUserPath = process.env.BACKEND_AUTH_PATH || "/api/v1/users";
-const tokenUrlName = process.env.TOKEN_URL_NAME || null;
-const tokenStorageName = process.env.TOKEN_STORAGE_NAME || "";
-
-const userDataStorageName = "garriga-app";
 
 export async function fetchUser({
   token,

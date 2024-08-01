@@ -1,6 +1,6 @@
 import React from "react"
 import { Provider } from "react-redux"
-import Router from '../../router'
+import { Router, Auth } from '../../router'
 import { PageName as PageNameType, Store } from "../../types"
 
 const createMarkup = ({ pageName, store, user, preloadData }: {
@@ -11,7 +11,9 @@ const createMarkup = ({ pageName, store, user, preloadData }: {
 }) => {
     return (
         <Provider store={store} >
-            <Router initialPageName={pageName} preloadData={{ [pageName]: preloadData }} user={user} />
+            <Auth initialUser={user}>
+              {({ user: _user, setUser }) => <Router initialPageName={pageName} preloadData={{ [pageName]: preloadData }} user={_user} setUser={setUser} />}
+            </Auth>
         </Provider>
     )
 }
