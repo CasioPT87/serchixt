@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 require('@babel/register')({
   presets: ['@babel/preset-env', '@babel/preset-react'],
   ignore: [/node_modules/], // Exclude node_modules from being transpiled
