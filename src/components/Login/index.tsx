@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
-import { fetchToken, fetchUser, setUser } from '../../client-utils'
+import { fetchToken, fetchUser } from '../../client-utils'
 import goTo from '../../utils/goTo'
 
-function Login() {
+function Login({ setUser }: {
+  setUser: React.Dispatch<React.SetStateAction<any>>
+}) {
   useEffect(() => {
     async function authenticate() {
       const tokenResponse = await fetchToken({ username: 'pepito', password: 'luisito'})

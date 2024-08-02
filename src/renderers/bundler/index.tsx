@@ -14,6 +14,12 @@ if (process.env.NODE_ENV === 'production') {
     const preloadData = window.__PRELOADED_DATA__
      // @ts-ignore: Unreachable code error
     const user = window.__PRELOADED_USER__
+
+    window.global = {
+        ...window.global,
+         // @ts-ignore: Unreachable code error
+        ...window.__GLOBAL_DATA__
+    }
     
     // Allow all this data to be garbage collected
     // @ts-ignore: Unreachable code error
@@ -22,6 +28,8 @@ if (process.env.NODE_ENV === 'production') {
     delete window.__PRELOADED_DATA__
      // @ts-ignore: Unreachable code error
     delete window.__PRELOADED_USER__
+     // @ts-ignore: Unreachable code error
+     delete window.__GLOBAL_DATA__
 
     const { page } = getAllowedPage({ path, userIsLogged: !!user })
 

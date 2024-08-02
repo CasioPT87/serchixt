@@ -7,7 +7,7 @@ interface RootState {
     list: any[];
   };
   user: {
-    data: Object | null;
+    data: string | null;
   };
 }
 

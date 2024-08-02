@@ -1,4 +1,4 @@
-// custom-types.d.ts
+// index.d.ts
 import * as express from 'express';
 
 declare global {

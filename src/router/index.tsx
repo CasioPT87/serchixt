@@ -3,7 +3,6 @@ import routes from "../routes";
 import goTo from "../utils/goTo";
 import { getAllowedPage, getPageNameFromPage } from "../tools";
 import { PageName } from "../types";
-import { getUser } from "../client-utils";
 
 function usePageMonitor({
   pageName: _pageName = "home",
@@ -29,7 +28,8 @@ function usePageMonitor({
 
 if (typeof document !== "undefined") {
   window.addEventListener("popstate", function (event) {
-    const user = getUser();
+    // FIX THIS!!
+    const user = null;
     const { page } = getAllowedPage({
       path: window.location.pathname,
       userIsLogged: !!user,

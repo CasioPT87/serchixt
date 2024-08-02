@@ -12,6 +12,12 @@ const initial = async ({ response, page, user }: { response: Response, page: Pag
     const store = setUpStore({ ...initialState })
     const preloadData = await getInitialRenderData({ page })
     const markup = createMarkup({ pageName: getPageNameFromPage({ page }), user, store, preloadData })
+
+    const frontGlobal = {
+        backendUrl: process.env.BACKEND_URL,
+        backendAuthPath: process.env.BACKEND_AUTH_PATH,
+        backendUserPath: process.env.BACKEND_AUTH_PATH,
+    }
     
     const { pipe } = renderToPipeableStream(
         <html>
@@ -21,6 +27,7 @@ const initial = async ({ response, page, user }: { response: Response, page: Pag
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` }}></script>
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_DATA__ = ${JSON.stringify(preloadData).replace(/</g, '\\u003c')}` }}></script>
             { user && <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_USER__ = ${JSON.stringify(user).replace(/</g, '\\u003c')}` }}></script> }
+            <script dangerouslySetInnerHTML={{ __html: `window.__GLOBAL_DATA__ = ${JSON.stringify(frontGlobal).replace(/</g, '\\u003c')}` }}></script>
         </html>, {
         bootstrapScripts: ["/bundle.js"],
         onShellReady() {

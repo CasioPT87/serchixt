@@ -1,8 +1,8 @@
 import { Request } from 'express';
 
-const cookieName = 'garriga-app'
-const backendUrl = process.env.BACKEND_URL || "";
-const backendUserPath = process.env.BACKEND_AUTH_PATH || "/api/v1/users";
+const cookieName = process.env.APP_NAME as string
+const backendUrl = process.env.BACKEND_URL as string
+const backendUserPath = process.env.BACKEND_AUTH_PATH as string;
 
 export async function fetchUser({
   token,
@@ -22,7 +22,12 @@ export async function fetchUser({
     }
     return null;
   } catch (e) {
-    console.error(e.stack)
+    if (e instanceof Error) {
+      console.error(e.stack)
+    } else {
+      console.error('unknown error')
+    }
+    
     return null;
   }
 }
@@ -36,8 +41,13 @@ const getUser = async (req: Request): Promise<Object | null>=> {
     if (!user) return null
     return user
   } catch (e) {
-    console.error(e.stack)
-    return false
+    if (e instanceof Error) {
+      console.error(e.stack)
+    } else {
+      console.error('unknown error')
+    }
+    
+    return null
   }
 };
 

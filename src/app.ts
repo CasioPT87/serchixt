@@ -23,13 +23,17 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 // Middleware to catch errors in async middleware/handlers
-const asyncHandler = (fn) => (req: Request, res, next: NextFunction) => {
+const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => any) => (req: Request, res: Response, next: NextFunction) => {
   Promise.resolve(fn(req, res, next)).catch(next);
 }
 
-app.use(asyncHandler(async (req: Request, res, next: NextFunction) => {
+app.use(asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   const user = await getUser(req);
-  if (user) req.user = user
+  if (user) {
+    req.user = user
+    // SI EXISTE EL USUARIO, TENEMOS QUE METER EL TOKEN EN LA COOKIE, PARA QUE ESTE AHI CUANDO EL USUARIO SE CONECTE LA PROX VEZ
+    // SON EL MISMO DOMINIO, EL CLIENTE Y EL SERVIDOR, ASI QUE PUEDES PONER LA SRESTRICCIONES MAS EXTRICTAS
+  }
   next();
 }));
 
@@ -45,7 +49,7 @@ app.get(getAllRoutes(), async (req: Request, res: Response) => {
 });
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
