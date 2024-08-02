@@ -32,7 +32,7 @@ app.use(asyncHandler(async (req: Request, res: Response, next: NextFunction) => 
   if (user) {
     req.user = user
     // SI EXISTE EL USUARIO, TENEMOS QUE METER EL TOKEN EN LA COOKIE, PARA QUE ESTE AHI CUANDO EL USUARIO SE CONECTE LA PROX VEZ
-    // SON EL MISMO DOMINIO, EL CLIENTE Y EL SERVIDOR, ASI QUE PUEDES PONER LA SRESTRICCIONES MAS EXTRICTAS
+    // SON EL MISMO DOMINIO, EL CLIENTE Y EL SERVIDOR, ASI QUE PUEDES PONER LA RESTRICCIONES MAS EXTRICTAS
   }
   next();
 }));
@@ -47,6 +47,10 @@ app.get(getAllRoutes(), async (req: Request, res: Response) => {
 
   await initial.default({ response: res, page, user: req.user || null })
 });
+
+app.all('*', (req: Request, res: Response) => {
+  return res.status(404)
+})
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

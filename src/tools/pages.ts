@@ -28,7 +28,7 @@ const getAllowedPage = ({ path, userIsLogged }: { path: PageValue['path'], userI
 
 const getAllRoutes = () => {
   return Object.values(routes).map(({ path }) => path);
-};
+}
 
 const getInitialRenderData = async ({ page }: { page: Page }) => {
   const component = page.pageComponent as PageComponent

@@ -11,7 +11,8 @@ const initialState = {}
 const initial = async ({ response, page, user }: { response: Response, page: Page, user: Object | null }) => {
     const store = setUpStore({ ...initialState })
     const preloadData = await getInitialRenderData({ page })
-    const markup = createMarkup({ pageName: getPageNameFromPage({ page }), user, store, preloadData })
+    const pageName = getPageNameFromPage({ page })
+    const markup = createMarkup({ pageName, user, store, preloadData })
 
     const frontGlobal = {
         backendUrl: process.env.BACKEND_URL,

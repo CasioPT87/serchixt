@@ -5,7 +5,6 @@ import goTo from "../../utils/goTo";
 const fakeShipmentsFetch = async () => {
   const data = await fetch("https://catfact.ninja/breeds");
   const body = await data.json();
-  console.log(body)
   return body.data;
 };
 

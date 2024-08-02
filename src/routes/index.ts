@@ -5,7 +5,7 @@ import { Routes } from "../types"
 
 const routes: Routes = {
     home: {
-        path: '/',
+        path: '/home',
         pageComponent: Home,
         isHome: true,
     },
