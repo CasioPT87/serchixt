@@ -7,8 +7,6 @@ const backendAuthPath = typeof document !== "undefined" ? window.FRONT_CONST.bac
 // @ts-ignore: Unreachable code error
 const backendUserPath = typeof document !== "undefined" ? window.FRONT_CONST.backendUserPath : '';
 
-console.log({ backendUserPath })
-
 export async function fetchToken({
   username,
   password,
@@ -23,6 +21,9 @@ export async function fetchToken({
         username,
         password,
       }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     if (response.ok) {
       const data = await response.json();
