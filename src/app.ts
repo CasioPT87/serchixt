@@ -46,41 +46,48 @@ const COOKIE = {
 };
 
 app.delete("/cookies", async (req: Request, res: Response) => {
-    res.clearCookie(process.env.APP_NAME || '', {
-      ...COOKIE,
-    })
-    return res.json({
-      success: true
-    })
+  res.clearCookie(process.env.APP_NAME || "", {
+    ...COOKIE,
+  });
+  return res.json({
+    success: true,
+  });
 });
 
 app.post("/cookies", async (req: Request, res: Response) => {
   const { token } = req.body;
   if (token) {
-    res.cookie(process.env.APP_NAME || '', token, {
+    res.cookie(process.env.APP_NAME || "", token, {
       ...COOKIE,
       maxAge: 8 * 60 * 60 * 1000, // cookie will be removed after 8 hours
     });
   }
 
   return res.json({
-    success: !!token
-  })
+    success: !!token,
+  });
 });
 
 // All allowed routes
-app.get(getAllRoutes(), async (req: Request, res: Response) => {
-  const path = req.path;
-  const { page, needsRedirection } = getAllowedPage({
-    path,
-    userIsLogged: !!req.user,
-  });
-  if (needsRedirection) {
-    return res.redirect(301, page.path);
-  }
+app.get(getAllRoutes(), asyncHandler(async (req: Request, res: Response) => {
+    const user = await getUser(req);
+    if (user) {
+      req.user = user;
+    }
+  
+    const path = req.path;
+    const { page, needsRedirection } = getAllowedPage({
+      path,
+      userIsLogged: !!req.user,
+    });
+    
+    if (needsRedirection) {
+      return res.redirect(301, page.path);
+    }
+  
+    await initial.default({ response: res, page, user: req.user || null });
+}))
 
-  await initial.default({ response: res, page, user: req.user || null });
-});
 
 app.all("*", (req: Request, res: Response) => {
   return res.status(404);
