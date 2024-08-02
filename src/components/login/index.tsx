@@ -11,10 +11,8 @@ function Login({
 }) {
   async function authenticate() {
     const tokenResponse = await fetchToken({
-      // @ts-ignore: Unreachable code error
-      username: window.FRONT_CONST.userName,
-      // @ts-ignore: Unreachable code error
-      password: window.FRONT_CONST.userPassword,
+      username: process.env.USER_NAME || '',
+      password: process.env.USER_PASSWORD || '',
     });
     if (tokenResponse?.token) {
       const user = await fetchUser({ token: tokenResponse.token });

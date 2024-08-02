@@ -1,15 +1,13 @@
 import { manageError } from "../tools";
 
 // @ts-ignore: Unreachable code error
-const backendUrl = typeof document !== "undefined" ? window.FRONT_CONST.backendUrl : '';
+const backendUrl = process.env.BACKEND_URL;
 // @ts-ignore: Unreachable code error
-const backendAuthPath = typeof document !== "undefined" ? window.FRONT_CONST.backendAuthPath : '';
+const backendAuthPath = process.env.BACKEND_AUTH_PATH;
 // @ts-ignore: Unreachable code error
-const backendUserPath = typeof document !== "undefined" ? window.FRONT_CONST.backendUserPath : '';
+const backendUserPath = process.env.BACKEND_USER_PATH;
 // @ts-ignore: Unreachable code error
-const frontendUrl = typeof document !== "undefined" ? window.FRONT_CONST.frontendUrl : '';
-// @ts-ignore: Unreachable code error
-const cookiesPath = typeof document !== "undefined" ? window.FRONT_CONST.cookiesPath : '';
+const cookiesPath = process.env.COOKIES_PATH;
 
 export async function fetchToken({
   username,
@@ -19,6 +17,7 @@ export async function fetchToken({
   password: string;
 }): Promise<{ token: string } | null> {
   try {
+    if (!backendUrl || !backendAuthPath) throw new Error('Problem finding global url')
     const response = await fetch(backendUrl + backendAuthPath, {
       method: "POST",
       body: JSON.stringify({
@@ -46,6 +45,7 @@ export async function fetchUser({
   token: string;
 }): Promise<Object | null> {
   try {
+    if (!backendUrl || !backendAuthPath) throw new Error('Problem finding global url')
     const response = await fetch(backendUrl + backendUserPath, {
       method: "GET",
       headers: {
@@ -70,6 +70,7 @@ export async function setCookie({
   token: string;
 }): Promise<Object | boolean> {
   try {
+    if (!cookiesPath) throw new Error('Problem finding global url')
     const response = await fetch(cookiesPath, {
       method: "POST",
       body: JSON.stringify({
@@ -90,6 +91,7 @@ export async function setCookie({
 
 export async function deleteCookie(): Promise<boolean> {
   try {
+    if (!cookiesPath) throw new Error('Problem finding global url')
     const response = await fetch(cookiesPath, {
       method: "DELETE",
     })
