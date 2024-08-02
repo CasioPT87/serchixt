@@ -13,3 +13,5 @@ transpiled/
 
 # Ignore node modules
 node_modules/
+
+.env
