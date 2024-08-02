@@ -2,7 +2,7 @@ import { Request } from 'express';
 
 const cookieName = process.env.APP_NAME as string
 const backendUrl = process.env.BACKEND_URL as string
-const backendUserPath = process.env.BACKEND_AUTH_PATH as string;
+const backendUserPath = process.env.BACKEND_USER_PATH as string;
 
 export async function fetchUser({
   token,
@@ -17,8 +17,8 @@ export async function fetchUser({
       },
     });
     if (response.ok) {
-      const data = await response.json();
-      return data;
+      const { data: user } = await response.json();
+      return user;
     }
     return null;
   } catch (e) {

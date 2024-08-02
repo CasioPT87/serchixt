@@ -48,7 +48,7 @@ function Auth({
   initialUser,
   children,
 }: AuthProps) {
-  const [user, setUser] = useState(initialUser);
+  const [user, setUser] = useState<Object | null>(initialUser);
   return <>{children({ user, setUser })}</>;
 }
 

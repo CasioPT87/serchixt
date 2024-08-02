@@ -19,7 +19,9 @@ const initial = async ({ response, page, user }: { response: Response, page: Pag
         backendAuthPath: process.env.BACKEND_AUTH_PATH,
         backendUserPath: process.env.BACKEND_USER_PATH,
         userName: process.env.USER_NAME,
-        userPassword: process.env.USER_PASSWORD
+        userPassword: process.env.USER_PASSWORD,
+        frontendUrl: process.env.FRONTEND_URL,
+        cookiesPath: process.env.COOKIES_PATH
     }
     
     const { pipe } = renderToPipeableStream(
