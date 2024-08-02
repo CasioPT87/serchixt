@@ -12,26 +12,16 @@ if (process.env.NODE_ENV === 'production') {
     const store = setUpStore(window.__PRELOADED_STATE__)
     // @ts-ignore: Unreachable code error
     const preloadData = window.__PRELOADED_DATA__
-    // @ts-ignore: Unreachable code error
+     // @ts-ignore: Unreachable code error
     const user = window.__PRELOADED_USER__
-    // @ts-ignore: Unreachable code error
-    console.log('global window data', window.__GLOBAL_DATA__)
-
-    window.global = {
-        ...window.global,
-         // @ts-ignore: Unreachable code error
-        ...window.__GLOBAL_DATA__
-    }
-    
+   
     // Allow all this data to be garbage collected
     // @ts-ignore: Unreachable code error
     delete window.__PRELOADED_STATE__
     // @ts-ignore: Unreachable code error
     delete window.__PRELOADED_DATA__
-    // @ts-ignore: Unreachable code error
+     // @ts-ignore: Unreachable code error
     delete window.__PRELOADED_USER__
-    // @ts-ignore: Unreachable code error
-    //delete window.__GLOBAL_DATA__
 
     const { page } = getAllowedPage({ path, userIsLogged: !!user })
 

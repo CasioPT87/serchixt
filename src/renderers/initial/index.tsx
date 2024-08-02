@@ -28,7 +28,7 @@ const initial = async ({ response, page, user }: { response: Response, page: Pag
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` }}></script>
             <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_DATA__ = ${JSON.stringify(preloadData).replace(/</g, '\\u003c')}` }}></script>
             { user && <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_USER__ = ${JSON.stringify(user).replace(/</g, '\\u003c')}` }}></script> }
-            <script dangerouslySetInnerHTML={{ __html: `window.__GLOBAL_DATA__ = ${JSON.stringify(frontGlobal).replace(/</g, '\\u003c')}` }}></script>
+            <script dangerouslySetInnerHTML={{ __html: `window.FRONT_CONST = ${JSON.stringify(frontGlobal).replace(/</g, '\\u003c')}` }}></script>
         </html>, {
         bootstrapScripts: ["/bundle.js"],
         onShellReady() {

@@ -9,6 +9,9 @@ const Home = () => {
       <button onClick={() => goTo({ pageName: "profile" })}>
         dame aqui y vamos al profile
       </button>
+      <button onClick={() => goTo({ pageName: "login" })}>
+        dame aqui y vamos al login
+      </button>
     </div>
   );
 };
