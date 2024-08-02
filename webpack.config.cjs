@@ -18,15 +18,17 @@ module.exports = (env, args) => {
     entry: args.mode === 'development' ? './src/renderers/bundler/index.tsx' : './transpiled/src/renderers/bundler/index.js',
     output: {
       filename: 'bundle.js',
-      path: path.resolve(__dirname, 'src/dist'),
+      path: args.mode === 'development' ? path.resolve(__dirname, 'src/dist/dev') : path.resolve(__dirname, 'src/dist'),
     },
     devServer: {
       port: 8080,
+      static: {
+        directory: path.join(__dirname, 'src/dist/dev/')
+      },
       historyApiFallback: true,
       client: {
         progress: true,
       },
-      hot: false
     },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'], // Add all the extensions you are using
@@ -43,13 +45,6 @@ module.exports = (env, args) => {
             }
           }
         },
-        // {
-        //   test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
-        //   exclude: /node_modules/,
-        //   use: {
-        //     loader: 'babel-loader',
-        //   }
-        // }
       ],
 
     },
