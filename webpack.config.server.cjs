@@ -11,7 +11,7 @@ const production = {
   entry: "./transpiled/src/app.js",
   output: {
     filename: "bundle-server.js",
-    path: path.resolve(__dirname, "src/dist"),
+    path: path.resolve(__dirname, "src/dist-server"),
   },
   externals: [nodeExternals()],
   plugins: [

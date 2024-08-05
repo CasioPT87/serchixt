@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from "react";
 import goTo from "../../utils/goTo";
-// import '../../styles/index.scss'
+import '../../styles/index.scss'
 
 const Home = () => {
   return (
