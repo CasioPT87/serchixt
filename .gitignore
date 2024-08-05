@@ -7,6 +7,7 @@ coverage/
 
 # Ignore any file in the build or deploy directory
 /src/dist/*
+/src/dist-server/*
 
 # Ignore the transpiled directory
 transpiled/
