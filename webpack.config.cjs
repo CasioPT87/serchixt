@@ -1,73 +1,103 @@
 const path = require("path");
 const webpack = require("webpack");
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 dotenv.config();
 
-module.exports = (env, args) => {
-
-  const plugins = [];
-
-  if (args.mode === "development") {
-    plugins.push(
-      new HtmlWebpackPlugin({
-        template: "./src/html/template.html", // Path to your HTML file
-      })
-    );
-  }
-
-  plugins.push(
-    new webpack.EnvironmentPlugin([
-      'BACKEND_URL',
-      'BACKEND_AUTH_PATH',
-      'BACKEND_USER_PATH',
-      'USER_NAME',
-      'USER_PASSWORD',
-      'FRONT_END_URL',
-      'COOKIES_PATH',      
-    ])
-  )
-
-return {
-    entry:
-      args.mode === "development"
-        ? "./src/renderers/bundler/index.tsx"
-        : "./transpiled/src/renderers/bundler/index.js",
-    output: {
-      filename: "bundle.js",
-      path:
-        args.mode === "development"
-          ? path.resolve(__dirname, "src/dist/dev")
-          : path.resolve(__dirname, "src/dist"),
+const development = {
+  entry: "./src/renderers/bundler/index.tsx",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "src/dist/dev"),
+  },
+  devServer: {
+    port: 8080,
+    static: {
+      directory: path.join(__dirname, "src/dist/dev/"),
     },
-    devServer: {
-      port: 8080,
-      static: {
-        directory: path.join(__dirname, "src/dist/dev/"),
-      },
-      historyApiFallback: true,
-      client: {
-        progress: true,
-      },
+    historyApiFallback: true,
+    client: {
+      progress: true,
     },
-    resolve: {
-      extensions: [".js", ".jsx", ".ts", ".tsx"], // Add all the extensions you are using
-    },
-    module: {
-      rules: [
-        {
-          test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
-          exclude: /node_modules/,
-          use: {
-            loader: "ts-loader",
-            options: {
-              transpileOnly: true, // important so front-end files won't crash when making chages (and so the hot reload works as expected)
-            },
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"], // Add all the extensions you are using
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "ts-loader",
+          options: {
+            transpileOnly: true, // important so front-end files won't crash when making chages (and so the hot reload works as expected)
           },
         },
-      ],
-    },
-    plugins,
-  };
+      },
+      {
+        test: /\.(s(a|c)ss)$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/html/template.html", // Path to your HTML file
+    }),
+    new webpack.EnvironmentPlugin([
+      "BACKEND_URL",
+      "BACKEND_AUTH_PATH",
+      "BACKEND_USER_PATH",
+      "USER_NAME",
+      "USER_PASSWORD",
+      "FRONT_END_URL",
+      "COOKIES_PATH",
+    ]),
+  ],
 };
+
+const production = {
+  entry: "./src/renderers/bundler/index.tsx",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "src/dist"),
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"], // Add all the extensions you are using
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "ts-loader",
+        },
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+    ],
+  },
+  plugins: [
+    new webpack.EnvironmentPlugin([
+      "BACKEND_URL",
+      "BACKEND_AUTH_PATH",
+      "BACKEND_USER_PATH",
+      "USER_NAME",
+      "USER_PASSWORD",
+      "FRONT_END_URL",
+      "COOKIES_PATH",
+    ]),
+    new MiniCssExtractPlugin()
+  ],
+};
+
+module.exports = (env, args) => ({
+  mode: args.mode === 'production' ? 'production' : 'development',
+  ...(args.mode === 'production' ? production : development)
+});

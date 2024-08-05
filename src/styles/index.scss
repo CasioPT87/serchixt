@@ -1,0 +1,17 @@
+$primary-color: #3498db;
+$padding: 10px;
+
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
+button {
+  background-color: $primary-color;
+  color: white;
+  padding: $padding;
+  @include border-radius(5px);
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
