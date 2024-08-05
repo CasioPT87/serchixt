@@ -1,4 +1,3 @@
-// @ts-ignore: Unreachable code error
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import { getAllowedPage, getInitialRenderData, getPageNameFromPage } from '../../tools';
 import { setUpStore } from '../../store';
@@ -8,19 +7,13 @@ const domNode = document.getElementById('app') as HTMLElement;
 const { pathname: path } = window.location
 
 if (process.env.NODE_ENV === 'production') {
-    // @ts-ignore: Unreachable code error
     const store = setUpStore(window.__PRELOADED_STATE__)
-    // @ts-ignore: Unreachable code error
     const preloadData = window.__PRELOADED_DATA__
-     // @ts-ignore: Unreachable code error
     const user = window.__PRELOADED_USER__
    
     // Allow all this data to be garbage collected
-    // @ts-ignore: Unreachable code error
     delete window.__PRELOADED_STATE__
-    // @ts-ignore: Unreachable code error
     delete window.__PRELOADED_DATA__
-     // @ts-ignore: Unreachable code error
     delete window.__PRELOADED_USER__
 
     const { page } = getAllowedPage({ path, userIsLogged: !!user })

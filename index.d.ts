@@ -8,3 +8,11 @@ declare global {
     }
   }
 }
+
+declare global {
+  interface Window {
+    __PRELOADED_STATE__?: any;
+    __PRELOADED_DATA__?: any;
+    __PRELOADED_USER__?: any;
+  }
+}

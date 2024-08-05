@@ -1,12 +1,8 @@
 import { manageError } from "../tools";
 
-// @ts-ignore: Unreachable code error
 const backendUrl = process.env.BACKEND_URL;
-// @ts-ignore: Unreachable code error
 const backendAuthPath = process.env.BACKEND_AUTH_PATH;
-// @ts-ignore: Unreachable code error
 const backendUserPath = process.env.BACKEND_USER_PATH;
-// @ts-ignore: Unreachable code error
 const cookiesPath = process.env.COOKIES_PATH;
 
 export async function fetchToken({
