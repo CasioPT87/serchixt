@@ -22,6 +22,7 @@ const production = {
       },
     ],
   },
+  target: "node", // Important for Node.js environment
   plugins: [
     new webpack.EnvironmentPlugin([
       "BACKEND_URL",
@@ -32,13 +33,11 @@ const production = {
       "FRONT_END_URL",
       "COOKIES_PATH",
     ]),
-    new MiniCssExtractPlugin({
-      insert: "#app",
-    }),
+    new MiniCssExtractPlugin(),
   ],
   resolve: {
     fallback: {
-      fs: false,
+      fs: require.resolve("fs"),
       tls: false,
       net: false,
       path: require.resolve("path-browserify"),

@@ -1,4 +1,6 @@
 import React from "react";
+import fs from 'fs'
+import path from 'path'
 import { renderToPipeableStream } from "react-dom/server";
 import { setUpStore } from '../../store'
 import { createMarkup } from "../utils";
@@ -13,23 +15,29 @@ const initial = async ({ response, page, user }: { response: Response, page: Pag
     const preloadData = await getInitialRenderData({ page })
     const pageName = getPageNameFromPage({ page })
     const markup = createMarkup({ pageName, user, store, preloadData })
-    
-    const { pipe } = renderToPipeableStream(
-        <html>
-            <div id="app">
-                { markup }
-            </div>
-            <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` }}></script>
-            <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_DATA__ = ${JSON.stringify(preloadData).replace(/</g, '\\u003c')}` }}></script>
-            { user && <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_USER__ = ${JSON.stringify(user).replace(/</g, '\\u003c')}` }}></script> }
-        </html>, {
-        bootstrapScripts: ["bundle.js"],
-        onShellReady() {
-            response.setHeader('content-type', 'text/html');
-            pipe(response);
-        },
-    }
-    );
+
+    fs.readFile(path.join(process.cwd(), "./src/dist-server/main.css"), { encoding: 'utf8' }, (err: NodeJS.ErrnoException | null, styles: string) => {
+        if (err) {
+            if (err instanceof Error) return console.log(err.stack)
+            else throw new Error('throw unknown error')
+        }
+        const { pipe } = renderToPipeableStream(
+            <html>
+                <header><style>{styles}</style></header>
+                <div id="app">
+                    { markup }
+                </div>
+                <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` }}></script>
+                <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_DATA__ = ${JSON.stringify(preloadData).replace(/</g, '\\u003c')}` }}></script>
+                { user && <script dangerouslySetInnerHTML={{ __html: `window.__PRELOADED_USER__ = ${JSON.stringify(user).replace(/</g, '\\u003c')}` }}></script> }
+            </html>, {
+            bootstrapScripts: ["bundle.js"],
+            onShellReady() {
+                response.setHeader('content-type', 'text/html');
+                pipe(response);
+            },
+        });
+   }) 
 }
 
 export default initial
