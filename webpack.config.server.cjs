@@ -18,7 +18,7 @@ const production = {
     rules: [
       {
         test: /\.(s(a|c)ss)$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
     ],
   },
@@ -32,7 +32,9 @@ const production = {
       "FRONT_END_URL",
       "COOKIES_PATH",
     ]),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      insert: "#app",
+    }),
   ],
   resolve: {
     fallback: {
