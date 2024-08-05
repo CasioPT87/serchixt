@@ -18,17 +18,7 @@ const production = {
     rules: [
       {
         test: /\.(s(a|c)ss)$/,
-        use: [{
-          loader: 'style-loader',
-          options: {
-            insert: function insertAtTop(element) {
-              // Select the specific DOM element where styles should be inserted
-              var parent = document.querySelector('#your-element-id');
-              // Insert the style tag as the first child of the parent
-              parent.insertBefore(element, parent.firstChild);
-            },
-          },
-        }, "css-loader", "sass-loader"],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },
