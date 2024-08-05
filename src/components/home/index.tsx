@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       Home Page my dear killoooo
-      <button onClick={() => goTo({ pageName: "profile" })}>
+      <button className='color-test' onClick={() => goTo({ pageName: "profile" })}>
         dame aqui y vamos al profile
       </button>
       <button onClick={() => goTo({ pageName: "login" })}>

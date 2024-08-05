@@ -78,8 +78,8 @@ const production = {
         },
       },
       {
-        test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        test: /\.(s(a|c)ss)$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },
@@ -93,7 +93,6 @@ const production = {
       "FRONT_END_URL",
       "COOKIES_PATH",
     ]),
-    new MiniCssExtractPlugin()
   ],
 };
 
