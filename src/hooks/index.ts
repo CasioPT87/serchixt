@@ -1,5 +1,3 @@
-import usePreloadData from './usePreloadData'
+import usePreloadData from './usePreloadData';
 
-export {
-    usePreloadData
-}
+export { usePreloadData };

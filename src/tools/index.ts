@@ -5,9 +5,9 @@ import {
   getHomePage,
   getAllowedPage,
   getPageNameFromPage,
-} from "./pages";
+} from './pages';
 
-import { manageError } from "./errors";
+import { manageError } from './errors';
 
 export {
   getPageFromPath,

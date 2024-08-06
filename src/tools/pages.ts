@@ -1,37 +1,42 @@
-import routes from "../routes";
-import { isPrivateRoute } from "../routes/routeProtection";
-import { PageValue, Page, PageName, PageComponent } from "../types";
+import routes from '../routes';
+import { isPrivateRoute } from '../routes/routeProtection';
+import { PageValue, Page, PageName, PageComponent } from '../types';
 
 const getPageFromPath = ({ path }: { path: PageValue['path'] }): Page => {
-  const pageTuple = Object.entries(routes).find(
-    ([pageName, value]) => {
-      return value.path === path
-    }
-  ) as [PageName, PageValue];
-  const page = Object.fromEntries([pageTuple]) as Page
+  const pageTuple = Object.entries(routes).find(([pageName, value]) => {
+    return value.path === path;
+  }) as [PageName, PageValue];
+  const page = Object.fromEntries([pageTuple]) as Page;
   return page;
 };
 
 const getPageNameFromPage = ({ page }: { page: Page }): PageName => {
-  const pageNameArray = Object.keys(page) as Array<PageName>
-  if (pageNameArray.length !== 1) throw new Error('Page name not calculated correctly')
-  return pageNameArray[0]
-}
+  const pageNameArray = Object.keys(page) as Array<PageName>;
+  if (pageNameArray.length !== 1)
+    throw new Error('Page name not calculated correctly');
+  return pageNameArray[0];
+};
 
-const getAllowedPage = ({ path, userIsLogged }: { path: PageValue['path'], userIsLogged: boolean }): { page: Page, needsRedirection: boolean } => {
+const getAllowedPage = ({
+  path,
+  userIsLogged,
+}: {
+  path: PageValue['path'];
+  userIsLogged: boolean;
+}): { page: Page; needsRedirection: boolean } => {
   if (isPrivateRoute({ path }) && !userIsLogged) {
-    return { page: getHomePage(), needsRedirection: true }
+    return { page: getHomePage(), needsRedirection: true };
   } else {
-    return { page: getPageFromPath({ path }), needsRedirection: false }
+    return { page: getPageFromPath({ path }), needsRedirection: false };
   }
-}
+};
 
 const getAllRoutes = () => {
   return Object.values(routes).map(({ path }) => path);
-}
+};
 
 const getInitialRenderData = async ({ page }: { page: Page }) => {
-  const component = page.pageComponent as PageComponent
+  const component = page.pageComponent as PageComponent;
   if (component?.preloadFn) {
     return await component.preloadFn();
   }
@@ -39,27 +44,23 @@ const getInitialRenderData = async ({ page }: { page: Page }) => {
 };
 
 const getHomePage = (): Page => {
-  const pageTuple = Object.entries(routes).find(
-    ([key, value]) => {
-      return value.isHome;
-    }
-  ) as [PageName, PageValue];
-  const page = Object.fromEntries([pageTuple]) as Page
+  const pageTuple = Object.entries(routes).find(([key, value]) => {
+    return value.isHome;
+  }) as [PageName, PageValue];
+  const page = Object.fromEntries([pageTuple]) as Page;
   return page;
 };
 
 const getPageValueFromPage = ({ page }: { page: Page }): PageValue => {
-  return Object.values(page)[0]
-}
-
+  return Object.values(page)[0];
+};
 
 export {
-    getPageFromPath,
-    getAllRoutes,
-    getInitialRenderData,
-    getHomePage,
-    getAllowedPage,
-    getPageNameFromPage,
-    getPageValueFromPage
+  getPageFromPath,
+  getAllRoutes,
+  getInitialRenderData,
+  getHomePage,
+  getAllowedPage,
+  getPageNameFromPage,
+  getPageValueFromPage,
 };
-  

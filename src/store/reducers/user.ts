@@ -1,8 +1,8 @@
-import { Reducer } from "../../types";
+import { Reducer } from '../../types';
 
 const initialState = {
-  data: null
-}
+  data: null,
+};
 
 const reducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,10 +10,10 @@ const reducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default reducer
+export default reducer;

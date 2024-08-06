@@ -1,31 +1,50 @@
-import { createRoot, hydrateRoot } from 'react-dom/client'
-import { getAllowedPage, getInitialRenderData, getPageNameFromPage } from '../../tools';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import {
+  getAllowedPage,
+  getInitialRenderData,
+  getPageNameFromPage,
+} from '../../tools';
 import { setUpStore } from '../../store';
 import { createMarkup } from '../utils';
 
 const domNode = document.getElementById('app') as HTMLElement;
-const { pathname: path } = window.location
+const { pathname: path } = window.location;
 
 if (process.env.NODE_ENV === 'production') {
-    const store = setUpStore(window.__PRELOADED_STATE__)
-    const preloadData = window.__PRELOADED_DATA__
-    const user = window.__PRELOADED_USER__
-   
-    // Allow all this data to be garbage collected
-    delete window.__PRELOADED_STATE__
-    delete window.__PRELOADED_DATA__
-    delete window.__PRELOADED_USER__
+  const store = setUpStore(window.__PRELOADED_STATE__);
+  const preloadData = window.__PRELOADED_DATA__;
+  const user = window.__PRELOADED_USER__;
 
-    const { page } = getAllowedPage({ path, userIsLogged: !!user })
+  // Allow all this data to be garbage collected
+  delete window.__PRELOADED_STATE__;
+  delete window.__PRELOADED_DATA__;
+  delete window.__PRELOADED_USER__;
 
-    hydrateRoot(domNode, createMarkup({ pageName: getPageNameFromPage({ page }), store, user, preloadData }));
+  const { page } = getAllowedPage({ path, userIsLogged: !!user });
+
+  hydrateRoot(
+    domNode,
+    createMarkup({
+      pageName: getPageNameFromPage({ page }),
+      store,
+      user,
+      preloadData,
+    })
+  );
 } else {
-    const store = setUpStore()
-    const { page } = getAllowedPage({ path, userIsLogged: false })
+  const store = setUpStore();
+  const { page } = getAllowedPage({ path, userIsLogged: false });
 
-    getInitialRenderData({ page }).then(preloadData => {
-        const root = createRoot(domNode);
+  getInitialRenderData({ page }).then((preloadData) => {
+    const root = createRoot(domNode);
 
-        root.render(createMarkup({ pageName: getPageNameFromPage({ page }), store, user: null, preloadData }));
-    }) 
+    root.render(
+      createMarkup({
+        pageName: getPageNameFromPage({ page }),
+        store,
+        user: null,
+        preloadData,
+      })
+    );
+  });
 }

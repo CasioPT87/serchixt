@@ -1,20 +1,20 @@
-const path = require("path");
-const webpack = require("webpack");
-const dotenv = require("dotenv");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 dotenv.config();
 
 const development = {
-  entry: "./src/renderers/bundler/index.tsx",
+  entry: './src/renderers/bundler/index.tsx',
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "src/dist/dev"),
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'src/dist/dev'),
   },
   devServer: {
     port: 8080,
     static: {
-      directory: path.join(__dirname, "src/dist/dev/"),
+      directory: path.join(__dirname, 'src/dist/dev/'),
     },
     historyApiFallback: true,
     client: {
@@ -22,7 +22,7 @@ const development = {
     },
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"], // Add all the extensions you are using
+    extensions: ['.js', '.jsx', '.ts', '.tsx'], // Add all the extensions you are using
   },
   module: {
     rules: [
@@ -30,7 +30,7 @@ const development = {
         test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         use: {
-          loader: "ts-loader",
+          loader: 'ts-loader',
           options: {
             transpileOnly: true, // important so front-end files won't crash when making chages (and so the hot reload works as expected)
           },
@@ -38,34 +38,34 @@ const development = {
       },
       {
         test: /\.(s(a|c)ss)$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/html/template.html", // Path to your HTML file
+      template: './src/html/template.html', // Path to your HTML file
     }),
     new webpack.EnvironmentPlugin([
-      "BACKEND_URL",
-      "BACKEND_AUTH_PATH",
-      "BACKEND_USER_PATH",
-      "USER_NAME",
-      "USER_PASSWORD",
-      "FRONT_END_URL",
-      "COOKIES_PATH",
+      'BACKEND_URL',
+      'BACKEND_AUTH_PATH',
+      'BACKEND_USER_PATH',
+      'USER_NAME',
+      'USER_PASSWORD',
+      'FRONT_END_URL',
+      'COOKIES_PATH',
     ]),
   ],
 };
 
 const production = {
-  entry: "./src/renderers/bundler/index.tsx",
+  entry: './src/renderers/bundler/index.tsx',
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "src/dist"),
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'src/dist'),
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"], // Add all the extensions you are using
+    extensions: ['.js', '.jsx', '.ts', '.tsx'], // Add all the extensions you are using
   },
   module: {
     rules: [
@@ -73,29 +73,29 @@ const production = {
         test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         use: {
-          loader: "ts-loader",
+          loader: 'ts-loader',
         },
       },
       {
         test: /\.(s(a|c)ss)$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
   plugins: [
     new webpack.EnvironmentPlugin([
-      "BACKEND_URL",
-      "BACKEND_AUTH_PATH",
-      "BACKEND_USER_PATH",
-      "USER_NAME",
-      "USER_PASSWORD",
-      "FRONT_END_URL",
-      "COOKIES_PATH",
+      'BACKEND_URL',
+      'BACKEND_AUTH_PATH',
+      'BACKEND_USER_PATH',
+      'USER_NAME',
+      'USER_PASSWORD',
+      'FRONT_END_URL',
+      'COOKIES_PATH',
     ]),
   ],
 };
 
 module.exports = (env, args) => ({
   mode: args.mode === 'production' ? 'production' : 'development',
-  ...(args.mode === 'production' ? production : development)
+  ...(args.mode === 'production' ? production : development),
 });

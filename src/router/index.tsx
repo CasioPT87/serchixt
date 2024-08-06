@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import routes from "../routes";
-import goTo from "../utils/goTo";
-import { getAllowedPage, getPageNameFromPage } from "../tools";
-import { PageName } from "../types";
+import React, { useState, useEffect } from 'react';
+import routes from '../routes';
+import goTo from '../utils/goTo';
+import { getAllowedPage, getPageNameFromPage } from '../tools';
+import { PageName } from '../types';
 
 function usePageMonitor({
-  pageName: _pageName = "home",
+  pageName: _pageName = 'home',
 }: {
   pageName: PageName;
 }): PageName {
@@ -14,20 +14,20 @@ function usePageMonitor({
     function changePage({ detail }: { detail: { pageName: PageName } }) {
       setPage(detail.pageName);
     }
-    if (typeof document !== "undefined")
+    if (typeof document !== 'undefined')
       // @ts-ignore: Unreachable code error
-      window.addEventListener("changePage", changePage);
+      window.addEventListener('changePage', changePage);
     return () => {
-      if (typeof document !== "undefined")
+      if (typeof document !== 'undefined')
         // @ts-ignore: Unreachable code error
-        window.removeEventListener("changePage", changePage);
+        window.removeEventListener('changePage', changePage);
     };
   }, []);
   return pageName;
 }
 
-if (typeof document !== "undefined") {
-  window.addEventListener("popstate", function (event) {
+if (typeof document !== 'undefined') {
+  window.addEventListener('popstate', function (event) {
     // FIX THIS!!
     const user = null;
     const { page } = getAllowedPage({
@@ -40,14 +40,14 @@ if (typeof document !== "undefined") {
 }
 
 interface AuthProps {
-    initialUser: Object | null;
-    children: (props: { user: any; setUser: React.Dispatch<React.SetStateAction<any>> }) => React.ReactNode;
+  initialUser: Object | null;
+  children: (props: {
+    user: any;
+    setUser: React.Dispatch<React.SetStateAction<any>>;
+  }) => React.ReactNode;
 }
 
-function Auth({
-  initialUser,
-  children,
-}: AuthProps) {
+function Auth({ initialUser, children }: AuthProps) {
   const [user, setUser] = useState<Object | null>(initialUser);
   return <>{children({ user, setUser })}</>;
 }
@@ -56,12 +56,12 @@ function Router({
   initialPageName,
   preloadData,
   user,
-  setUser
+  setUser,
 }: {
   initialPageName: PageName;
   preloadData: any;
   user: Object | null;
-  setUser: React.Dispatch<React.SetStateAction<any>>
+  setUser: React.Dispatch<React.SetStateAction<any>>;
 }) {
   const pageName = usePageMonitor({ pageName: initialPageName });
   const page = routes[pageName];

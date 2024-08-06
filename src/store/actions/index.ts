@@ -1,5 +1,3 @@
-import userActions from './user'
+import userActions from './user';
 
-export {
-    userActions
-}
+export { userActions };

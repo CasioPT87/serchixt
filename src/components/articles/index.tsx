@@ -1,9 +1,9 @@
-import React from "react";
-import { usePreloadData } from "../../hooks";
-import goTo from "../../utils/goTo";
+import React from 'react';
+import { usePreloadData } from '../../hooks';
+import goTo from '../../utils/goTo';
 
 const fakeArticlesFetch = async () => {
-  const data = await fetch("https://catfact.ninja/breeds");
+  const data = await fetch('https://catfact.ninja/breeds');
   const body = await data.json();
   return body.data;
 };
@@ -30,19 +30,32 @@ const Articles: React.FC<Props> & {
           <ul>
             {breeds.map((breed) => {
               return (
-                <li
-                  key={breed.breed}
-                ><p>{`articles from ${breed.country} to ${breed.origin}`}</p></li>
+                <li key={breed.breed}>
+                  <p>{`articles from ${breed.country} to ${breed.origin}`}</p>
+                </li>
               );
             })}
           </ul>
         )}
       </div>
-      <button className="button-test" onClick={() => goTo({ pageName: "home" })}>Go Home</button>
-      <button className="button-test" onClick={() => goTo({ pageName: "profile" })}>
+      <button
+        className="button-test"
+        onClick={() => goTo({ pageName: 'home' })}
+      >
+        Go Home
+      </button>
+      <button
+        className="button-test"
+        onClick={() => goTo({ pageName: 'profile' })}
+      >
         Go to Profile
       </button>
-      <button className="button-test" onClick={() => goTo({ pageName: "login" })}>Go to Login</button>
+      <button
+        className="button-test"
+        onClick={() => goTo({ pageName: 'login' })}
+      >
+        Go to Login
+      </button>
     </div>
   );
 };

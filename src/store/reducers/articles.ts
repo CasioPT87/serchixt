@@ -1,4 +1,4 @@
-import { Reducer } from "../../types";
+import { Reducer } from '../../types';
 
 const initialState = {
   list: [],
@@ -6,7 +6,7 @@ const initialState = {
 
 const reducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_ARTICLES":
+    case 'ADD_ARTICLES':
       return {
         ...state,
         list: action.payload,

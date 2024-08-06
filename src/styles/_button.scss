@@ -1,4 +1,4 @@
-@import "mixins";
+@import 'mixins';
 
 .button-test {
   @include border-radius(5px);
@@ -16,16 +16,16 @@
 }
 
 .button-test-2 {
-    @include border-radius(5px);
-    display: block;
-    background-color: $secondary-color;
-    color: white;
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: darken($secondary-color, 10%);
-    }
+  @include border-radius(5px);
+  display: block;
+  background-color: $secondary-color;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($secondary-color, 10%);
   }
+}

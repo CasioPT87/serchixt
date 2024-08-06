@@ -1,18 +1,18 @@
-import { createStore, applyMiddleware } from'redux'
-import { thunk } from 'redux-thunk'
-import { composeWithDevTools } from '@redux-devtools/extension'
-import { combinedStoreReducers } from './reducers'
+import { createStore, applyMiddleware } from 'redux';
+import { thunk } from 'redux-thunk';
+import { composeWithDevTools } from '@redux-devtools/extension';
+import { combinedStoreReducers } from './reducers';
 
-const defaultState = {}
+const defaultState = {};
 
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunk))
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunk));
 
- const setUpStore = (initialState = defaultState) => {
+const setUpStore = (initialState = defaultState) => {
   return createStore(
     combinedStoreReducers,
     { ...defaultState, ...initialState },
     composedEnhancer
-  )
-}
+  );
+};
 
-export { setUpStore }
+export { setUpStore };

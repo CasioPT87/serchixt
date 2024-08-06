@@ -1,4 +1,4 @@
-import { manageError } from "../tools";
+import { manageError } from '../tools';
 
 const backendUrl = process.env.BACKEND_URL;
 const backendAuthPath = process.env.BACKEND_AUTH_PATH;
@@ -13,15 +13,16 @@ export async function fetchToken({
   password: string;
 }): Promise<{ token: string } | null> {
   try {
-    if (!backendUrl || !backendAuthPath) throw new Error('Problem finding global url')
+    if (!backendUrl || !backendAuthPath)
+      throw new Error('Problem finding global url');
     const response = await fetch(backendUrl + backendAuthPath, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         username,
         password,
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
     if (response.ok) {
@@ -41,9 +42,10 @@ export async function fetchUser({
   token: string;
 }): Promise<Object | null> {
   try {
-    if (!backendUrl || !backendAuthPath) throw new Error('Problem finding global url')
+    if (!backendUrl || !backendAuthPath)
+      throw new Error('Problem finding global url');
     const response = await fetch(backendUrl + backendUserPath, {
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -65,19 +67,18 @@ export async function setCookie({
   token: string;
 }): Promise<Object | boolean> {
   try {
-    if (!cookiesPath) throw new Error('Problem finding global url')
+    if (!cookiesPath) throw new Error('Problem finding global url');
     const response = await fetch(cookiesPath, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
-        token
+        token,
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-    })
-    if (response.ok) return true
-    return false
-    
+    });
+    if (response.ok) return true;
+    return false;
   } catch (e) {
     manageError({ error: e });
     return false;
@@ -86,13 +87,12 @@ export async function setCookie({
 
 export async function deleteCookie(): Promise<boolean> {
   try {
-    if (!cookiesPath) throw new Error('Problem finding global url')
+    if (!cookiesPath) throw new Error('Problem finding global url');
     const response = await fetch(cookiesPath, {
-      method: "DELETE",
-    })
-    if (response.ok) return true
-    return false
-    
+      method: 'DELETE',
+    });
+    if (response.ok) return true;
+    return false;
   } catch (e) {
     manageError({ error: e });
     return false;

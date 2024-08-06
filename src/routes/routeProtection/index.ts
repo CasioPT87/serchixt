@@ -1,8 +1,8 @@
-import { PageValue } from "../../types";
+import { PageValue } from '../../types';
 
 interface ProtectedPaths {
-  regExps: RegExp[],
-  paths: Array<PageValue['path']>,
+  regExps: RegExp[];
+  paths: Array<PageValue['path']>;
 }
 
 const protectedPaths: ProtectedPaths = {
@@ -10,13 +10,14 @@ const protectedPaths: ProtectedPaths = {
   paths: ['/articles'],
 };
 
-const isPrivateRoute = ({ path }: { path: PageValue['path']}): boolean => {
-  if (protectedPaths.paths.includes(path) || protectedPaths.regExps.some(regex => regex.test(path))) {
+const isPrivateRoute = ({ path }: { path: PageValue['path'] }): boolean => {
+  if (
+    protectedPaths.paths.includes(path) ||
+    protectedPaths.regExps.some((regex) => regex.test(path))
+  ) {
     return true;
   }
-  return false
+  return false;
 };
 
-export {
-  isPrivateRoute
-}
+export { isPrivateRoute };

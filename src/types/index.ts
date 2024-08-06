@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   RootState,
   Action,
@@ -7,12 +7,12 @@ import {
   Store,
   AppThunk,
   AppThunkDispatch,
-} from "./store";
+} from './store';
 
-type PageName = "home" | "profile" | "articles" | "login";
+type PageName = 'home' | 'profile' | 'articles' | 'login';
 
 type PageComponent = React.FC<any> & {
-    preloadFn?: () => any
+  preloadFn?: () => any;
 };
 
 interface PageValue {
@@ -43,5 +43,5 @@ export {
   Action,
   Reducer,
   Store,
-  PageComponent
+  PageComponent,
 };

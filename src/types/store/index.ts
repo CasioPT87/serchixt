@@ -1,5 +1,5 @@
-import { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import { UnknownAction } from 'redux'
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { UnknownAction } from 'redux';
 import { setUpStore } from '../../store';
 
 interface RootState {
@@ -11,28 +11,43 @@ interface RootState {
   };
 }
 
-type Action<T> = (payload: T) => ActionResponse<T>
+type Action<T> = (payload: T) => ActionResponse<T>;
 
 interface ActionResponse<T> {
   type: string;
   payload: T;
 }
 
-type Reducer = (state: RootState[keyof RootState], action: ActionResponse<any>) => RootState[keyof RootState];
+type Reducer = (
+  state: RootState[keyof RootState],
+  action: ActionResponse<any>
+) => RootState[keyof RootState];
 
-type Dispatch = (action: ActionResponse<any>, ...extraArgs: any[]) => UnknownAction
+type Dispatch = (
+  action: ActionResponse<any>,
+  ...extraArgs: any[]
+) => UnknownAction;
 
-const store = setUpStore()
-type Store = typeof store
-type AppDispatch = typeof store.dispatch | Dispatch
+const store = setUpStore();
+type Store = typeof store;
+type AppDispatch = typeof store.dispatch | Dispatch;
 
 type AppThunk<ReturnType = void> = ThunkAction<
-ReturnType,
-RootState,
-unknown,
-UnknownAction
->
+  ReturnType,
+  RootState,
+  unknown,
+  UnknownAction
+>;
 
-type AppThunkDispatch = ThunkDispatch<RootState, any, any>
+type AppThunkDispatch = ThunkDispatch<RootState, any, any>;
 
-export { RootState, Action, Reducer, Dispatch, Store, AppDispatch, AppThunk, AppThunkDispatch };
+export {
+  RootState,
+  Action,
+  Reducer,
+  Dispatch,
+  Store,
+  AppDispatch,
+  AppThunk,
+  AppThunkDispatch,
+};

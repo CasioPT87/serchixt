@@ -1,5 +1,3 @@
-import userThunk from './user'
+import userThunk from './user';
 
-export {
-    userThunk
-}
+export { userThunk };
