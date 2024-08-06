@@ -14,8 +14,8 @@ const goTo = ({
     detail: { pageName },
   });
   if (typeof document !== 'undefined') {
-    // @ts-ignore: Unreachable code error
     if (pushHistoryState)
+      // @ts-ignore: Unreachable code error
       window.history.pushState(null, null, routes[pageName].path);
     else if (redirect) window.location.replace(routes[pageName].path);
     window.dispatchEvent(changePageEvent);
