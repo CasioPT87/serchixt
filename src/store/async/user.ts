@@ -8,7 +8,7 @@ function getUserMock(userId?: number): AppThunk {
       setTimeout(() => {
         const response = 'Joan Garriga';
         res(response);
-      }, 5000);
+      }, 500);
     }).then((data) => {
       // when the response is here, we can update the store now
       if (typeof data === 'string') {
