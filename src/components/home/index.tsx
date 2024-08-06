@@ -3,16 +3,21 @@ import React from "react";
 import goTo from "../../utils/goTo";
 import '../../styles/index.scss'
 
-const Home = () => {
+const Home = ({ user }) => {
   return (
     <div>
-      Home Page my dear killoooo
-      <button className='color-test' onClick={() => goTo({ pageName: "profile" })}>
-        dame aqui y vamos al profile
+      <h1>Home Test Page</h1>
+      <button className='button-test' onClick={() => goTo({ pageName: "profile" })}>
+        Go to Profile
       </button>
-      <button onClick={() => goTo({ pageName: "login" })}>
-        dame aqui y vamos al login
+      <button className='button-test' onClick={() => goTo({ pageName: "articles" })}>
+        Go to Articles (is Private)
       </button>
+      <button className='button-test' onClick={() => goTo({ pageName: "login" })}>
+        Go to Login
+      </button>
+      {user && <pre>{user}</pre>}
+      {!user && <p>not logged in</p>}
     </div>
   );
 };

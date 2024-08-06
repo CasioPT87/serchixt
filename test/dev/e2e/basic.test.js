@@ -9,7 +9,7 @@ describe("Basic Test", () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
     await page.setViewport({ width: 1200, height: 800 });
-    await page.goto(`http://localhost:${PORT}/shipments`);
+    await page.goto(`http://localhost:${PORT}`);
   });
 
   afterEach(async () => {

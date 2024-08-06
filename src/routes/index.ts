@@ -1,8 +1,8 @@
 import Home from "../components/home"
 import Profile from "../components/profile"
-import Shipments from "../components/shipments"
 import Login from "../components/login"
 import { Routes } from "../types"
+import Articles from "../components/articles"
 
 const routes: Routes = {
     home: {
@@ -14,9 +14,9 @@ const routes: Routes = {
         path: '/profile',
         pageComponent: Profile,
     },
-    shipments: {
-        path: '/shipments',
-        pageComponent: Shipments
+    articles: {
+        path: '/articles',
+        pageComponent: Articles
     },
     login: {
         path: '/login',

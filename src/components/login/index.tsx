@@ -1,6 +1,7 @@
 import React from "react";
 import { fetchToken, fetchUser, setCookie, deleteCookie } from "../../client-utils";
 import goTo from '../../utils/goTo'
+import '../../styles/index.scss'
 
 function Login({
   setUser,
@@ -29,11 +30,14 @@ function Login({
   }
 
   return <>
-  <button onClick={authenticate}>authentication!!!</button>
-  {user && <button onClick={signOut}>delete season!!!</button>}
-  <button onClick={() => goTo({ pageName: 'home' })}>vamos a home!!!</button>
-  <button onClick={() => goTo({ pageName: 'shipments' })}>vamos a shipments!!!</button>
+  <h1>Login test page</h1>
+  <button className='button-test-2' onClick={authenticate}>authentication!!!</button>
+  {user && <button className='button-test-2' onClick={signOut}>delete season!!!</button>}
+  <button className='button-test' onClick={() => goTo({ pageName: 'home' })}>Go Home!!!</button>
+  <button className='button-test' onClick={() => goTo({ pageName: 'articles' })}>Go to Articles!!!</button>
+  <button className='button-test' onClick={() => goTo({ pageName: 'profile' })}>Go to Profile!!!</button>
   {user && <pre>{JSON.stringify(user)}</pre>}
+  {!user && <p>not logged in</p>}
   </>;
 }
 

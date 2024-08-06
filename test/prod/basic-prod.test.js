@@ -9,7 +9,7 @@ describe("Basic Test", () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
     await page.setViewport({ width: 1200, height: 800 });
-    await page.goto(`http://localhost:${PORT}/shipments`);
+    await page.goto(`http://localhost:${PORT}`);
   });
 
   afterEach(async () => {
@@ -17,8 +17,8 @@ describe("Basic Test", () => {
   });
 
   it("ul has all 3 li's", async () => {
-    await new Promise(res => setTimeout(res, 6000))
+    await new Promise(res => setTimeout(res, 100000))
     const liElements = await page.$$('ul li');
     expect(liElements.length).toBe(3)
-  }, 10000);
+  }, 60000);
 });

@@ -1,7 +1,5 @@
-body {
-    background-color: red;
-}
-
-.color-test {
-    background-color: aqua;
-}
+// main.scss
+@import 'variables';
+@import 'mixins';
+@import 'list';
+@import 'button';
