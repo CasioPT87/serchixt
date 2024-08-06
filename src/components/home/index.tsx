@@ -17,7 +17,7 @@ const Home = ({ user }) => {
         Go to Login
       </button>
       {user && <pre>{user}</pre>}
-      {!user && <p>not logged in</p>}
+      <p id='logged'>logged: {user ? 'true' : 'false'}</p>
     </div>
   );
 };

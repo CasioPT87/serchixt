@@ -8,8 +8,8 @@
     "debug-back": "npm run delete-dist && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'webpack --mode development'",
     "dev": "concurrently \"npm run debug-back\" \"npm run debug-front\"",
     "start": "npm run delete-transp && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --mode production && webpack --mode production --config webpack.config.server.cjs  && node ./src/dist-server/bundle-server.js",
-    "test-dev": "concurrently \"npm run dev\" \"sleep 5 && jest dev/\"",
-    "test-prod": "NODE_ENV=production concurrently \"npm start\" \"sleep 10 && jest prod/\"",
+    "test-dev": "concurrently \"npm run dev\" \"sleep 5 && jest --watch\"",
+    "test-prod": "NODE_ENV=production concurrently \"npm start\" \"sleep 10 && jest\"",
     "delete-dist": "rm -rf ./src/dist",
     "delete-transp": "rm -rf ./transpiled"
   },

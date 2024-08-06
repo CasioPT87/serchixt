@@ -1,7 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const nodeExternals = require("webpack-node-externals");
 
@@ -22,7 +21,7 @@ const production = {
       },
     ],
   },
-  target: "node", // Important for Node.js environment
+  target: "node",
   plugins: [
     new webpack.EnvironmentPlugin([
       "BACKEND_URL",
@@ -46,9 +45,9 @@ const production = {
       https: false,
       stream: false,
       crypto: false,
-      "crypto-browserify": false, //require.resolve('crypto-browserify'), //if you want to use this module also don't forget npm i crypto-browserify
+      "crypto-browserify": false,
     },
-    extensions: [".js", ".jsx", ".ts", ".tsx"], // Add all the extensions you are using
+    extensions: [".js", ".jsx", ".ts", ".tsx"], // extensions you used
   },
 };
 
