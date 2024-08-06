@@ -83,4 +83,80 @@ describe("Navigation: Articles (is Private)", () => {
     expect(path).toBe("/articles");
 
   });
+
+  it("can NOT access page IF closes season", async () => {
+    // when we start it should be redirected to home, as we are not logged in
+    const goToLoginButtonText = "Go to Login";
+    await page.$$eval(
+      "button",
+      (buttons, buttonText) => {
+        const button = buttons.find(
+          (button) => button.textContent.trim() === buttonText
+        );
+        if (button) {
+          button.click();
+        } else {
+          throw new Error(`Button with text "${buttonText}" not found.`);
+        }
+      },
+      goToLoginButtonText
+    );
+
+    const authButtonText = "authentication!!!";
+    await page.$$eval(
+      "button",
+      (buttons, buttonText) => {
+        const button = buttons.find(
+          (button) => button.textContent.trim() === buttonText
+        );
+        if (button) {
+          button.click();
+        } else {
+          throw new Error(`Button with text "${buttonText}" not found.`);
+        }
+      },
+      authButtonText
+    );
+
+    await new Promise(res => setTimeout(res, 1000))
+
+    const deleteSeasonButtonText = "delete season!!!";
+    await page.$$eval(
+      "button",
+      (buttons, buttonText) => {
+        const button = buttons.find(
+          (button) => button.textContent.trim() === buttonText
+        );
+        if (button) {
+          button.click();
+        } else {
+          throw new Error(`Button with text "${buttonText}" not found.`);
+        }
+      },
+      deleteSeasonButtonText
+    );
+
+    const goToArticlesButtonText = "Go to Articles!!!";
+    await page.$$eval(
+      "button",
+      (buttons, buttonText) => {
+        const button = buttons.find(
+          (button) => button.textContent.trim() === buttonText
+        );
+        if (button) {
+          button.click();
+        } else {
+          throw new Error(`Button with text "${buttonText}" not found.`);
+        }
+      },
+      goToArticlesButtonText
+    );
+
+    const fullUrl = page.url();
+    const urlObject = new URL(fullUrl);
+    const path = urlObject.pathname;
+    expect(path).not.toBe("/");
+    expect(path).toBe("/articles");
+
+  });
 });
