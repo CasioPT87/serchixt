@@ -1,0 +1,19 @@
+# Ignore editor-specific files
+.vscode/
+.idea/
+
+# Ignore coverage directory
+coverage/
+
+# Ignore any file in the build or deploy directory
+/dist/*
+/src/dist/*
+/src/dist-server/*
+
+# Ignore the transpiled directory
+transpiled/
+
+# Ignore node modules
+node_modules/
+
+.env
