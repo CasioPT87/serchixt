@@ -36,6 +36,7 @@ function Login({
   <button className='button-test' onClick={() => goTo({ pageName: 'home' })}>Go Home!!!</button>
   <button className='button-test' onClick={() => goTo({ pageName: 'articles' })}>Go to Articles!!!</button>
   <button className='button-test' onClick={() => goTo({ pageName: 'profile' })}>Go to Profile!!!</button>
+  <button className='button-test' onClick={() => goTo({ pageName: 'articles' })}>Go to Articles!!!</button>
   {user && <pre>{JSON.stringify(user)}</pre>}
   {!user && <p>not logged in</p>}
   </>;

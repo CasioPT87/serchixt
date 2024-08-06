@@ -48,6 +48,10 @@ const getHomePage = (): Page => {
   return page;
 };
 
+const getPageValueFromPage = ({ page }: { page: Page }): PageValue => {
+  return Object.values(page)[0]
+}
+
 
 export {
     getPageFromPath,
@@ -56,5 +60,6 @@ export {
     getHomePage,
     getAllowedPage,
     getPageNameFromPage,
+    getPageValueFromPage
 };
   

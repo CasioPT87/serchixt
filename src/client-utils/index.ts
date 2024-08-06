@@ -49,7 +49,6 @@ export async function fetchUser({
       },
     });
     if (response.ok) {
-      console.log(response)
       const { data: user } = await response.json();
       return user;
     }

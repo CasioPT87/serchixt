@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 import express, { Request, Response, NextFunction } from "express";
+import { getPageValueFromPage } from "./tools/pages";
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const initial = require("./renderers/initial");
@@ -77,7 +78,8 @@ app.get(getAllRoutes(), asyncHandler(async (req: Request, res: Response) => {
     });
     
     if (needsRedirection) {
-      return res.redirect(301, page.path);
+      const pageValue = getPageValueFromPage({ page })
+      return res.redirect(301, pageValue.path);
     }
   
     await initial.default({ response: res, page, user: req.user || null });

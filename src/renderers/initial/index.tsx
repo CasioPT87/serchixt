@@ -18,7 +18,7 @@ const initial = async ({ response, page, user }: { response: Response, page: Pag
 
     fs.readFile(path.join(process.cwd(), "./src/dist-server/main.css"), { encoding: 'utf8' }, (err: NodeJS.ErrnoException | null, styles: string) => {
         if (err) {
-            if (err instanceof Error) return console.log(err.stack)
+            if (err instanceof Error) return console.error(err.stack)
             else throw new Error('throw unknown error')
         }
         const { pipe } = renderToPipeableStream(
