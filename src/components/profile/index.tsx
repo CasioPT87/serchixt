@@ -32,14 +32,14 @@ function Profile() {
         Go to Login
       </button>
       <input
-        id='login-input'
+        id="login-input"
         type="text"
         onChange={(ev) => {
           const text = ev.target.value;
           dispatch(userActions.addUser(text));
         }}
       />
-      {userStore && <p id='store-user'>Name in Store: {userStore}</p>}
+      {userStore && <p id="store-user">Name in Store: {userStore}</p>}
       <button
         className="button-test-2"
         onClick={() => dispatch(userThunk.getUserMock(5))}
