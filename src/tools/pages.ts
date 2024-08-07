@@ -35,10 +35,10 @@ const getAllRoutes = () => {
   return Object.values(routes).map(({ path }) => path);
 };
 
-const getInitialRenderData = async ({ page }: { page: Page }) => {
+const getInitialRenderData = async ({ page, token = null }: { page: Page, token: string | null }) => {
   const component = page.pageComponent as PageComponent;
   if (component?.preloadFn) {
-    return await component.preloadFn();
+    return await component.preloadFn(token)();
   }
   return null;
 };

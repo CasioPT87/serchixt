@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  fetchToken,
-  fetchUser,
-  setCookie,
+  fetchTokenBackend,
+  fetchUserBackend,
+  setCookieServer,
   deleteCookie,
 } from '../../client-utils';
 import goTo from '../../utils/goTo';
@@ -16,15 +16,15 @@ function Login({
   user: Object | null;
 }) {
   async function authenticate() {
-    const tokenResponse = await fetchToken({
+    const tokenResponse = await fetchTokenBackend({
       username: process.env.USER_NAME || '',
       password: process.env.USER_PASSWORD || '',
     });
     if (tokenResponse?.token) {
-      const user = await fetchUser({ token: tokenResponse.token });
+      const user = await fetchUserBackend({ token: tokenResponse.token });
       if (user) {
         setUser({ user });
-        await setCookie({ token: tokenResponse.token });
+        await setCookieServer({ token: tokenResponse.token });
       }
     }
   }

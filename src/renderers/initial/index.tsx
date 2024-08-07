@@ -6,21 +6,23 @@ import { setUpStore } from '../../store';
 import { createMarkup } from '../utils';
 import { getInitialRenderData, getPageNameFromPage } from '../../tools';
 import { Page } from '../../types';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 const initialState = {};
 
 const initial = async ({
+  request,
   response,
   page,
-  user,
 }: {
+  request: Request;
   response: Response;
   page: Page;
-  user: Object | null;
 }) => {
+  const user = request?.user || null
+  const token = request?.token || null
   const store = setUpStore({ ...initialState });
-  const preloadData = await getInitialRenderData({ page });
+  const preloadData = await getInitialRenderData({ page, token });
   const pageName = getPageNameFromPage({ page });
   const markup = createMarkup({ pageName, user, store, preloadData });
 

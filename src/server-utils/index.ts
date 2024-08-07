@@ -1,6 +1,3 @@
-import { Request } from 'express';
-
-const cookieName = process.env.APP_NAME as string;
 const backendUrl = process.env.BACKEND_URL as string;
 const backendUserPath = process.env.BACKEND_USER_PATH as string;
 
@@ -32,11 +29,8 @@ export async function fetchUser({
   }
 }
 
-const getUser = async (req: Request): Promise<Object | null> => {
+export const getUser = async ({ token }: { token: string }): Promise<Object | null> => {
   try {
-    const jwtToken = req?.query?.token;
-    const cookieToken = req.cookies[cookieName];
-    const token = jwtToken || cookieToken; // order matters, first we check the value of the query value, then the cookie
     const user = await fetchUser({ token });
     if (!user) return null;
     return user;
@@ -49,8 +43,4 @@ const getUser = async (req: Request): Promise<Object | null> => {
 
     return null;
   }
-};
-
-module.exports = {
-  getUser,
 };

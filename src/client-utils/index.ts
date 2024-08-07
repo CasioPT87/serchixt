@@ -5,7 +5,7 @@ const backendAuthPath = process.env.BACKEND_AUTH_PATH;
 const backendUserPath = process.env.BACKEND_USER_PATH;
 const cookiesPath = process.env.COOKIES_PATH;
 
-export async function fetchToken({
+export async function fetchTokenBackend({
   username,
   password,
 }: {
@@ -15,12 +15,17 @@ export async function fetchToken({
   try {
     if (!backendUrl || !backendAuthPath)
       throw new Error('Problem finding global url');
+    const reliesOnCookies = username && password
     const response = await fetch(backendUrl + backendAuthPath, {
       method: 'POST',
-      body: JSON.stringify({
-        username,
-        password,
-      }),
+      ...(reliesOnCookies
+        ? {
+            body: JSON.stringify({
+              username,
+              password,
+            }),
+          }
+        : {}),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -36,19 +41,18 @@ export async function fetchToken({
   }
 }
 
-export async function fetchUser({
+export async function fetchUserBackend({
   token,
 }: {
-  token: string;
+  token: string | null;
 }): Promise<Object | null> {
   try {
-    if (!backendUrl || !backendAuthPath)
+    if (!backendUrl || !backendUserPath)
       throw new Error('Problem finding global url');
+    const reliesOnCookies = !token
     const response = await fetch(backendUrl + backendUserPath, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      ...(reliesOnCookies ? {} : { header: { Authorization: `Bearer ${token}` } }),
     });
     if (response.ok) {
       const { data: user } = await response.json();
@@ -61,7 +65,7 @@ export async function fetchUser({
   }
 }
 
-export async function setCookie({
+export async function setCookieServer({
   token,
 }: {
   token: string;

@@ -29,8 +29,8 @@ const production = {
       'BACKEND_USER_PATH',
       'USER_NAME',
       'USER_PASSWORD',
-      'FRONT_END_URL',
       'COOKIES_PATH',
+      'BACKEND_CLOSE_AUTH_PATH'
     ]),
     new MiniCssExtractPlugin(),
   ],

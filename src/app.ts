@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const initial = require('./renderers/initial');
 const { getAllRoutes, getAllowedPage } = require('./tools');
-const { getUser } = require('./server-utils/');
+import { getUser } from './server-utils/';
+import { deleteBackendCookie } from './server-utils/authorization';
+const { getToken } = require('./server-utils/authorization')
 
 const PORT = 9990;
 const app = express();
@@ -25,28 +27,22 @@ const asyncHandler =
     Promise.resolve(fn(req, res, next)).catch(next);
   };
 
-app.use(
-  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const user = await getUser(req);
-    if (user) {
-      req.user = user;
-    }
-    next();
-  })
-);
-
 const COOKIE = {
-  httpOnly: false, // disables js being able to read the cookie
+  httpOnly: true, // disables js being able to read the cookie
   secure: process.env.NODE_ENV === 'development' ? false : true, // cookie is sent only through https?
   sameSite: true, // so cookie is not sent to third-party apps
 };
 
 app.delete('/cookies', async (req: Request, res: Response) => {
-  res.clearCookie(process.env.APP_NAME || '', {
-    ...COOKIE,
-  });
+  const response = await deleteBackendCookie()
+  if (response.success) {
+    res.clearCookie(process.env.APP_NAME || '', {
+      ...COOKIE,
+    });
+  }
+  
   return res.json({
-    success: true,
+    success: response.success,
   });
 });
 
@@ -55,7 +51,7 @@ app.post('/cookies', async (req: Request, res: Response) => {
   if (token) {
     res.cookie(process.env.APP_NAME || '', token, {
       ...COOKIE,
-      maxAge: 8 * 60 * 60 * 1000, // cookie will be removed after 8 hours
+      maxAge: 8 * 60 * 60 * 1000,
     });
   }
 
@@ -68,9 +64,15 @@ app.post('/cookies', async (req: Request, res: Response) => {
 app.get(
   getAllRoutes(),
   asyncHandler(async (req: Request, res: Response) => {
-    const user = await getUser(req);
+    const token = getToken({ req })
+    const user = await getUser({ token });
     if (user) {
       req.user = user;
+      req.token = token
+    } else {
+      res.clearCookie(process.env.APP_NAME || '', {
+        ...COOKIE,
+      });
     }
 
     const path = req.path;
@@ -84,7 +86,7 @@ app.get(
       return res.redirect(301, pageValue.path);
     }
 
-    await initial.default({ response: res, page, user: req.user || null });
+    await initial.default({ response: res, request: req, page });
   })
 );
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 type ComponentType<T> = React.FC & {
-  preloadFn?: () => Promise<T>;
+  preloadFn?: (token: string | null) => () => Promise<T>;
 };
 type PreloadDataProp<T> = T | null;
 
@@ -19,7 +19,7 @@ export default function usePreloadData<T>({
       const { preloadFn } = component;
       if (!preloadFn || preloadDataProp) return null;
 
-      const data = await preloadFn();
+      const data = await preloadFn(null)();
       setData(data);
     }
     getData();

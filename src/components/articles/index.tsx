@@ -2,7 +2,7 @@ import React from 'react';
 import { usePreloadData } from '../../hooks';
 import goTo from '../../utils/goTo';
 
-const fakeArticlesFetch = async () => {
+const fakeArticlesFetch = (token: string | null) => async () => {
   const data = await fetch('https://catfact.ninja/breeds');
   const body = await data.json();
   return body.data;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const Articles: React.FC<Props> & {
-  preloadFn: () => Promise<ResponseData>;
+  preloadFn: (token: string | null) => () => Promise<ResponseData>;
 } = ({ preloadData: preload }) => {
   const breeds = usePreloadData({
     component: Articles,

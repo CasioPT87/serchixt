@@ -4,6 +4,7 @@ import {
   getInitialRenderData,
   getPageNameFromPage,
 } from '../../tools';
+import { fetchUserBackend } from '../../client-utils';
 import { setUpStore } from '../../store';
 import { createMarkup } from '../utils';
 
@@ -32,19 +33,23 @@ if (process.env.NODE_ENV === 'production') {
     })
   );
 } else {
-  const store = setUpStore();
-  const { page } = getAllowedPage({ path, userIsLogged: false });
-
-  getInitialRenderData({ page }).then((preloadData) => {
-    const root = createRoot(domNode);
-
-    root.render(
-      createMarkup({
-        pageName: getPageNameFromPage({ page }),
-        store,
-        user: null,
-        preloadData,
-      })
-    );
-  });
+  (async function createFrontComponentsDev() {
+    const store = setUpStore();
+    const user = await fetchUserBackend({ token: null })
+    const { page } = getAllowedPage({ path, userIsLogged: false });
+  
+    getInitialRenderData({ page, token: null }).then((preloadData) => {
+      const root = createRoot(domNode);
+  
+      root.render(
+        createMarkup({
+          pageName: getPageNameFromPage({ page }),
+          store,
+          user,
+          preloadData,
+        })
+      );
+    });
+  })()
+ 
 }
