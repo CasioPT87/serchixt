@@ -3,7 +3,7 @@ import {
   getAllowedPage,
   getInitialRenderData,
   getPageNameFromPage,
-  getPageValueFromPage
+  getPageValueFromPage,
 } from '../../tools';
 import { fetchUserBackend } from '../../client-utils';
 import { setUpStore } from '../../store';
@@ -38,10 +38,10 @@ if (process.env.NODE_ENV === 'production') {
     const store = setUpStore();
     const user = await fetchUserBackend({ token: null });
     const { page } = getAllowedPage({ path, userIsLogged: !!user });
-    const { path: newPath } = getPageValueFromPage({ page })
+    const { path: newPath } = getPageValueFromPage({ page });
 
-    if (newPath !== path) window.location.href = newPath
-    
+    if (newPath !== path) window.location.href = newPath;
+
     getInitialRenderData({ page, token: null }).then((preloadData) => {
       const root = createRoot(domNode);
 

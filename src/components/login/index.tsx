@@ -38,11 +38,11 @@ function Login({
   return (
     <>
       <h1>Login test page</h1>
-      <button className="button-test-2" onClick={authenticate}>
+      <button id="test-login-login" className="button-test-2" onClick={authenticate}>
         authentication!!!
       </button>
       {user && (
-        <button className="button-test-2" onClick={signOut}>
+        <button id="test-login-logout" className="button-test-2" onClick={signOut}>
           delete season!!!
         </button>
       )}
@@ -53,6 +53,7 @@ function Login({
         Go Home!!!
       </button>
       <button
+        id="test-login-goto-articles"
         className="button-test"
         onClick={() => goTo({ pageName: 'articles' })}
       >
@@ -63,12 +64,6 @@ function Login({
         onClick={() => goTo({ pageName: 'profile' })}
       >
         Go to Profile!!!
-      </button>
-      <button
-        className="button-test"
-        onClick={() => goTo({ pageName: 'articles' })}
-      >
-        Go to Articles!!!
       </button>
       {user && <pre>{JSON.stringify(user)}</pre>}
       {!user && <p>not logged in</p>}

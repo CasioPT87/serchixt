@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const PORT = process.env.NODE_ENV === 'production' ? 9990 : 8080;
+const { deleteCookies } = require('../tools')
 
 describe('Navigation: Home', () => {
   let browser;
@@ -8,6 +9,7 @@ describe('Navigation: Home', () => {
   beforeEach(async () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
+    await deleteCookies({ page })
     await page.setViewport({ width: 1200, height: 800 });
     await page.goto(`http://localhost:${PORT}`);
   });
