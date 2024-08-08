@@ -5,6 +5,7 @@ import {
   getHomePage,
   getAllowedPage,
   getPageNameFromPage,
+  getPageValueFromPage,
 } from './pages';
 
 import { manageError } from './errors';
@@ -16,5 +17,6 @@ export {
   getHomePage,
   getAllowedPage,
   getPageNameFromPage,
+  getPageValueFromPage,
   manageError,
 };

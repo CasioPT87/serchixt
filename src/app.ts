@@ -45,29 +45,35 @@ const COOKIE = {
   sameSite: sameSiteValue, // so cookie is not sent to third-party apps
 };
 
-app.delete('/cookies', asyncHandler(async (req: Request, res: Response) => {
+app.delete(
+  '/cookies',
+  asyncHandler(async (req: Request, res: Response) => {
     res.clearCookie(process.env.APP_NAME || '', {
       ...COOKIE,
-    });  
-
-  return res.json({
-    success: true
-  });
-}))
-
-app.post('/cookies', asyncHandler(async (req: Request, res: Response) => {
-  const { token } = req.body;
-  if (token) {
-    res.cookie(process.env.APP_NAME || '', token, {
-      ...COOKIE,
-      maxAge: 8 * 60 * 60 * 1000,
     });
-  }
 
-  return res.json({
-    success: !!token,
-  });
-}));
+    return res.json({
+      success: true,
+    });
+  })
+);
+
+app.post(
+  '/cookies',
+  asyncHandler(async (req: Request, res: Response) => {
+    const { token } = req.body;
+    if (token) {
+      res.cookie(process.env.APP_NAME || '', token, {
+        ...COOKIE,
+        maxAge: 8 * 60 * 60 * 1000,
+      });
+    }
+
+    return res.json({
+      success: !!token,
+    });
+  })
+);
 
 // All allowed routes
 app.get(

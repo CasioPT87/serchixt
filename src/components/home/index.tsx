@@ -25,7 +25,7 @@ const Home = ({ user }) => {
       >
         Go to Login
       </button>
-      {user && <pre>{user}</pre>}
+      {user && <pre>{JSON.stringify(user)}</pre>}
       <p id="logged">logged: {user ? 'true' : 'false'}</p>
     </div>
   );

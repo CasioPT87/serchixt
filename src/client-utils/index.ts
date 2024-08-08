@@ -54,6 +54,7 @@ export async function fetchUserBackend({
       throw new Error('Problem finding global url');
     const reliesOnCookies = !token;
     const response = await fetch(backendUrl + backendUserPath, {
+      credentials: 'include',
       method: 'GET',
       ...(reliesOnCookies
         ? {}
@@ -95,15 +96,14 @@ export async function setCookieServer({
   }
 }
 
-export async function deleteCookie(){
+export async function deleteCookie() {
   try {
-    await deleteBackendCookie()
-    await deleteServerCookie()
-    return { success: true }
+    await deleteBackendCookie();
+    await deleteServerCookie();
+    return { success: true };
   } catch (e) {
-    return { success: false }
+    return { success: false };
   }
-  
 }
 
 export async function deleteServerCookie(): Promise<boolean> {
@@ -127,7 +127,7 @@ export async function deleteBackendCookie(): Promise<{ success: boolean }> {
       throw new Error('Problem finding global url');
     const response = await fetch(backendUrl + backendDeleteSessionPath, {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include',
     });
 
     return { success: !!response.ok };
