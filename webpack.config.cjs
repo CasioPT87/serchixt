@@ -134,14 +134,12 @@ const serverBundle = {
 };
 
 const bundles = {
-  'production': { mode: 'production', bundle: productionFrontBundle },
+  production: { mode: 'production', bundle: productionFrontBundle },
   'production-server': { mode: 'production', bundle: serverBundle },
-  'development': { mode: 'development', bundle: development },
-  
-
-}
+  development: { mode: 'development', bundle: development },
+};
 
 module.exports = (env, args) => ({
   mode: bundles[env.bundle].mode,
-  ...(bundles[env.bundle].bundle),
+  ...bundles[env.bundle].bundle,
 });
