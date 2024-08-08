@@ -3,12 +3,12 @@ require('dotenv').config();
 import express, { Request, Response, NextFunction } from 'express';
 import { getPageValueFromPage } from './tools/pages';
 import cors from 'cors';
-const cookieParser = require('cookie-parser');
-const path = require('path');
-const initial = require('./renderers/initial');
-const { getAllRoutes, getAllowedPage } = require('./tools');
+import cookieParser from 'cookie-parser';
+import path from 'path';
+import initial from './renderers/initial';
+import { getAllRoutes, getAllowedPage } from './tools';
 import { getUser } from './server-utils/';
-const { getToken } = require('./server-utils/authorization');
+import { getToken } from './server-utils/authorization';
 
 const PORT = 9990;
 const app = express();
@@ -101,7 +101,7 @@ app.get(
       return res.redirect(301, pageValue.path);
     }
 
-    await initial.default({ response: res, request: req, page });
+    await initial({ response: res, request: req, page });
   })
 );
 
