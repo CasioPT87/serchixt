@@ -2,7 +2,7 @@ import { Request } from 'express';
 
 const cookieName = process.env.APP_NAME as string;
 const backendUrl = process.env.BACKEND_URL as string;
-const backendDeleteSessionPath = process.env.BACKEND_CLOSE_AUTH_PATH
+const backendDeleteSessionPath = process.env.BACKEND_CLOSE_AUTH_PATH;
 
 export const getToken = ({ req }: { req: Request }) => {
   const jwtToken = req?.query?.token;
@@ -11,19 +11,19 @@ export const getToken = ({ req }: { req: Request }) => {
 };
 
 export async function deleteBackendCookie(): Promise<{ success: boolean }> {
-    try {
-      const response = await fetch(backendUrl + backendDeleteSessionPath, {
-        method: 'GET',
-      });
-     
-      return { success: !!response.ok }  
-    } catch (e) {
-      if (e instanceof Error) {
-        console.error(e.stack);
-      } else {
-        console.error('unknown error');
-      }
-  
-      return { success: false }  
+  try {
+    const response = await fetch(backendUrl + backendDeleteSessionPath, {
+      method: 'GET',
+    });
+
+    return { success: !!response.ok };
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.stack);
+    } else {
+      console.error('unknown error');
     }
+
+    return { success: false };
   }
+}

@@ -20,6 +20,7 @@ function Login({
       username: process.env.USER_NAME || '',
       password: process.env.USER_PASSWORD || '',
     });
+
     if (tokenResponse?.token) {
       const user = await fetchUserBackend({ token: tokenResponse.token });
       if (user) {

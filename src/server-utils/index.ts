@@ -29,7 +29,11 @@ export async function fetchUser({
   }
 }
 
-export const getUser = async ({ token }: { token: string }): Promise<Object | null> => {
+export const getUser = async ({
+  token,
+}: {
+  token: string;
+}): Promise<Object | null> => {
   try {
     const user = await fetchUser({ token });
     if (!user) return null;

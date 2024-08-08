@@ -35,12 +35,12 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   (async function createFrontComponentsDev() {
     const store = setUpStore();
-    const user = await fetchUserBackend({ token: null })
+    const user = await fetchUserBackend({ token: null });
     const { page } = getAllowedPage({ path, userIsLogged: false });
-  
+
     getInitialRenderData({ page, token: null }).then((preloadData) => {
       const root = createRoot(domNode);
-  
+
       root.render(
         createMarkup({
           pageName: getPageNameFromPage({ page }),
@@ -50,6 +50,5 @@ if (process.env.NODE_ENV === 'production') {
         })
       );
     });
-  })()
- 
+  })();
 }

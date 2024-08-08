@@ -1,6 +1,7 @@
 import { manageError } from '../tools';
 
 const backendUrl = process.env.BACKEND_URL;
+const serverUrl = process.env.SERVER_URL
 const backendAuthPath = process.env.BACKEND_AUTH_PATH;
 const backendUserPath = process.env.BACKEND_USER_PATH;
 const cookiesPath = process.env.COOKIES_PATH;
@@ -15,7 +16,7 @@ export async function fetchTokenBackend({
   try {
     if (!backendUrl || !backendAuthPath)
       throw new Error('Problem finding global url');
-    const reliesOnCookies = username && password
+    const reliesOnCookies = username && password;
     const response = await fetch(backendUrl + backendAuthPath, {
       method: 'POST',
       ...(reliesOnCookies
@@ -26,6 +27,7 @@ export async function fetchTokenBackend({
             }),
           }
         : {}),
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -49,10 +51,13 @@ export async function fetchUserBackend({
   try {
     if (!backendUrl || !backendUserPath)
       throw new Error('Problem finding global url');
-    const reliesOnCookies = !token
+    const reliesOnCookies = !token;
+    console.log({ reliesOnCookies })
     const response = await fetch(backendUrl + backendUserPath, {
       method: 'GET',
-      ...(reliesOnCookies ? {} : { header: { Authorization: `Bearer ${token}` } }),
+      ...(reliesOnCookies
+        ? {}
+        : { headers: { Authorization: `Bearer ${token}` } }),
     });
     if (response.ok) {
       const { data: user } = await response.json();
@@ -72,11 +77,12 @@ export async function setCookieServer({
 }): Promise<Object | boolean> {
   try {
     if (!cookiesPath) throw new Error('Problem finding global url');
-    const response = await fetch(cookiesPath, {
+    const response = await fetch(serverUrl + cookiesPath, {
       method: 'POST',
       body: JSON.stringify({
         token,
       }),
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },

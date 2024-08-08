@@ -12,7 +12,7 @@ import {
 type PageName = 'home' | 'profile' | 'articles' | 'login';
 
 type PageComponent = React.FC<any> & {
-  preloadFn?: (token: string | null) => () => any
+  preloadFn?: (token: string | null) => () => any;
 };
 
 interface PageValue {

@@ -53,7 +53,8 @@ const development = {
       'USER_NAME',
       'USER_PASSWORD',
       'COOKIES_PATH',
-      'BACKEND_CLOSE_AUTH_PATH'
+      'BACKEND_CLOSE_AUTH_PATH',
+      'SERVER_URL',
     ]),
   ],
 };
@@ -90,7 +91,8 @@ const production = {
       'USER_NAME',
       'USER_PASSWORD',
       'COOKIES_PATH',
-      'BACKEND_CLOSE_AUTH_PATH'
+      'BACKEND_CLOSE_AUTH_PATH',
+      'SERVER_URL',
     ]),
   ],
 };

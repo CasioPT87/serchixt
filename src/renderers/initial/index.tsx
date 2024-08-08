@@ -19,8 +19,8 @@ const initial = async ({
   response: Response;
   page: Page;
 }) => {
-  const user = request?.user || null
-  const token = request?.token || null
+  const user = request?.user || null;
+  const token = request?.token || null;
   const store = setUpStore({ ...initialState });
   const preloadData = await getInitialRenderData({ page, token });
   const pageName = getPageNameFromPage({ page });

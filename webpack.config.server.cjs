@@ -30,7 +30,7 @@ const production = {
       'USER_NAME',
       'USER_PASSWORD',
       'COOKIES_PATH',
-      'BACKEND_CLOSE_AUTH_PATH'
+      'BACKEND_CLOSE_AUTH_PATH',
     ]),
     new MiniCssExtractPlugin(),
   ],
