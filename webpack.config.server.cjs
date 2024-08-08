@@ -22,9 +22,7 @@ const production = {
     ],
   },
   target: 'node',
-  plugins: [
-    new MiniCssExtractPlugin(),
-  ],
+  plugins: [new MiniCssExtractPlugin()],
   resolve: {
     fallback: {
       fs: require.resolve('fs'),

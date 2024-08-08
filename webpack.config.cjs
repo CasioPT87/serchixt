@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 dotenv.config();
 
@@ -59,7 +61,7 @@ const development = {
   ],
 };
 
-const production = {
+const productionFrontBundle = {
   entry: './src/renderers/bundler/index.tsx',
   output: {
     filename: 'bundle.js',
@@ -97,7 +99,49 @@ const production = {
   ],
 };
 
+const serverBundle = {
+  entry: './transpiled/src/app.js',
+  output: {
+    filename: 'bundle-server.js',
+    path: path.resolve(__dirname, 'src/dist-server'),
+  },
+  externals: [nodeExternals()],
+  module: {
+    rules: [
+      {
+        test: /\.(s(a|c)ss)$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
+  target: 'node',
+  plugins: [new MiniCssExtractPlugin()],
+  resolve: {
+    fallback: {
+      fs: require.resolve('fs'),
+      tls: false,
+      net: false,
+      path: require.resolve('path-browserify'),
+      zlib: false,
+      http: false,
+      https: false,
+      stream: false,
+      crypto: false,
+      'crypto-browserify': false,
+    },
+    extensions: ['.js', '.jsx', '.ts', '.tsx'], // extensions you used
+  },
+};
+
+const bundles = {
+  'production': { mode: 'production', bundle: productionFrontBundle },
+  'production-server': { mode: 'production', bundle: serverBundle },
+  'development': { mode: 'development', bundle: development },
+  
+
+}
+
 module.exports = (env, args) => ({
-  mode: args.mode === 'production' ? 'production' : 'development',
-  ...(args.mode === 'production' ? production : development),
+  mode: bundles[env.bundle].mode,
+  ...(bundles[env.bundle].bundle),
 });
