@@ -38,11 +38,19 @@ function Login({
   return (
     <>
       <h1>Login test page</h1>
-      <button id="test-login-login" className="button-test-2" onClick={authenticate}>
+      <button
+        id="test-login-login"
+        className="button-test-2"
+        onClick={authenticate}
+      >
         authentication!!!
       </button>
       {user && (
-        <button id="test-login-logout" className="button-test-2" onClick={signOut}>
+        <button
+          id="test-login-logout"
+          className="button-test-2"
+          onClick={signOut}
+        >
           delete season!!!
         </button>
       )}

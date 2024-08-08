@@ -20,7 +20,7 @@ const Home = ({ user }) => {
         Go to Articles (is Private)
       </button>
       <button
-        id="test-home-goto-login" 
+        id="test-home-goto-login"
         className="button-test"
         onClick={() => goTo({ pageName: 'login' })}
       >
