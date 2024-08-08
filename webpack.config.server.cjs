@@ -23,15 +23,6 @@ const production = {
   },
   target: 'node',
   plugins: [
-    new webpack.EnvironmentPlugin([
-      'BACKEND_URL',
-      'BACKEND_AUTH_PATH',
-      'BACKEND_USER_PATH',
-      'USER_NAME',
-      'USER_PASSWORD',
-      'COOKIES_PATH',
-      'BACKEND_CLOSE_AUTH_PATH',
-    ]),
     new MiniCssExtractPlugin(),
   ],
   resolve: {
