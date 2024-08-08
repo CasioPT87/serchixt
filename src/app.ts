@@ -2,13 +2,12 @@ require('dotenv').config();
 
 import express, { Request, Response, NextFunction } from 'express';
 import { getPageValueFromPage } from './tools/pages';
-import cors from 'cors'
+import cors from 'cors';
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const initial = require('./renderers/initial');
 const { getAllRoutes, getAllowedPage } = require('./tools');
 import { getUser } from './server-utils/';
-import { deleteBackendCookie } from './server-utils/authorization';
 const { getToken } = require('./server-utils/authorization');
 
 const PORT = 9990;
@@ -17,10 +16,13 @@ const app = express();
 // Serve static files
 app.use(express.static(path.join(process.cwd(), './src/dist')));
 
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? true : 'http://localhost:8080', // true means same origin
-  credentials: true // Allow cookies to be sent
-}));
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === 'production' ? true : 'http://localhost:8080', // true means same origin
+    credentials: true, // Allow cookies to be sent
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,7 +36,8 @@ const asyncHandler =
   };
 
 type SameSite = 'none' | 'strict'; // Define a type for allowed values
-const sameSiteValue: SameSite = process.env.NODE_ENV === 'development' ? 'none' : 'strict';
+const sameSiteValue: SameSite =
+  process.env.NODE_ENV === 'development' ? 'none' : 'strict';
 
 const COOKIE = {
   httpOnly: true, // disables js being able to read the cookie
@@ -42,21 +45,17 @@ const COOKIE = {
   sameSite: sameSiteValue, // so cookie is not sent to third-party apps
 };
 
-app.delete('/cookies', async (req: Request, res: Response) => {
-  const response = await deleteBackendCookie();
-  if (response.success) {
+app.delete('/cookies', asyncHandler(async (req: Request, res: Response) => {
     res.clearCookie(process.env.APP_NAME || '', {
       ...COOKIE,
-    });
-  }
+    });  
 
   return res.json({
-    success: response.success,
+    success: true
   });
-});
+}))
 
-
-app.post('/cookies', async (req: Request, res: Response) => {
+app.post('/cookies', asyncHandler(async (req: Request, res: Response) => {
   const { token } = req.body;
   if (token) {
     res.cookie(process.env.APP_NAME || '', token, {
@@ -68,7 +67,7 @@ app.post('/cookies', async (req: Request, res: Response) => {
   return res.json({
     success: !!token,
   });
-});
+}));
 
 // All allowed routes
 app.get(

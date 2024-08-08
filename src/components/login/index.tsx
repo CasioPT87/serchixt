@@ -31,8 +31,8 @@ function Login({
   }
 
   async function signOut() {
-    const deleted = await deleteCookie();
-    if (deleted) await setUser(null);
+    const { success } = await deleteCookie();
+    if (success) await setUser(null);
   }
 
   return (

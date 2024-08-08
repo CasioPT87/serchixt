@@ -1,10 +1,11 @@
 import { manageError } from '../tools';
 
 const backendUrl = process.env.BACKEND_URL;
-const serverUrl = process.env.SERVER_URL
+const serverUrl = process.env.SERVER_URL;
 const backendAuthPath = process.env.BACKEND_AUTH_PATH;
 const backendUserPath = process.env.BACKEND_USER_PATH;
 const cookiesPath = process.env.COOKIES_PATH;
+const backendDeleteSessionPath = process.env.BACKEND_CLOSE_AUTH_PATH;
 
 export async function fetchTokenBackend({
   username,
@@ -52,7 +53,6 @@ export async function fetchUserBackend({
     if (!backendUrl || !backendUserPath)
       throw new Error('Problem finding global url');
     const reliesOnCookies = !token;
-    console.log({ reliesOnCookies })
     const response = await fetch(backendUrl + backendUserPath, {
       method: 'GET',
       ...(reliesOnCookies
@@ -95,16 +95,49 @@ export async function setCookieServer({
   }
 }
 
-export async function deleteCookie(): Promise<boolean> {
+export async function deleteCookie(){
+  try {
+    await deleteBackendCookie()
+    await deleteServerCookie()
+    return { success: true }
+  } catch (e) {
+    return { success: false }
+  }
+  
+}
+
+export async function deleteServerCookie(): Promise<boolean> {
   try {
     if (!cookiesPath) throw new Error('Problem finding global url');
-    const response = await fetch(cookiesPath, {
+    const response = await fetch(serverUrl + cookiesPath, {
       method: 'DELETE',
+      credentials: 'include',
     });
     if (response.ok) return true;
     return false;
   } catch (e) {
     manageError({ error: e });
     return false;
+  }
+}
+
+export async function deleteBackendCookie(): Promise<{ success: boolean }> {
+  try {
+    if (!backendUrl || !backendAuthPath)
+      throw new Error('Problem finding global url');
+    const response = await fetch(backendUrl + backendDeleteSessionPath, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    return { success: !!response.ok };
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.stack);
+    } else {
+      console.error('unknown error');
+    }
+
+    return { success: false };
   }
 }
