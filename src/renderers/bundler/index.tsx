@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
   hydrateRoot(
     domNode,
     createMarkup({
-      pageName: getPageNameFromPage({ page }),
+      page,
       store,
       user,
       preloadData,
@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === 'production') {
 
       root.render(
         createMarkup({
-          pageName: getPageNameFromPage({ page }),
+          page,
           store,
           user,
           preloadData,

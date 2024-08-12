@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import routes from '../routes';
 import goTo from '../utils/goTo';
-import { getAllowedPage, getPageNameFromPage } from '../tools';
-import { PageName } from '../types';
+import {
+  getAllowedPage,
+  getPageNameFromPage,
+  getPageValueFromPage,
+} from '../tools';
+import { PageName, Page } from '../types';
+import { usePreloadData } from '../hooks';
+import { PreloadDataContext } from '../contexts';
 
 function usePageMonitor({
   pageName: _pageName = 'home',
@@ -47,10 +53,6 @@ interface AuthProps {
   }) => React.ReactNode;
 }
 
-function PreloadData({}) {
-  
-}
-
 function Auth({ initialUser, children }: AuthProps) {
   const [user, setUser] = useState<Object | null>(initialUser);
   return <>{children({ user, setUser })}</>;
@@ -58,13 +60,13 @@ function Auth({ initialUser, children }: AuthProps) {
 
 function Router({
   initialPageName,
-  preloadData,
   user,
+  preloadData,
   setUser,
 }: {
   initialPageName: PageName;
-  preloadData: any;
   user: Object | null;
+  preloadData: any;
   setUser: React.Dispatch<React.SetStateAction<any>>;
 }) {
   const pageName = usePageMonitor({ pageName: initialPageName });
@@ -74,18 +76,21 @@ function Router({
     userIsLogged: !!user,
   });
   const allowedPageName: PageName = getPageNameFromPage({ page: allowedPage });
+  const pageValue = getPageValueFromPage({ page: allowedPage });
+  const component = pageValue.pageComponent;
+  const data = usePreloadData({
+    component,
+    preloadDataProp: preloadData,
+  });
   if (needsRedirection) {
     goTo({ pageName: allowedPageName, redirect: true });
     return null;
   }
-  const pageValue = allowedPage[allowedPageName];
   return (
-    <pageValue.pageComponent
-      preloadData={preloadData[allowedPageName]}
-      user={user}
-      setUser={setUser}
-    />
+    <PreloadDataContext.Provider value={data}>
+      <pageValue.pageComponent user={user} setUser={setUser} />;
+    </PreloadDataContext.Provider>
   );
 }
 
-export { Router, Auth, PreloadData };
+export { Router, Auth };

@@ -23,8 +23,7 @@ const initial = async ({
   const token = request?.token || null;
   const store = setUpStore({ ...initialState });
   const preloadData = await getInitialRenderData({ page, token });
-  const pageName = getPageNameFromPage({ page });
-  const markup = createMarkup({ pageName, user, store, preloadData });
+  const markup = createMarkup({ page, user, store, preloadData });
 
   fs.readFile(
     path.join(process.cwd(), './src/dist-server/main.css'),

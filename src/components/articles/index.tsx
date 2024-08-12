@@ -1,6 +1,6 @@
-import React from 'react';
-import { usePreloadData } from '../../hooks';
+import React, { useContext } from 'react';
 import goTo from '../../utils/goTo';
+import { PreloadDataContext } from '../../contexts';
 
 const fakeArticlesFetch = (token: string | null) => async () => {
   const data = await fetch('https://catfact.ninja/breeds');
@@ -16,11 +16,8 @@ type Props = {
 
 const Articles: React.FC<Props> & {
   preloadFn: (token: string | null) => () => Promise<ResponseData>;
-} = ({ preloadData: preload }) => {
-  const breeds = usePreloadData({
-    component: Articles,
-    preloadDataProp: preload,
-  });
+} = () => {
+  const breeds: ResponseData = useContext(PreloadDataContext);
   return (
     <div>
       <h1>Articles test page</h1>

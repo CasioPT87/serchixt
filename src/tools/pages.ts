@@ -42,7 +42,8 @@ const getInitialRenderData = async ({
   page: Page;
   token: string | null;
 }) => {
-  const component = page.pageComponent as PageComponent;
+  const pageValue = getPageValueFromPage({ page })
+  const component = pageValue.pageComponent;
   if (component?.preloadFn) {
     return await component.preloadFn(token)();
   }
