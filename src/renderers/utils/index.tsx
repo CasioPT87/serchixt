@@ -17,14 +17,16 @@ const createMarkup = ({
   return (
     <Provider store={store}>
       <Auth initialUser={user}>
-        {({ user: _user, setUser }) => (
-          <Router
-            initialPageName={pageName}
-            preloadData={{ [pageName]: preloadData }}
-            user={_user}
-            setUser={setUser}
-          />
-        )}
+        <PreloadData>
+          {({ user: _user, setUser }) => (
+            <Router
+              initialPageName={pageName}
+              preloadData={{ [pageName]: preloadData }}
+              user={_user}
+              setUser={setUser}
+            />
+          )}
+        </PreloadData>
       </Auth>
     </Provider>
   );

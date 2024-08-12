@@ -47,6 +47,10 @@ interface AuthProps {
   }) => React.ReactNode;
 }
 
+function PreloadData({}) {
+  
+}
+
 function Auth({ initialUser, children }: AuthProps) {
   const [user, setUser] = useState<Object | null>(initialUser);
   return <>{children({ user, setUser })}</>;
@@ -84,4 +88,4 @@ function Router({
   );
 }
 
-export { Router, Auth };
+export { Router, Auth, PreloadData };
