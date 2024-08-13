@@ -60,20 +60,27 @@ const initial = async ({
       )
     : null;
 
-  const hydrateScript = '<script defer src="bundle.js"></script>'
+  const hydrateScript = '<script defer src="bundle.js"></script>';
 
-  htmlTemplate = htmlTemplate.replace('</head>', customHeaderStyles + '</head>');
+  htmlTemplate = htmlTemplate.replace(
+    '</head>',
+    customHeaderStyles + '</head>'
+  );
   htmlTemplate = htmlTemplate.replace('</head>', customScript_1 + '</head>');
   htmlTemplate = htmlTemplate.replace('</head>', customScript_2 + '</head>');
-  if (customScript_3) htmlTemplate = htmlTemplate.replace('</head>', customScript_3 + '</head>');
+  if (customScript_3)
+    htmlTemplate = htmlTemplate.replace('</head>', customScript_3 + '</head>');
   htmlTemplate = htmlTemplate.replace('</head>', hydrateScript + '</head>');
 
-  htmlTemplate = htmlTemplate.replace('<div id="app"></div>', `<div id="app">${customBodyContent}</div>`);
+  htmlTemplate = htmlTemplate.replace(
+    '<div id="app"></div>',
+    `<div id="app">${customBodyContent}</div>`
+  );
 
-  console.log(htmlTemplate)
+  console.log(htmlTemplate);
 
   response.setHeader('content-type', 'text/html');
-  return response.send(htmlTemplate)
+  return response.send(htmlTemplate);
 };
 
 export default initial;

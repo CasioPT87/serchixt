@@ -35,7 +35,6 @@ if (process.env.NODE_ENV === 'production') {
   );
 } else {
   (async function createFrontComponentsDev() {
-
     const store = setUpStore();
     const user = await fetchUserBackend({ token: null });
     const { page } = getAllowedPage({ path, userIsLogged: !!user });
@@ -55,6 +54,5 @@ if (process.env.NODE_ENV === 'production') {
         })
       );
     });
-    
   })();
 }
