@@ -5,7 +5,7 @@ import {
   setCookieServer,
   deleteCookie,
 } from '../../client-utils';
-import goTo from '../../utils/goTo';
+import goTo from '../../core/router/utils/goTo';
 import '../../styles/index.scss';
 
 function Login({

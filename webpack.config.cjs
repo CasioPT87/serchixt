@@ -8,7 +8,7 @@ const nodeExternals = require('webpack-node-externals');
 dotenv.config();
 
 const development = {
-  entry: './src/renderers/bundler/index.tsx',
+  entry: './src/core/renderers/bundler/index.tsx',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'src/dist/dev'),
@@ -46,7 +46,7 @@ const development = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/html/template.html', // Path to your HTML file
+      template: './src/core/html/template.html', // Path to your HTML file
     }),
     new webpack.EnvironmentPlugin([
       'BACKEND_URL',
@@ -62,7 +62,7 @@ const development = {
 };
 
 const productionFrontBundle = {
-  entry: './src/renderers/bundler/index.tsx',
+  entry: './src/core/renderers/bundler/index.tsx',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'src/dist'),

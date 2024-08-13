@@ -5,10 +5,10 @@ import { getPageValueFromPage } from './tools/pages';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import initial from './renderers/initial';
+import initial from './core/renderers/initial';
 import { getAllRoutes, getAllowedPage } from './tools';
-import { getUser } from './server-utils/';
-import { getToken } from './server-utils/authorization';
+import { getUser } from './core/server-utils';
+import { getToken } from './core/server-utils/authorization';
 
 const PORT = 9990;
 const app = express();
@@ -112,10 +112,10 @@ app.all('*', (req: Request, res: Response) => {
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+  res.status(500).send('Place 500 error here or something');
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running here, loko: http://localhost:${PORT}`);
+  console.log(`Server is running here: http://localhost:${PORT}`);
 });

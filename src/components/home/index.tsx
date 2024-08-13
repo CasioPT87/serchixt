@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import goTo from '../../utils/goTo';
+import goTo from '../../core/router/utils/goTo';
 import '../../styles/index.scss';
 
 const Home = ({ user }) => {

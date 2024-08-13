@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { userThunk } from '../../store/async';
 import { userActions } from '../../store/actions';
-import goTo from '../../utils/goTo';
+import goTo from '../../core/router/utils/goTo';
 import { RootState, AppDispatch } from '../../types';
 import '../../styles/index.scss';
 

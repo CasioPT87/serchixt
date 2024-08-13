@@ -1,14 +1,14 @@
 import React, { useState, useEffect, ReactNode } from 'react';
-import routes from '../routes';
-import goTo from '../utils/goTo';
+import routes from '../../routes';
+import goTo from './utils/goTo';
 import {
   getAllowedPage,
   getPageNameFromPage,
   getPageValueFromPage,
-} from '../tools';
-import { PageName, Page } from '../types';
-import { usePreloadData } from '../hooks';
-import { PreloadDataContext } from '../contexts';
+} from '../../tools';
+import { PageName, Page } from '../../types';
+import { usePreloadData } from '../../hooks';
+import { PreloadDataContext } from '../../contexts';
 
 function usePageMonitor({
   pageName: _pageName = 'home',

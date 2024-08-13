@@ -1,5 +1,5 @@
-import routes from '../routes';
-import { PageName as PageNameType } from '../types';
+import routes from '../../../routes';
+import { PageName as PageNameType } from '../../../types';
 
 const goTo = ({
   pageName,

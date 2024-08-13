@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import goTo from '../../utils/goTo';
+import goTo from '../../core/router/utils/goTo';
 import { PreloadDataContext } from '../../contexts';
 
 const fakeArticlesFetch = (token: string | null) => async () => {

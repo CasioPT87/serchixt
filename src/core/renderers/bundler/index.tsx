@@ -4,9 +4,9 @@ import {
   getInitialRenderData,
   getPageNameFromPage,
   getPageValueFromPage,
-} from '../../tools';
-import { fetchUserBackend } from '../../client-utils';
-import { setUpStore } from '../../store';
+} from '../../../tools';
+import { fetchUserBackend } from '../../../client-utils';
+import { setUpStore } from '../../../store';
 import { createMarkup } from '../utils';
 
 const domNode = document.getElementById('app') as HTMLElement;
@@ -35,6 +35,7 @@ if (process.env.NODE_ENV === 'production') {
   );
 } else {
   (async function createFrontComponentsDev() {
+
     const store = setUpStore();
     const user = await fetchUserBackend({ token: null });
     const { page } = getAllowedPage({ path, userIsLogged: !!user });
@@ -54,5 +55,6 @@ if (process.env.NODE_ENV === 'production') {
         })
       );
     });
+    
   })();
 }
