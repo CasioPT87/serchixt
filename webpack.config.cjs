@@ -112,7 +112,7 @@ const serverBundle = {
     path: path.resolve(__dirname, 'src/dist-server'),
   },
   externals: [nodeExternals()],
-  devtool: process.env.NODE_ENV === 'production' ? '' : 'source-map',
+  ...(process.env.NODE_ENV === 'production' ? {} : { devtool: 'source-map' }),
   module: {
     rules: [
       {
