@@ -23,6 +23,7 @@ const development = {
       progress: true,
     },
   },
+  devtool: 'eval-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'], // Add all the extensions you are using
   },
@@ -106,12 +107,18 @@ const serverBundle = {
     path: path.resolve(__dirname, 'src/dist-server'),
   },
   externals: [nodeExternals()],
+  devtool: process.env.NODE_ENV === 'production' ? '' : 'source-map', 
   module: {
     rules: [
       {
         test: /\.(s(a|c)ss)$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.js$/,
+        use: 'source-map-loader',
+        enforce: 'pre'
+      }
     ],
   },
   target: 'node',

@@ -6,7 +6,8 @@
   "scripts": {
     "debug-front": "webpack-dev-server --open --env bundle=development",
     "debug-back": "npm run delete-dist && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'webpack --env bundle=development'",
-    "dev": "concurrently \"npm run start\" \"npm run debug-back\" \"npm run debug-front\"",
+    "debug-server": "npm run delete-transp && npm run delete-dist && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'node --inspect-brk ./src/dist-server/bundle-server.js'",
+    "dev": "npm run delete-transp && npm run delete-dist && concurrently \"npm run debug-server\" \"npm run debug-front\"",
     "start": "npm run delete-transp && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && node ./src/dist-server/bundle-server.js",
     "test-dev": "concurrently \"npm run dev\" \"sleep 15 && jest\"",
     "test": "NODE_ENV=production concurrently \"npm start\" \"sleep 15 && jest\"",
@@ -30,7 +31,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
-    "redux-thunk": "^3.1.0"
+    "redux-thunk": "^3.1.0",
+    "source-map-loader": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",

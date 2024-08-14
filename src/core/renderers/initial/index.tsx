@@ -77,8 +77,6 @@ const initial = async ({
     `<div id="app">${customBodyContent}</div>`
   );
 
-  console.log(htmlTemplate);
-
   response.setHeader('content-type', 'text/html');
   return response.send(htmlTemplate);
 };
