@@ -23,7 +23,7 @@ const development = {
       progress: true,
     },
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'], // Add all the extensions you are using
   },
@@ -42,6 +42,11 @@ const development = {
       {
         test: /\.(s(a|c)ss)$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.js$/,
+        use: 'source-map-loader',
+        enforce: 'pre',
       },
     ],
   },
@@ -107,7 +112,7 @@ const serverBundle = {
     path: path.resolve(__dirname, 'src/dist-server'),
   },
   externals: [nodeExternals()],
-  devtool: process.env.NODE_ENV === 'production' ? '' : 'source-map', 
+  devtool: process.env.NODE_ENV === 'production' ? '' : 'source-map',
   module: {
     rules: [
       {
@@ -117,8 +122,8 @@ const serverBundle = {
       {
         test: /\.js$/,
         use: 'source-map-loader',
-        enforce: 'pre'
-      }
+        enforce: 'pre',
+      },
     ],
   },
   target: 'node',

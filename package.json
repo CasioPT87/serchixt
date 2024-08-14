@@ -5,14 +5,12 @@
   "main": "server.js",
   "scripts": {
     "debug-front": "webpack-dev-server --open --env bundle=development",
-    "debug-back": "npm run delete-dist && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'webpack --env bundle=development'",
-    "debug-server": "npm run delete-transp && npm run delete-dist && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'node --inspect-brk ./src/dist-server/bundle-server.js'",
-    "dev": "npm run delete-transp && npm run delete-dist && concurrently \"npm run debug-server\" \"npm run debug-front\"",
-    "start": "npm run delete-transp && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && node ./src/dist-server/bundle-server.js",
+    "debug-server": "tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'node --inspect-brk ./src/dist-server/bundle-server.js'",
+    "dev": "npm run delete-files && concurrently \"npm run debug-server\" \"npm run debug-front\"",
+    "start": "npm run delete-files && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && node ./src/dist-server/bundle-server.js",
     "test-dev": "concurrently \"npm run dev\" \"sleep 15 && jest\"",
     "test": "NODE_ENV=production concurrently \"npm start\" \"sleep 15 && jest\"",
-    "delete-dist": "rm -rf ./src/dist",
-    "delete-transp": "rm -rf ./transpiled",
+    "delete-files": "rm -rf ./src/dist && rm -rf ./src/dist-server && rm -rf ./transpiled",
     "prepare": "husky",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
