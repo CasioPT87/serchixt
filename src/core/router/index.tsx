@@ -88,7 +88,7 @@ function Router({
   }
   return (
     <PreloadDataContext.Provider value={data}>
-      <pageValue.pageComponent user={user} setUser={setUser} />;
+      <pageValue.pageComponent user={user} setUser={setUser} />
     </PreloadDataContext.Provider>
   );
 }
