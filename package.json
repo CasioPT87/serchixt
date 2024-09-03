@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "debug-front": "webpack-dev-server --open --env bundle=development",
-    "debug-server": "webpack --env bundle=production && webpack --env bundle=production-server && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'node --inspect-brk ./src/dist-server/bundle-server.js'",
+    "debug-server": "tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && nodemon --watch 'src/**' --ext 'ts,tsx,js,json' --exec 'node --inspect-brk ./src/dist-server/bundle-server.js'",
     "dev": "npm run delete-files && concurrently \"npm run debug-server\" \"npm run debug-front\"",
     "start": "npm run delete-files && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && node ./src/dist-server/bundle-server.js",
     "test-dev": "concurrently \"npm run dev\" \"sleep 15 && jest\"",
