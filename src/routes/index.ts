@@ -6,7 +6,7 @@ import Articles from '../components/articles';
 
 const routes: Routes = {
   home: {
-    path: '/',
+    path: '/dashboard',
     pageComponent: Home,
     isHome: true,
   },

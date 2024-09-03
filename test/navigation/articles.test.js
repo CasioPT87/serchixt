@@ -23,7 +23,7 @@ describe('Navigation: Articles (is Private)', () => {
     const fullUrl = page.url();
     const urlObject = new URL(fullUrl);
     const path = urlObject.pathname;
-    expect(path).toBe('/');
+    expect(path).toBe('/dashboard');
     expect(path).not.toBe('/articles');
   });
 
@@ -82,7 +82,7 @@ describe('Navigation: Articles (is Private)', () => {
     const fullUrl = page.url();
     const urlObject = new URL(fullUrl);
     const path = urlObject.pathname;
-    expect(path).not.toBe('/');
+    expect(path).not.toBe('/dashboard');
     expect(path).toBe('/articles');
   });
 
@@ -98,7 +98,7 @@ describe('Navigation: Articles (is Private)', () => {
     const fullUrl = page.url();
     const urlObject = new URL(fullUrl);
     const path = urlObject.pathname;
-    expect(path).toBe('/');
+    expect(path).toBe('/dashboard');
     expect(path).not.toBe('/articles');
   });
 });

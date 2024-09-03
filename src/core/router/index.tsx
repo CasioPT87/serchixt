@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from 'react';
+import React, { useState, useEffect } from 'react';
 import routes from '../../routes';
 import goTo from './utils/goTo';
 import {
@@ -9,6 +9,7 @@ import {
 import { PageName, Page } from '../../types';
 import { usePreloadData } from '../../hooks';
 import { PreloadDataContext } from '../../contexts';
+import { fetchUserBackend, setCookieServer } from '../../client-utils';
 
 function usePageMonitor({
   pageName: _pageName = 'home',
@@ -55,6 +56,22 @@ interface AuthProps {
 
 function Auth({ initialUser, children }: AuthProps) {
   const [user, setUser] = useState<Object | null>(initialUser);
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      // this should only happen in developent
+      async function authenticateWithUrlToken(token: string) {
+        const user = await fetchUserBackend({ token });
+        if (user) {
+          setUser({ user });
+          await setCookieServer({ token: token });
+        }
+      }
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      if (token) authenticateWithUrlToken(token);
+    }
+  }, []);
   return <>{children({ user, setUser })}</>;
 }
 

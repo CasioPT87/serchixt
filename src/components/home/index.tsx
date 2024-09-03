@@ -7,6 +7,7 @@ const Home = ({ user }) => {
   return (
     <div>
       <h1>Home Test Page</h1>
+      <h2>Hola soy el dashboard del nuevo front</h2>
       <button
         className="button-test"
         onClick={() => goTo({ pageName: 'profile' })}
@@ -22,7 +23,7 @@ const Home = ({ user }) => {
       <button
         id="test-home-goto-login"
         className="button-test"
-        onClick={() => goTo({ pageName: 'login' })}
+        onClick={() => goTo({ pageName: 'login', queryString: [['myKey', 'myValue']] })}
       >
         Go to Login
       </button>

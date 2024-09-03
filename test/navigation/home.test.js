@@ -11,7 +11,7 @@ describe('Navigation: Home', () => {
     page = await browser.newPage();
     await deleteCookies({ page });
     await page.setViewport({ width: 1200, height: 800 });
-    await page.goto(`http://localhost:${PORT}`);
+    await page.goto(`http://localhost:${PORT}/dashboard`);
   });
 
   afterEach(async () => {
@@ -69,7 +69,7 @@ describe('Navigation: Home', () => {
     const fullUrl = page.url();
     const urlObject = new URL(fullUrl);
     const path = urlObject.pathname;
-    expect(path).toBe('/');
+    expect(path).toBe('/dashboard');
     expect(path).not.toBe('/articles');
   });
 });
