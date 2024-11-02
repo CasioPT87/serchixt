@@ -1,34 +1,34 @@
-# serchixt
+# geNext
 
 A new Front for a new apocalyptic World
 
-## 🚀 Instalacion
+## 🚀 Installation
 
-#### Clonar repositorio (acuerdate de estar conectado a la VPN)
-
-```bash
-git clone git@github.com:CasioPT87/serchixt.git
-```
-
-#### Navegar a la carpeta
+#### Clone repository
 
 ```bash
-cd serchixt
+git clone ssh://git@10.20.150.6:222/GrupoImpultec/geNext.git
 ```
 
-#### Instalar dependencias
+#### Go to folder
+
+```bash
+cd geNext
+```
+
+#### Install dependencies
 
 ```bash
 npm install
 ```
 
-#### Crear .env
+#### Create .env
 
 ```bash
 touch .env
 ```
 
-## ⚙️ Configuracion de entorno (.env) -this are all examples-
+## ⚙️ Environment (.env)
 
 ```bash
 BACKEND_URL=http://localhost:3050
@@ -37,31 +37,31 @@ BACKEND_AUTH_PATH=/api/v2/login
 BACKEND_CLOSE_AUTH_PATH=/api/v1/logout
 BACKEND_USER_PATH=/api/v2/users
 
-PORTAL_SUFIX=genei.es # esto DEBE SER LO MISMO QUE EL "PORTAL_SUFIX" del apiGateway que se este atacando (aunque es solo para desarrollo, para que funcionen las cookies)
+PORTAL_SUFIX=genei.es # this must be the same that it is in the backend server (although its only for development, so the cookies auth work)
 
 COOKIES_PATH=/cookies
 
-APP_NAME=serchixt
+APP_NAME=geNext
 
 USER_NAME=nombre_de_usuario
 USER_PASSWORD=password_de_usuario
 ```
 
-## 🖥️ Correr la aplicacion
+## 🖥️ Run application
 
-#### Correr en desarrollo
+#### Dev env
 
 ```bash
 npm run dev
 ```
 
-#### Correr en produccion
+#### Production env
 
 ```bash
 npm start
 ```
 
-#### Correr los test
+#### Run tests
 
 ```bash
 npm run test
