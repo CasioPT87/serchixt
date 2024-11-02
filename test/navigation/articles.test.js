@@ -1,8 +1,9 @@
-const puppeteer = require('puppeteer');
-const { deleteCookies } = require('../tools');
-const PORT = process.env.NODE_ENV === 'production' ? 9990 : 8080;
+const puppeteer = require("puppeteer");
+const { deleteCookies } = require("../tools");
 
-describe('Navigation: Articles (is Private)', () => {
+const PORT = 9990;
+
+describe("Navigation: Articles (is Private)", () => {
   let browser;
   let page;
 
@@ -18,23 +19,23 @@ describe('Navigation: Articles (is Private)', () => {
     await browser.close();
   });
 
-  it('can NOT access page as it is not logged in', async () => {
+  it("can NOT access page as it is not logged in", async () => {
     await new Promise((res) => setTimeout(res, 100));
     const fullUrl = page.url();
     const urlObject = new URL(fullUrl);
     const path = urlObject.pathname;
-    expect(path).toBe('/dashboard');
-    expect(path).not.toBe('/articles');
+    expect(path).toBe("/");
+    expect(path).not.toBe("/articles");
   });
 
-  it('can access page IF IT IS logged in', async () => {
+  it("can access page IF IT IS logged in", async () => {
     // when we start it should be redirected to home, as we are not logged in
-    const goToLoginButtonText = 'Go to Login';
+    const goToLoginButtonText = "Go to Login";
     await page.$$eval(
-      'button',
+      "button",
       (buttons, buttonText) => {
         const button = buttons.find(
-          (button) => button.textContent.trim() === buttonText
+          (button) => button.textContent.trim() === buttonText,
         );
         if (button) {
           button.click();
@@ -42,15 +43,15 @@ describe('Navigation: Articles (is Private)', () => {
           throw new Error(`Button with text "${buttonText}" not found.`);
         }
       },
-      goToLoginButtonText
+      goToLoginButtonText,
     );
 
-    const authButtonText = 'authentication!!!';
+    const authButtonText = "authentication!!!";
     await page.$$eval(
-      'button',
+      "button",
       (buttons, buttonText) => {
         const button = buttons.find(
-          (button) => button.textContent.trim() === buttonText
+          (button) => button.textContent.trim() === buttonText,
         );
         if (button) {
           button.click();
@@ -58,17 +59,17 @@ describe('Navigation: Articles (is Private)', () => {
           throw new Error(`Button with text "${buttonText}" not found.`);
         }
       },
-      authButtonText
+      authButtonText,
     );
 
     await new Promise((res) => setTimeout(res, 1000));
 
-    const goToArticlesButtonText = 'Go to Articles!!!';
+    const goToArticlesButtonText = "Go to Articles!!!";
     await page.$$eval(
-      'button',
+      "button",
       (buttons, buttonText) => {
         const button = buttons.find(
-          (button) => button.textContent.trim() === buttonText
+          (button) => button.textContent.trim() === buttonText,
         );
         if (button) {
           button.click();
@@ -76,29 +77,29 @@ describe('Navigation: Articles (is Private)', () => {
           throw new Error(`Button with text "${buttonText}" not found.`);
         }
       },
-      goToArticlesButtonText
+      goToArticlesButtonText,
     );
 
     const fullUrl = page.url();
     const urlObject = new URL(fullUrl);
     const path = urlObject.pathname;
-    expect(path).not.toBe('/dashboard');
-    expect(path).toBe('/articles');
+    expect(path).not.toBe("/");
+    expect(path).toBe("/articles");
   });
 
-  it('can NOT access page IF closes season', async () => {
+  it("can NOT access page IF closes season", async () => {
     // when we start it should be redirected to home, as we are not logged in
-    await page.click('#test-home-goto-login');
-    await page.click('#test-login-login');
+    await page.click("#test-home-goto-login");
+    await page.click("#test-login-login");
     await new Promise((res) => setTimeout(res, 500));
-    await page.click('#test-login-logout');
-    await page.click('#test-login-goto-articles');
+    await page.click("#test-login-logout");
+    await page.click("#test-login-goto-articles");
     await new Promise((res) => setTimeout(res, 100));
 
     const fullUrl = page.url();
     const urlObject = new URL(fullUrl);
     const path = urlObject.pathname;
-    expect(path).toBe('/dashboard');
-    expect(path).not.toBe('/articles');
+    expect(path).toBe("/");
+    expect(path).not.toBe("/articles");
   });
 });

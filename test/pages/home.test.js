@@ -1,8 +1,9 @@
-const puppeteer = require('puppeteer');
-const { deleteCookies } = require('../tools');
-const PORT = process.env.NODE_ENV === 'production' ? 9990 : 8080;
+const puppeteer = require("puppeteer");
+const { deleteCookies } = require("../tools");
 
-describe('Page Home', () => {
+const PORT = 9990;
+
+describe("Page Home", () => {
   let browser;
   let page;
 
@@ -11,48 +12,48 @@ describe('Page Home', () => {
     page = await browser.newPage();
     await deleteCookies({ page });
     await page.setViewport({ width: 1200, height: 800 });
-    await page.goto(`http://localhost:${PORT}/dashboard`);
+    await page.goto(`http://localhost:${PORT}`);
   });
 
   afterEach(async () => {
     await browser.close();
   });
 
-  it('has rigth path', async () => {
+  it("has rigth path", async () => {
     const fullUrl = page.url();
     const urlObject = new URL(fullUrl);
     const path = urlObject.pathname;
-    expect(path).toBe('/dashboard');
+    expect(path).toBe("/");
   });
 
-  it('has rigth title', async () => {
-    const h1Element = await page.$('h1');
+  it("has rigth title", async () => {
+    const h1Element = await page.$("h1");
     const h1Text = await h1Element.evaluate((el) => el.textContent.trim());
-    const rightTitle = 'Home Test Page';
+    const rightTitle = "Home Test Page";
     expect(h1Text).toBe(rightTitle);
   });
 
-  it('has buttons for navigation', async () => {
+  it("has buttons for navigation", async () => {
     const buttonTexts = [
-      'Go to Profile',
-      'Go to Articles (is Private)',
-      'Go to Login',
+      "Go to Profile",
+      "Go to Articles (is Private)",
+      "Go to Login",
     ];
-    const buttons = await page.$$('button');
+    const buttons = await page.$$("button");
     const buttonTextPromises = buttons.map((button) =>
-      button.evaluate((el) => el.textContent.trim())
+      button.evaluate((el) => el.textContent.trim()),
     );
     const foundButtonTexts = await Promise.all(buttonTextPromises);
     expect(buttonTexts.every((text) => foundButtonTexts.includes(text))).toBe(
-      true
+      true,
     );
   });
 
-  it('is not logged to start', async () => {
-    const pElementId = 'logged';
-    const expectedText = 'logged: false';
+  it("is not logged to start", async () => {
+    const pElementId = "logged";
+    const expectedText = "logged: false";
     const pText = await page.$eval(`#${pElementId}`, (el) =>
-      el.textContent.trim()
+      el.textContent.trim(),
     );
     expect(pText).toBe(expectedText);
   });

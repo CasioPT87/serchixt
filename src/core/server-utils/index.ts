@@ -6,6 +6,7 @@ export async function fetchUser({
 }: {
   token: string;
 }): Promise<Object | null> {
+  if (!token) return null
   try {
     const response = await fetch(backendUrl + backendUserPath, {
       method: 'GET',

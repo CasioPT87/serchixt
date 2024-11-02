@@ -1,18 +1,24 @@
-import { createRoot, hydrateRoot } from 'react-dom/client';
+/* todo este codigo se ejecuta en el browser
+   - cuando estamos en produccion: antes se ha ejecutado (en el servidor del front) una funcion
+   en el archivo bundler/initial que crea una copia exacta de lo que vamos a crear en este archivo
+   - cuando estamos en desarrollo: no se ejecuta nada antes en el servidor del front. este es el archivo de 
+   entrada para webpack-dev-server, dibuja los componentes y pa'lante
+*/
+
+import { createRoot, hydrateRoot } from "react-dom/client";
 import {
   getAllowedPage,
   getInitialRenderData,
-  getPageNameFromPage,
   getPageValueFromPage,
-} from '../../../tools';
-import { fetchUserBackend } from '../../../client-utils';
-import { setUpStore } from '../../../store';
-import { createMarkup } from '../utils';
+} from "../../../tools";
+import { fetchUserBackend } from "../../../client-utils";
+import { setUpStore } from "../../../store";
+import { createMarkup } from "../utils";
 
-const domNode = document.getElementById('app') as HTMLElement;
+const domNode = document.getElementById("app") as HTMLElement;
 const { pathname: path } = window.location;
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   const store = setUpStore(window.__PRELOADED_STATE__);
   const preloadData = window.__PRELOADED_DATA__;
   const user = window.__PRELOADED_USER__;
@@ -31,13 +37,22 @@ if (process.env.NODE_ENV === 'production') {
       store,
       user,
       preloadData,
-    })
+    }),
   );
 } else {
   (async function createFrontComponentsDev() {
+    let user = null;
+
     const store = setUpStore();
-    const user = await fetchUserBackend({ token: null });
-    const { page } = getAllowedPage({ path, userIsLogged: !!user });
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    if (token) {
+      user = await fetchUserBackend({ token });
+    }
+
+    if (!user) user = await fetchUserBackend({ token: null });
+
+    const { page } = getAllowedPage({ path, userIsLogged: !!user }); // devuelve la pagina para ese path (si esta autorizada, si no, una pagina segura)
     const { path: newPath } = getPageValueFromPage({ page });
 
     if (newPath !== path) window.location.href = newPath;
@@ -51,7 +66,7 @@ if (process.env.NODE_ENV === 'production') {
           store,
           user,
           preloadData,
-        })
+        }),
       );
     });
   })();
