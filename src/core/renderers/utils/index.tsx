@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Auth } from '../../router';
 import { Page, Store } from '../../../types';
@@ -14,7 +14,7 @@ const createMarkup = ({
   store: Store;
   user: Object | null;
   preloadData: any;
-}) => {
+}): React.JSX.Element => {
   return (
     <Provider store={store}>
       <Auth initialUser={user}>

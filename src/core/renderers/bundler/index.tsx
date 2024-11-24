@@ -15,7 +15,7 @@ import { fetchUserBackend } from "../../../client-utils";
 import { setUpStore } from "../../../store";
 import { createMarkup } from "../utils";
 
-const domNode = document.getElementById("app") as HTMLElement;
+const domNode = document.getElementById("app") as Element;
 const { pathname: path } = window.location;
 
 if (process.env.NODE_ENV === "production") {

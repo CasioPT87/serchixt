@@ -7,7 +7,7 @@ const defaultState = {};
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunk));
 
-const setUpStore = (initialState = defaultState) => {
+const setUpStore = (initialState = defaultState): any => {
   return createStore(
     combinedStoreReducers,
     { ...defaultState, ...initialState },

@@ -14,7 +14,7 @@ function Login({
 }: {
   setUser: React.Dispatch<React.SetStateAction<any>>;
   user: Object | null;
-}) {
+}): React.JSX.Element {
   async function authenticate() {
     const tokenResponse = await fetchTokenBackend({
       username: process.env.USER_NAME || '',

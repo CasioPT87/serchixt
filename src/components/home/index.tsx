@@ -2,8 +2,9 @@
 import React from 'react';
 import goTo from '../../core/router/utils/goTo';
 import '../../styles/index.scss';
+import { PlainObject } from '../../types';
 
-const Home = ({ user }) => {
+const Home: React.FC<{ user: PlainObject | null }> = ({ user }) => {
   return (
     <div>
       <h1>Home Test Page</h1>

@@ -54,7 +54,7 @@ interface AuthProps {
   }) => React.ReactNode;
 }
 
-function Auth({ initialUser, children }: AuthProps) {
+function Auth({ initialUser, children }: AuthProps): React.JSX.Element {
   const [user, setUser] = useState<Object | null>(initialUser);
 
   useEffect(() => {
@@ -85,7 +85,7 @@ function Router({
   user: Object | null;
   preloadData: any;
   setUser: React.Dispatch<React.SetStateAction<any>>;
-}) {
+}): React.JSX.Element | null {
   const pageName = usePageMonitor({ pageName: initialPageName });
   const page = routes[pageName];
   const { page: allowedPage, needsRedirection } = getAllowedPage({

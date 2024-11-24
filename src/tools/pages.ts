@@ -31,7 +31,7 @@ const getAllowedPage = ({
   }
 };
 
-const getAllRoutes = () => {
+const getAllRoutes = (): Array<Pick<PageValue, "path">["path"]> => {
   return Object.values(routes).map(({ path }) => path);
 };
 
@@ -41,7 +41,7 @@ const getInitialRenderData = async ({
 }: {
   page: Page;
   token: string | null;
-}) => {
+}): Promise<any> => {
   const pageValue = getPageValueFromPage({ page });
   const component = pageValue.pageComponent;
   if (component?.preloadFn) {

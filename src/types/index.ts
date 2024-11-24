@@ -31,6 +31,8 @@ type Routes = {
   [key in PageName]: PageValue;
 };
 
+type PlainObject = { [key: string]: unknown } & object;
+
 export {
   PageName,
   PageValue,
@@ -44,4 +46,5 @@ export {
   Reducer,
   Store,
   PageComponent,
+  PlainObject
 };

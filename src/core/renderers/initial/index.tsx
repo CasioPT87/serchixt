@@ -25,7 +25,7 @@ const initial = async ({
   request: Request;
   response: Response;
   page: Page;
-}) => {
+}): Promise<Response<any, Record<string, any>>> => {
   const user = request?.user || null;
   const token = request?.token || null;
   const store = setUpStore({ ...initialState });

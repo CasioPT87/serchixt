@@ -110,7 +110,7 @@ export async function setCookieServer({
   }
 }
 
-export async function deleteCookie() {
+export async function deleteCookie(): Promise<{ success: boolean }> {
   try {
     await deleteBackendCookie();
     await deleteServerCookie();

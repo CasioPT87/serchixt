@@ -6,7 +6,7 @@ import goTo from '../../core/router/utils/goTo';
 import { RootState, AppDispatch } from '../../types';
 import '../../styles/index.scss';
 
-function Profile() {
+function Profile(): React.JSX.Element {
   const dispatch: AppDispatch = useDispatch();
   const userStore = useSelector((state: RootState) => state.user.data);
 

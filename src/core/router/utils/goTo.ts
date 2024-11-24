@@ -9,7 +9,7 @@ const goTo = ({
   pageName: PageNameType;
   pushHistoryState?: boolean;
   redirect?: boolean;
-}) => {
+}): void => {
   const changePageEvent = new CustomEvent('changePage', {
     detail: { pageName },
   });

@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config(); // eslint-disable-line no-undef
 
 import express, { Request, Response, NextFunction } from "express";
 import { getPageValueFromPage } from "./tools/pages";
