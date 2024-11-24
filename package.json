@@ -5,10 +5,10 @@
   "main": "server.js",
   "scripts": {
     "dev": "npm run delete-files && webpack-dev-server --open --env bundle=development",
-    "start": "npm run delete-files && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=production-server && node ./src/dist-server/bundle-server.js",
-    "dev-server": "npm run delete-files && tsc && cp -r ./src/styles ./transpiled/src/styles && webpack --env bundle=production && webpack --env bundle=development-server && node ./src/dist-server/bundle-server.js",
+    "start": "npm run delete-files && webpack --env bundle=production && webpack --env bundle=production-server && node ./src/dist-server/bundle-server.js",
+    "dev-server": "npm run delete-files && webpack --env bundle=production && webpack --env bundle=development-server && node ./src/dist-server/bundle-server.js",
     "test": "./run-tests.sh",
-    "delete-files": "rm -rf ./src/dist && rm -rf ./src/dist-server && rm -rf ./transpiled",
+    "delete-files": "rm -rf ./src/dist && rm -rf ./src/dist-server",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

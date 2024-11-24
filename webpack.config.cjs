@@ -110,7 +110,7 @@ const productionFrontBundle = {
 };
 
 const serverBundle = {
-  entry: "./transpiled/src/app.js",
+  entry: path.resolve(__dirname, "src/app.ts"),
   output: {
     filename: "bundle-server.js",
     path: path.resolve(__dirname, "src/dist-server"),
@@ -122,6 +122,13 @@ const serverBundle = {
       {
         test: /\.(s(a|c)ss)$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(?:js|mjs|cjs|jsx|tsx|ts)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "ts-loader",
+        },
       },
       {
         test: /\.js$/,
