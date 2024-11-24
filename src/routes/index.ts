@@ -1,8 +1,8 @@
-import Home from "../components/home";
-import Profile from "../components/profile";
-import Login from "../components/login";
+import Home from "../pages/home";
+import Profile from "../pages/profile";
+import Login from "../pages/login";
 import { Routes } from "../types";
-import Articles from "../components/articles";
+import Articles from "../pages/articles";
 
 const routes: Routes = {
   home: {
